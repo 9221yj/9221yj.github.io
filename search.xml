@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[9月7日 1.12 linux 远程登录]]></title>
+    <url>%2F2018%2F12%2F06%2F1.12%20linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E7%99%BB%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[下载PuTTY 下载地址：https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html 使用PuTTY 设置PuTTY 修改默认终端保存的显示行数，默认显示200行，在查看的文件如果很长超过200行就非常不方便了，可自定义行数 设置字体，大小适中 修改字符编码。一般用UTF-8，这样在输出中文的时候不会乱码 设置完成后点Session回主页面，点击Save保存 PuTTY的密钥连接 使用PuTTYgen工具 （在windows搜一下，与putty一起下载安装好的） 打开后点击Generate,生成密钥对，在进度条时候鼠标要一直移动，不然会非常慢 公钥复制下来就可以了，私钥必须保存一下点：Save private Key，保存在电脑一个比较安全的地方 把公钥放到linux下 [root@localhost ~]# mkdir /root/.ssh [root@localhost ~]# chmod 700 /root/.ssh [root@localhost ~]# vi /root/.ssh/authorized_keys 然后把公钥复制进去保存退出 还要关闭防火墙selinux [root@localhost ~]# setenforce 0 然后配置私钥到PuTTY,选完了一定要返回首页保存一下，点一下Save，不然下次还要重新配置 然后Open一下，输入用户名密码，以及私钥的加密密码就OK啦 二、Xshell下载 这里是列表文本官网下载地址：https://www.netsarang.com/download/down_form.html?code=522 直接在页面中有红色*号的地方输入个人信息，licensetype 必须选 Home and School use（家庭和个人使用），最主要的是输入邮箱（必须是个人的可以接收邮件的邮箱，会给你发邮件），最后的Productkey可以不用填写，然后点击提交； 之后邮箱会接到一个链接，点开后会直接下载，这样不会出现评估过期等问题 输入IP和端口 在这里可以直接自动登陆保存好登陆的用户及密码红色框部分是可以切换登陆模式，比如密钥登陆等 其他设置，配色方案不要改，其他根据自己的需求去调整 PuTTY优点，可以保存用户名密码，自动连接比较方便。多窗口切换非常方便。 Xshell的密钥验证点击软件的 工具&gt;新建用户密钥生成向导 这样公钥就生成了 这个密钥同样要写到 [root@localhost ~]# vi /root/.ssh/authorized_keys这个里面去的 然后需要在用户身份验证方法改成Public Key模式如操作完成点击连接]]></content>
+      <tags>
+        <tag>工作日志</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[1.6-1.8 配置ip]]></title>
+    <url>%2F2018%2F12%2F06%2F1.6%20-1.8%20%E9%85%8D%E7%BD%AEip%2F</url>
+    <content type="text"><![CDATA[因为在学习过程和工作的时候直接用键盘鼠标连接服务器是不现实的，所以需要配置固定IP来进行远程连接。 首先把虚拟机的网络改成NET模式，优点是物理机切换网络不影响虚拟机连接外网。除了有限制的网络环境公司或校园网等。 进入系统后先dhclient自动获取一个IP地址。然后ip add 或者ifconfig命令查看网卡信息。 如果dhclient进程占用可以dhclient -r 杀死然后在运行dhclient 如果centOS7里没有ifconfig这个命令，就安装一下：yum install -y net-tools 获取到IP地址之后查看 网关 查看网关命令：route -n 或者点击虚拟机的 编辑&gt;虚拟网络编辑器&gt;NET设置 看下网关 配置静态IP 首先用vi编辑器编辑一下网卡的配置，把刚刚获取到得IP,子网，网关等填写到网卡得配置文件里，可以永久设置静态IP。 * 编辑网卡输入 vi /etc/sysconfig/network-scripts/ifcfg-ens33 TYPE=Ethernet BOOTPROTO=static 默认是dhcp改成静态static DEFROUTE=yes PEERDNS=yes PEERROUTES=yes IPV4_FAILURE_FATAL=no IPV6INIT=yes IPV6_AUTOCONF=yes IPV6_DEFROUTE=yes IPV6_PEERDNS=yes IPV6_PEERROUTES=yes IPV6_FAILURE_FATAL=no IPV6_ADDR_GEN_MODE=stable-privacy NAME=ens33 UUID=a2546330-9655-40b0-b84a-9bec807ac428 DEVICE=ens33 ONBOOT=yes 开机自起 默认是no改成yes IPADDR=192.168.159.128 添加IP NETMASK=255.255.255.0 添加子网 GATEWAY=192.168.159.2 添加网关 DNS1=119.29.29.29按Esc退出编辑模式输入：wq 保存退出 以上是永久设置IP,用以下命令可以暂时设置IP地址 例如 ：ifconfig ens33 192.168.234.129/24 命令行设置ip (重启后失效，改配置文件才会永久生效) 然后重启网络服务systemctl restart network * ping 下百度网址看通不通，用物理机ping下虚拟机的IP看通不通讯。都可以ping通就配置完成 * 如果执行 service network restart 出现以下错误 Restarting network (via systemctl): Job for network.service failed. See &apos;systemctl status network.service&apos; and &apos;journalctl -xn&apos; for details. 这个可能是网卡配置信息得MAC地址不对，ipadd 查看一下网卡得mac地址，然后对比配置文件如果不对需要修改 网络问题排查 如果以上不通讯，说明还是有问题存在的，需要进行网络问题排查 首先确认所在网络环境是否支持虚拟机网卡NET模式，如不支持则更换为桥接模式（虚拟机&gt;设置&gt;网络适配器） 然后重新获取下动态IP然后在网卡配置信息里设置静态IP 如果所在网络环境是可以正常使用NET模式，打开vi /etc/sysconfig/network-scripts/ifcfg-ens33网卡配置文件更改是否正确。 以上方法都不可以恢复，可以删除下虚拟8网卡重新添加 （编辑&gt;虚拟网络编辑器&gt;选中VMnet8移除网络&gt;添加VMnet8模式改为NET） 重新配置静态IP。]]></content>
+      <tags>
+        <tag>工作日志</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[1.2 约定]]></title>
     <url>%2F2018%2F12%2F05%2F1.2%20%E7%BA%A6%E5%AE%9A%2F</url>
     <content type="text"><![CDATA[一 ：系统 CentOS7.3 二 :虚拟化软件VMware10/12 三 ：远程终端 Putty 或xshell 四 ：工具 印象笔记 app.yinxiang.com 51cto博客 blog.51cto.com keepass keepass.info 密码管理工具 百度网盘 pan.baibu.com 各软件版本 r.aminglinux.com 课程代码及命令 CentOS7.aminglinux.com]]></content>
