@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[9月10日 1.13-1.16 单用户模式 救援模式 克隆虚拟机 linux相互登录]]></title>
+    <url>%2F2018%2F12%2F06%2F%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[单用户模式如果忘记了root密码，怎么办，从新装系统是不现实的，可以通过单用户模式来更改root密码 开机时候在启动项还没有跳转开机的时候迅速按上下方向键#选择第一个选项centos linux (3.10.0——514系列）按“e”进入grub界面，grub是一个引导管理工具注意这个需要更改两个地方，光标下移到红色方框位置，找到“ro”只读的意思改成“rw”读写第二个地方在修改的 ‘rw’ 后面加上 init=/sysroot/bin/sh 然后根据下面提示按“Ctrl-x” 就进入下面的界面了，下面的界面类似在安全模式，还没有到系统里面去，原来的系统在sysroot下面 切换到原系统下输入：chroot /sysroot/ 输入passwd root 设置新密码 然后输入：touch /.autorelabel,这步非常重要，不然无法进入系统 设置完成后就可以重启了。重启之后就可以用新的root密码登录了 https://app.yinxiang.com/shard/s63/nl/13934915/873164af-f53d-4998-b4f8-9679ee9302a0 救援模式首先看一下centos7的7个运行级别 [root@localhost ~]# ls -l /usr/lib/systemd/system/runlevel*target刚刚上面说了利用单用户模式进行更改root密码，是在grub没有设置密码或着已知密码的情况下可以更改root密码。如果进不去grub。那么只能用另一种方法，就是进入救援模式设置grub密码 ： http://ask.apelearn.com/question/18012 救援模式的进入首先需要加载光驱里面或者u盘里面的系统。开机后更改bios启动项，改为cd启动或u盘为第一启动项，保存重启。 下图就是进入系统盘启动了，选择第三项，第一项是安装操作系统，第二项是测试选troubleshooting这项 回车之后又出现几项，选第二项 linux system 然后出现这个再按下回车 出现这个界面，选“1” 继续 之后就进入了命令行界面了，输入它提示的chroot /mut/sysimage/ 之后输入命令passwd root 更改密码就可以了。之后就可以重启用新密码登陆了，把启动项改回硬盘启动救援模式不光可以更改root密码，还可以把不小心修改错了系统文件，进救援模式再改回来，重启恢复 ##克隆虚拟机 有时候在做实验的时候需要2台甚至更多的linux系统，如果都要装一便系统比较麻烦浪费时间。这种问题可以用虚拟机克隆来解决。而且可以节省不必要的磁盘空间。 步骤1 在虚拟机右上方菜单栏找到 虚拟机&gt;管理&gt;克隆然后 下一步下一步 选择创建链接克隆，完整克隆就是全都复制一份也比较慢，占空间 2 设置名称和储存位置 3 成功后这边就出现两个虚拟机了 4 开机之后要更改下ip地址，因为是克隆的，不然会有IP冲突,更改IP时UUID也需要删除以下 5 最后更改下两台机器的主机名查看主机名称：hostname 永久更改主机名称：hostnamectl set-hostname aminglinux-02 ##Linux机器互相登陆 如果需要远程连接的系统没有没有关闭selinux，输入getenforce命令，显示Enforcing表示开启，显示Permissive表示关闭。输入命令：setenforce 0,可以临时关闭，重启后恢复。 1 远程登陆命令格式：ssh username@IP 或者ssh -p 指定端口号 username@IP 2 “w”命令查看有几个客户端进行连接 3 linux系统也是可以生产密钥对来进行连接的假如我们用2机器连接1机器，那么肯定2机器上有一个私钥，1机器上有一个公钥。这样的思路就是我们要生成一对儿密钥，然后把公钥写到1机器的/root/.ssh/authorized_keys里面去。 4 linux生成密钥工具 ssh-keygen,假如我们用2机器连接1机器，那么肯定2机器上有一个私钥，1机器上有一个公钥。这样的思路就是我们要生成一对儿密钥，然后把公钥写到1机器的/root/.ssh/authorized_keys里面去。 5 linux生成密钥工具 ssh-keygen查看公钥并且写到要访问的计算机配置文件里。然后把这个复制下来写入到需要远程登陆的机器/root/.ssh/authorized_keys这个文件中之后即可用密钥认证登陆。 https://app.yinxiang.com/shard/s63/nl/13934915/2d4914b3-7275-469d-b0d7-5c2d09c67100]]></content>
+      <tags>
+        <tag>工作日志</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[9月7日 1.12 linux 远程登录]]></title>
     <url>%2F2018%2F12%2F06%2F1.12%20linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E7%99%BB%E5%BD%95%2F</url>
     <content type="text"><![CDATA[下载PuTTY 下载地址：https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html 使用PuTTY 设置PuTTY 修改默认终端保存的显示行数，默认显示200行，在查看的文件如果很长超过200行就非常不方便了，可自定义行数 设置字体，大小适中 修改字符编码。一般用UTF-8，这样在输出中文的时候不会乱码 设置完成后点Session回主页面，点击Save保存 PuTTY的密钥连接 使用PuTTYgen工具 （在windows搜一下，与putty一起下载安装好的） 打开后点击Generate,生成密钥对，在进度条时候鼠标要一直移动，不然会非常慢 公钥复制下来就可以了，私钥必须保存一下点：Save private Key，保存在电脑一个比较安全的地方 把公钥放到linux下 [root@localhost ~]# mkdir /root/.ssh [root@localhost ~]# chmod 700 /root/.ssh [root@localhost ~]# vi /root/.ssh/authorized_keys 然后把公钥复制进去保存退出 还要关闭防火墙selinux [root@localhost ~]# setenforce 0 然后配置私钥到PuTTY,选完了一定要返回首页保存一下，点一下Save，不然下次还要重新配置 然后Open一下，输入用户名密码，以及私钥的加密密码就OK啦 二、Xshell下载 这里是列表文本官网下载地址：https://www.netsarang.com/download/down_form.html?code=522 直接在页面中有红色*号的地方输入个人信息，licensetype 必须选 Home and School use（家庭和个人使用），最主要的是输入邮箱（必须是个人的可以接收邮件的邮箱，会给你发邮件），最后的Productkey可以不用填写，然后点击提交； 之后邮箱会接到一个链接，点开后会直接下载，这样不会出现评估过期等问题 输入IP和端口 在这里可以直接自动登陆保存好登陆的用户及密码红色框部分是可以切换登陆模式，比如密钥登陆等 其他设置，配色方案不要改，其他根据自己的需求去调整 PuTTY优点，可以保存用户名密码，自动连接比较方便。多窗口切换非常方便。 Xshell的密钥验证点击软件的 工具&gt;新建用户密钥生成向导 这样公钥就生成了 这个密钥同样要写到 [root@localhost ~]# vi /root/.ssh/authorized_keys这个里面去的 然后需要在用户身份验证方法改成Public Key模式如操作完成点击连接]]></content>
@@ -9,7 +17,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[1.6-1.8 配置ip]]></title>
+    <title><![CDATA[9月6日 1.6-1.8 配置ip]]></title>
     <url>%2F2018%2F12%2F06%2F1.6%20-1.8%20%E9%85%8D%E7%BD%AEip%2F</url>
     <content type="text"><![CDATA[因为在学习过程和工作的时候直接用键盘鼠标连接服务器是不现实的，所以需要配置固定IP来进行远程连接。 首先把虚拟机的网络改成NET模式，优点是物理机切换网络不影响虚拟机连接外网。除了有限制的网络环境公司或校园网等。 进入系统后先dhclient自动获取一个IP地址。然后ip add 或者ifconfig命令查看网卡信息。 如果dhclient进程占用可以dhclient -r 杀死然后在运行dhclient 如果centOS7里没有ifconfig这个命令，就安装一下：yum install -y net-tools 获取到IP地址之后查看 网关 查看网关命令：route -n 或者点击虚拟机的 编辑&gt;虚拟网络编辑器&gt;NET设置 看下网关 配置静态IP 首先用vi编辑器编辑一下网卡的配置，把刚刚获取到得IP,子网，网关等填写到网卡得配置文件里，可以永久设置静态IP。 * 编辑网卡输入 vi /etc/sysconfig/network-scripts/ifcfg-ens33 TYPE=Ethernet BOOTPROTO=static 默认是dhcp改成静态static DEFROUTE=yes PEERDNS=yes PEERROUTES=yes IPV4_FAILURE_FATAL=no IPV6INIT=yes IPV6_AUTOCONF=yes IPV6_DEFROUTE=yes IPV6_PEERDNS=yes IPV6_PEERROUTES=yes IPV6_FAILURE_FATAL=no IPV6_ADDR_GEN_MODE=stable-privacy NAME=ens33 UUID=a2546330-9655-40b0-b84a-9bec807ac428 DEVICE=ens33 ONBOOT=yes 开机自起 默认是no改成yes IPADDR=192.168.159.128 添加IP NETMASK=255.255.255.0 添加子网 GATEWAY=192.168.159.2 添加网关 DNS1=119.29.29.29按Esc退出编辑模式输入：wq 保存退出 以上是永久设置IP,用以下命令可以暂时设置IP地址 例如 ：ifconfig ens33 192.168.234.129/24 命令行设置ip (重启后失效，改配置文件才会永久生效) 然后重启网络服务systemctl restart network * ping 下百度网址看通不通，用物理机ping下虚拟机的IP看通不通讯。都可以ping通就配置完成 * 如果执行 service network restart 出现以下错误 Restarting network (via systemctl): Job for network.service failed. See &apos;systemctl status network.service&apos; and &apos;journalctl -xn&apos; for details. 这个可能是网卡配置信息得MAC地址不对，ipadd 查看一下网卡得mac地址，然后对比配置文件如果不对需要修改 网络问题排查 如果以上不通讯，说明还是有问题存在的，需要进行网络问题排查 首先确认所在网络环境是否支持虚拟机网卡NET模式，如不支持则更换为桥接模式（虚拟机&gt;设置&gt;网络适配器） 然后重新获取下动态IP然后在网卡配置信息里设置静态IP 如果所在网络环境是可以正常使用NET模式，打开vi /etc/sysconfig/network-scripts/ifcfg-ens33网卡配置文件更改是否正确。 以上方法都不可以恢复，可以删除下虚拟8网卡重新添加 （编辑&gt;虚拟网络编辑器&gt;选中VMnet8移除网络&gt;添加VMnet8模式改为NET） 重新配置静态IP。]]></content>
       <tags>
@@ -31,11 +39,6 @@
       <tags>
         <tag>准备工作</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F12%2F05%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
   <entry>
     <title><![CDATA[1.1 学习之初]]></title>
