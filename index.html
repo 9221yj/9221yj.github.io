@@ -294,6 +294,233 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/系统目录 文件类型 ls命令 alias命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/07/系统目录 文件类型 ls命令 alias命令/" itemprop="url">9月11日 系统目录 文件类型 ls alias 命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T16:30:49+08:00">
+                2018-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="系统目录结构"><a href="#系统目录结构" class="headerlink" title="系统目录结构"></a>系统目录结构</h2><p>linux系统目录结构图：<a href="http://www.apelearn.com/study_v2/linux_dir_tree.jpg" target="_blank" rel="noopener">http://www.apelearn.com/study_v2/linux_dir_tree.jpg</a></p>
+<p>/bin ：里面装的是用户用的命令，root也可以用</p>
+<p>/sbin ：里面是只有root能用的命令。</p>
+<p>/boot ：系统启动的相关文件，里面有系统启动的关键文件，删除后系统无法启动</p>
+<p>/dev ：linux系统下的设备文件</p>
+<p>/etc ：配置文件的所在目录<br>/home ：用户的家目录<br>/lib :存系统库文件的<br>/lib64 :存系统的库文件 很多命令都会依赖一些库，查看命令依赖关系：ldd</p>
+<p>/media : 媒介目录。默认是空的。比如插一个U盘会自动放到这个目录下面去</p>
+<p>/mnt ： 临时挂载目录，默认也是空的。可以把新增的光驱或硬盘挂载这个目录下面</p>
+<p>/opt ： 空目录<br>/proc ：里面是一些系统进程<br>/root ：root用户的家目录</p>
+<p>/run ：一些进程产生的临时文件，重启就会消失的文件<br>/srv ：空的，存服务产生的文件<br>/sys ：存系统内核的相关文件<br>/tmp ：系统的临时目录，任何一个用户都可以在这个文件夹下读写删除文件。</p>
+<p>/usr ：用户的文件，</p>
+<p>/var ：是一个很重要的目录。 经常用的/var/log ，系统日志。</p>
+<p>从centOS7系统以后，就不再区分32位和64位版本，都是64位系统。</p>
+<p>总结：/bin，/sbin,/etc,/var,/usr/local这几个目录是用的最多的。常用的。</p>
+<p>tree命令：以树形的形式显示一个目录下面都有哪些目录和子文件</p>
+<p>如果系统没有tree命令就用yum下载一下</p>
+<p>[root@aminglinux-01 /]# yum install -y tree</p>
+<p>tree -L 是可以设置显示最大层数。 下面试一下只显示两层目录下的结构</p>
+<p>[root@aming1 /]# tree -L 2<br>.<br>├── bin -&gt; usr/bin</p>
+<p>├── boot</p>
+<p>│   ├── config-3.10.0-514.el7.x86_64</p>
+<p>│   ├── grub</p>
+<p>│   ├── grub2</p>
+<p>│   ├── initramfs-0-rescue-b1022dedd3b74686922ac31f3e680f36.img</p>
+<p>│   ├── initramfs-3.10.0-514.el7.x86_64.img</p>
+<p>│   ├── initramfs-3.10.0-514.el7.x86_64kdump.img</p>
+<p>│   ├── initrd-plymouth.img</p>
+<p>│   ├── symvers-3.10.0-514.el7.x86_64.gz</p>
+<p>│   ├── System.map-3.10.0-514.el7.x86_64</p>
+<p>│   ├── vmlinuz-0-rescue-b1022dedd3b74686922ac31f3e680f36</p>
+<p>│   └── vmlinuz-3.10.0-514.el7.x86_64</p>
+<p>├── dev</p>
+<p>│   ├── agpgart</p>
+<p>│   ├── autofs</p>
+<p>│   ├── block</p>
+<p>│   ├── bsg</p>
+<p>│   ├── btrfs-control</p>
+<h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><p>ls命令是列取目录或者文件的命令</p>
+<p>可以列取一下系统根目录看一下Linux系统都有哪些目录</p>
+<p>[root@aming1 /]# ls /<br>bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br>ls命令总结<br>ls -l :列取详细信息</p>
+<p>ls -i :列取inode</p>
+<p>ls -lh :看文件大小更直观</p>
+<p>ls -la :列出隐藏文件</p>
+<p>ls -lta: t是时间的意思，按时间顺序排列</p>
+<p>ls -ld :只列出文件夹</p>
+<p>ls命令详解<br>ls -l :列取详细信息（ll命令就是ls -l的缩写）<br>在inode使用量前面11位。第一位表示文件类型，后面九位表示文件权限，最后一个（.）是受制于selinux。如果关闭selinux，新建的文件或目录就会没有(.)</p>
+<p>[root@aminglinux-01 ~]# ls -l</p>
+<p>总用量 4</p>
+<pre><code>-        rw-------.               1                        root   root         1422     5月  12 23:06    anaconda-ks.cfg
+</code></pre><p> 文件类型    权限 .(selinux)      有几个文件使用了这个inode   所有者  所属组     文件大小    最后改动日期         文件名字</p>
+<p>ls -i :列取inode</p>
+<p>文件名字前面的数字就是inode号，inode号是储存除了文件名以外的所有文件信息，都存在inode之中。</p>
+<p>[root@aming1 ~]# ls</p>
+<p>123.txt  anaconda-ks.cfg  test.txt<br>[root@aming1 ~]# ls -i<br>33599795 123.txt  33574987 anaconda-ks.cfg  33599785 test.txt</p>
+<p>ls -lh :显示文件大小更直观<br>[root@aming1 ~]# ls -l</p>
+<p>总用量 12</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>[root@aming1 ~]# ls -lh</p>
+<p>总用量 12K</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1.4K 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>ls -la :列出隐藏文件<br>[root@aming1 ~]# ls -la<br>总用量 40<br>dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>-rw-r–r–.  1 root root   96 4月  25 21:33 123.txt<br>-rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw——-.  1 root root 2550 5月  11 20:55 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   48 5月  11 10:42 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>-rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>-rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
+<p>其中.开头的文件都是隐藏文件或者目录。</p>
+<p>还有两个目录 点和点点 。“.”代表是当前目录 “..”代表的是上层目录</p>
+<p>ls -lt ，t是时间的意思，按时间顺序排列,时间越近排在越前面<br>[root@aming1 ~]# ls -lt</p>
+<p>总用量 12</p>
+<p>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt</p>
+<p>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
+<p>ls -ld :只列出文件夹</p>
+<p>也可以同时使用 ls -liat</p>
+<p>[root@aming1 ~]# ls -liat</p>
+<p>总用量 40</p>
+<p>33574979 -rw——-.  1 root root 2550 5月  11 20:55 .bash_history</p>
+<p>50332748 drwx——.  2 root root   48 5月  11 10:42 .ssh</p>
+<p>33599785 -rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>33574977 dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>      64 dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>33599796 -rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
+<p>33599795 -rw-r–r–.  1 root root   96 4月  25 21:33 123.txt</p>
+<p>33574987 -rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
+<p>33975719 -rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>33975720 -rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>33975721 -rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>33975722 -rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>33975723 -rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>[root@aming1 ~]# </p>
+<p>其他命令选项使用也有很多，但是不常用，需要的时候可以man一下进行查看</p>
+<h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><p>文件属性前面第一排就是文件类型，就是在权限前面的</p>
+<p>常见的就是： - 是普通文件</p>
+<p>d 文件夹</p>
+<p>还有一些特殊的文件<br>c : 字符串设备</p>
+<p>l : 软连接文件</p>
+<p>b : 块设备，比如光盘，磁盘</p>
+<p>s : 通信文件</p>
+<p>[root@aminglinux-01 ~]# ls -l /dev/</p>
+<p>总用量 0</p>
+<p>crw-rw—-. 1 root video    10, 175 8月   4 20:53 agpgart</p>
+<p>crw——-. 1 root root     10, 235 8月   4 20:53 autofs</p>
+<p>drwxr-xr-x. 2 root root         140 8月   4 20:53 block<br>drwxr-xr-x. 2 root root          80 8月   4 20:53 bsg<br>crw——-. 1 root root     10, 234 8月   4 20:53 btrfs-control<br>drwxr-xr-x. 3 root root          60 8月   4 20:53 bus<br>lrwxrwxrwx. 1 root root           3 8月   4 20:53 cdrom -&gt; sr0<br>drwxr-xr-x. 2 root root        3020 8月   4 20:53 char<br>crw——-. 1 root root      5,   1 8月   4 20:53 console<br>srw-rw-rw-. 1 root root           0 8月   4 20:53 log<br>lrwxrwxrwx. 1 root root          11 8月   4 20:53 core -&gt; /proc/kcore</p>
+<h2 id="alias命令"><a href="#alias命令" class="headerlink" title="alias命令"></a>alias命令</h2><p>alias 就是 命令的别名,是命令加选线得组合。可以理解给一个很长的命令设置一个简单外号，这样可以方便操作。</p>
+<p>alias的作用就是，可以简写命令。</p>
+<p>用which来查看命令的别名</p>
+<p>[root@aminglinux-01 ~]# which ls<br>alias ls=’ls –color=auto’<br>    /usr/bin/ls<br>[root@aminglinux-01 ~]# which ll</p>
+<p>alias ll=’ls -l –color=auto’<br>    /usr/bin/ls</p>
+<p>可以输入alias来看系统有别名的命令有哪些</p>
+<p>[root@aming1 ~]# alias</p>
+<p>alias cp=’cp -i’<br>alias egrep=’egrep –color=auto’<br>alias fgrep=’fgrep –color=auto’<br>alias grep=’grep –color=auto’<br>alias l.=’ls -d .* –color=auto’<br>alias ll=’ls -l –color=auto’<br>alias ls=’ls –color=auto’<br>alias mv=’mv -i’<br>alias rm=’rm -i’<br>alias which=’alias | /usr/bin/which –tty-only –read-alias –show-dot –show-tilde’</p>
+<p>自定义一个别名的格式 ：“ alias aming=’ls -lha’ ”</p>
+<p>[root@aminglinux-01 ~]# aming</p>
+<p>-bash: aming: 未找到命令<br>[root@aminglinux-01 ~]# alias aming=’ls -lha’<br>[root@aminglinux-01 ~]# aming</p>
+<p>总用量 28K</p>
+<p>dr-xr-x—.  3 root root  147 8月   3 09:24 .<br>dr-xr-xr-x. 17 root root  224 8月   3 21:06 ..<br>-rw——-.  1 root root 1.4K 7月  31 23:06 anaconda-ks.cfg<br>-rw——-.  1 root root 1.4K 8月   4 16:45 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   80 8月   3 22:17 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc</p>
+<p>可以看到没有设置别名的时候直接输入aming是不起作用的。可以用which来看一下</p>
+<p>[root@aminglinux-01 ~]# which aming</p>
+<p>alias aming=’ls -lha’<br>    /usr/bin/ls<br>取消aming的别名 用unalias命令</p>
+<p>[root@aminglinux-01 ~]# unalias aming<br>[root@aminglinux-01 ~]# aming<br>-bash: aming: 未找到命令</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/用户模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1170,129 +1397,6 @@ keepass keepass.info 密码管理工具
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/1.3 认识linux/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哈哈哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/04/1.3 认识linux/" itemprop="url">1.3 认识linux</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T21:12:26+08:00">
-                2018-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Linux是一个操作系统，是一套开放源代码程序，并可以自由传播的类UNIX操作系统软件，主要被用于服务器端，嵌入式开发和个人PC桌面。例如andriod手机操作系统就是Linux.Linux之前流行的系统是Unix,一个大学老师80年代初开发的一个教学系统Minix,1991年芬兰的Linus Torvalds参考Minix开发了Linux(内核),最后形成雏形和开发。</p>
-<p>Linux的发行版本 ：</p>
-<p>Debian(1993)  最后形成Ubunto（2004）,Slackware（1993） 形成SUSE(1994),RedHat(1994） 形成CentOS(2003),RedHat还有一个版本RedFlag(1999), RedHat Fedora RHEL(2002)</p>
-<p>参考 ：<a href="http://www.jianshu.com/p/a6a594a00b5b" target="_blank" rel="noopener">www.jianshu.com/p/a6a594a00b5b</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/1.4 安装虚拟机/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1417,6 +1521,129 @@ keepass keepass.info 密码管理工具
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/1.3 认识linux/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/04/1.3 认识linux/" itemprop="url">1.3 认识linux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T21:12:26+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Linux是一个操作系统，是一套开放源代码程序，并可以自由传播的类UNIX操作系统软件，主要被用于服务器端，嵌入式开发和个人PC桌面。例如andriod手机操作系统就是Linux.Linux之前流行的系统是Unix,一个大学老师80年代初开发的一个教学系统Minix,1991年芬兰的Linus Torvalds参考Minix开发了Linux(内核),最后形成雏形和开发。</p>
+<p>Linux的发行版本 ：</p>
+<p>Debian(1993)  最后形成Ubunto（2004）,Slackware（1993） 形成SUSE(1994),RedHat(1994） 形成CentOS(2003),RedHat还有一个版本RedFlag(1999), RedHat Fedora RHEL(2002)</p>
+<p>参考 ：<a href="http://www.jianshu.com/p/a6a594a00b5b" target="_blank" rel="noopener">www.jianshu.com/p/a6a594a00b5b</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1463,7 +1690,7 @@ keepass keepass.info 密码管理工具
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
