@@ -33,43 +33,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[1.2 约定]]></title>
-    <url>%2F2018%2F12%2F05%2F1.2%20%E7%BA%A6%E5%AE%9A%2F</url>
-    <content type="text"><![CDATA[一 ：系统 CentOS7.3 二 :虚拟化软件VMware10/12 三 ：远程终端 Putty 或xshell 四 ：工具 印象笔记 app.yinxiang.com 51cto博客 blog.51cto.com keepass keepass.info 密码管理工具 百度网盘 pan.baibu.com 各软件版本 r.aminglinux.com 课程代码及命令 CentOS7.aminglinux.com]]></content>
-      <tags>
-        <tag>准备工作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[1.5 系统安装]]></title>
-    <url>%2F2018%2F12%2F05%2F1.5%20%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[Centos7的系统安装首先进安装界面，选择第一行 然后等待加载 进入安装前配置界面，首先选择安装语言选简体中文 点我要分配分区，然后点完成 centOS安装系统分区及大小 /boot : 200M /swap : 内存的两倍，一般不超过8G / : 根分区，剩余全部磁盘 然后点完成 开始安装 设置root密码之后静静等待几分钟安装好后重启就安装完成了 参考 https://my.oschina.net/u/3852961/blog/1810150]]></content>
-      <tags>
-        <tag>准备工作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[1.1 学习之初]]></title>
-    <url>%2F2018%2F11%2F04%2F1.1%20%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%88%9D%2F</url>
-    <content type="text"><![CDATA[一给自己定位：1 学习的目的 2学完要做的职位 3学完要在哪个城市发展； 二设定目标： 1何时学完 2何时跳槽 3第一份工作薪资 4一年后薪资多少？两年后？ 三学习方法 ： 1预习和复习的重要性 2当日事当日毕 3记笔记 4利用好资源； 四课程价值 ： 1有效期 2学习.求职.工作后 3圈子。]]></content>
-      <tags>
-        <tag>准备工作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[1.3 认识linux]]></title>
-    <url>%2F2018%2F11%2F04%2F1.3%20%E8%AE%A4%E8%AF%86linux%2F</url>
-    <content type="text"><![CDATA[Linux是一个操作系统，是一套开放源代码程序，并可以自由传播的类UNIX操作系统软件，主要被用于服务器端，嵌入式开发和个人PC桌面。例如andriod手机操作系统就是Linux.Linux之前流行的系统是Unix,一个大学老师80年代初开发的一个教学系统Minix,1991年芬兰的Linus Torvalds参考Minix开发了Linux(内核),最后形成雏形和开发。 Linux的发行版本 ： Debian(1993) 最后形成Ubunto（2004）,Slackware（1993） 形成SUSE(1994),RedHat(1994） 形成CentOS(2003),RedHat还有一个版本RedFlag(1999), RedHat Fedora RHEL(2002) 参考 ：www.jianshu.com/p/a6a594a00b5b]]></content>
-      <tags>
-        <tag>准备工作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[1.4 安装虚拟机]]></title>
-    <url>%2F2018%2F11%2F04%2F1.4%20%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%2F</url>
-    <content type="text"><![CDATA[环境：本机环境：windows 7 64 bit 内存：4GB VMware镜像：VMware-workstation-full-12.5.8-7098237.exe 1.打开安装包 2.按照提示“下一步”即可 3.可以选择“典型”和“自定义安装”，这里是自定义安装 4.继续下一步，到选择虚拟机兼容性，本文是VM12.5的版本，选择了12.X 5.选择稍后安装操作系统 6.根据自己下载的镜像的版本，自行选择。 7.配置处理器，不能超过最大核心限制，选择过大会有提示的。 8.设置内存 9.网络默认即可 10.I/O选择推荐 11.磁盘选择推荐 12.指定磁盘容量 13.指定磁盘文件 14.完成 参考 https://app.yinxiang.com/shard/s63/nl/13934915/0c23d197-6a0b-42ee-9299-6a1ad4815e4e]]></content>
-      <tags>
-        <tag>准备工作</tag>
-      </tags>
+    <title><![CDATA[2.6--2.9 相对与绝对路径 cd命令 创建和删除目录mkdir/rmdir rm命令]]></title>
+    <url>%2F2018%2F12%2F05%2F2.6-2.9%2F</url>
+    <content type="text"><![CDATA[绝对路径 ：以根“/”开头的路径都是绝对路径。[root@aminglinux-01 ~]# ls /root/.ssh/authorized_keys/root/.ssh/authorized_keys 不管在那个路径下，都能都能通过绝对路径找到文件。从根“/”开始任何文件都有绝对路径。 相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径[root@aminglinux-01 ~]# cd /etc/sysconfig/ [root@aminglinux-01 sysconfig]# ls network-scripts/ifcfg-ens33 network-scripts/ifcfg-ens33 [root@aminglinux-01 sysconfig]# pwd /etc/sysconfig pwd命令是用来显示当前路径，当前的目录是哪里。 cd 是切换目录的命令2.7 cd命令 cd 切换目录命令。change directory 的缩写 cd - ：这个命令的就是切换上一次目录的所在位置。切换非常方便。 [root@localhost ~]# cd - / [root@localhost /]# cd - /root [root@localhost ~]# cd - /[root@localhost /]# cd -/root[root@localhost ~]# 直接输入命令：cd无论在哪个目录下，输入cd都会回到登陆系统的用户的家目录下。 [root@localhost ~]# pwd /root[root@localhost ~]# cd [root@localhost ~]# pwd /root[root@localhost ~]# 命令：cd ~同样是直接返回用户的家目录 命令：cd ..返回上一层目录 其他选项不常用，可以man cd 来查看用法。2.8 创建和删除目录 创建目录 mkdir mkdir是make directory的缩写 [root@localhost ~]# ls anaconda-ks.cfg[root@localhost ~]# mkdir 1.txt [root@localhost ~]# ls 1.txt anaconda-ks.cfg [root@localhost ~]# mkdir -p 创建连续的文件夹正常用mkdir创建连续的文件夹是不可以的，如下 [root@localhost ~]# mkdir 11/22/33/44/55 mkdir: 无法创建目录”11/22/33/44/55”: 没有那个文件或目录[root@localhost ~]# 加-p 属性即可创建成功 [root@localhost ~]# mkdir -p 11/22/33/44/55[root@localhost ~]# tree.├── 11│ └── 22│ └── 33│ └── 44│ └── 55├── 1.txt└── anaconda-ks.cfg 6 directories, 1 file[root@localhost ~]# mkdir -pv 创建连续的文件夹并显示创建过程 [root@localhost ~]# mkdir -pv 111/222/333/444/555 mkdir: 已创建目录 “111” mkdir: 已创建目录 “111/222” mkdir: 已创建目录 “111/222/333” mkdir: 已创建目录 “111/222/333/444” mkdir: 已创建目录 “111/222/333/444/555” [root@localhost ~]# 删除目录 rmdirrmdir是remove directory的缩写 rmdir 直接运行时不能删除非空目录，也就是只能删除空文件夹，如下 root@localhost ~]# rmdir /tmp/aminglinux/ rmdir: 删除 “/tmp/aminglinux/“ 失败: 目录非空 [root@localhost ~]# touch /tmp/aminglinux/222/aaa/2.txt [root@localhost ~]# rmdir /tmp/aminglinux/222/aaa/ rmdir: 删除 “/tmp/aminglinux/222/aaa/“ 失败: 目录非空 [root@localhost ~]# rmdir -p 也是可以连续删除空文件夹的。但必须是空的，如果是非空则删不掉，只删除空的 [root@aminglinux-01 ~]# mkdir -p /tmp/aminglinux/222/yyyy/uuuu/iiii/ [root@aminglinux-01 ~]# rmdir -pv /tmp/aminglinux/222/yyyy/uuuu/iiii/ rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu/iiii/“ rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu”rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy”rmdir: 正在删除目录 “/tmp/aminglinux/222”rmdir: 删除目录 “/tmp/aminglinux/222” 失败: 目录非空 mdir只能删除目录，而且必须是空目录，要想全部删除只能先删除里面的文件夹后者是文件。-p 比较危险，一般不用。 2.9 rm命令之前学习的rmdir 删除局限性是比较大的。这回试试rm命令能否顺利删除有文件的目录呢 [root@aminglinux-01 ~]# tree /tmp/aminglinux//tmp/aminglinux/ ├── 111 │ └── 222 │ └── 333 └── 222 └── aaa ├── 1.txt └── bbb └── ccc 7 directories, 1 file[root@aminglinux-01 ~]# rm /tmp/aminglinux/222/ rm: 无法删除”/tmp/aminglinux/222/“: 是一个目录 [root@aminglinux-01 ~]# rm -r /tmp/aminglinux/222/ rm：是否进入目录”/tmp/aminglinux/222/“? y rm：是否进入目录”/tmp/aminglinux/222/aaa”? y rm：是否进入目录”/tmp/aminglinux/222/aaa/bbb”? y rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb/ccc”？y rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb”？y rm：是否删除普通空文件 “/tmp/aminglinux/222/aaa/1.txt”？y rm：是否删除目录 “/tmp/aminglinux/222/aaa”？y rm：是否删除目录 “/tmp/aminglinux/222/“？y [root@aminglinux-01 ~]# tree /tmp/aminglinux/ /tmp/aminglinux/└── 111 └── 222 └── 3333 directories, 0 files[root@aminglinux-01 ~]#可以看到rm 是不能直接删有文件的目录的。但是加上-r指令，就可以可以全部删除啦。 可以看到文件1.txt也是被直接删除了。如果加上-f命令就会强制性删除，不会问是否删除文件，这样省去如果文件夹或文件过多一直问下去的麻烦。 总结rm 只删除目录里面的文件 rm -r删除所有目录以及文件 rm -f强制删除文件，不提示是否删除 rm -v显示删除过程 rm -rfv 指令可以叠加使用，效果叠加。]]></content>
   </entry>
 </search>
