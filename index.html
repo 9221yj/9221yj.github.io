@@ -294,6 +294,225 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/09/相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/" itemprop="url">9月12日 2.6--2.9 相对与绝对路径  cd命令 创建和删除目录mkdir/rmdir  rm命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-09T19:39:52+08:00">
+                2018-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="绝对路径-：以根“-”开头的路径都是绝对路径。"><a href="#绝对路径-：以根“-”开头的路径都是绝对路径。" class="headerlink" title="绝对路径 ：以根“/”开头的路径都是绝对路径。"></a>绝对路径 ：以根“/”开头的路径都是绝对路径。</h2><p>[root@aminglinux-01 ~]# ls /root/.ssh/authorized_keys<br>/root/.ssh/authorized_keys</p>
+<p>不管在那个路径下，都能都能通过绝对路径找到文件。从根“/”开始<br>任何文件都有绝对路径。</p>
+<h2 id="相对路径-：相对于当前目录的路径，不是从根“-”开始的路径"><a href="#相对路径-：相对于当前目录的路径，不是从根“-”开始的路径" class="headerlink" title="相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径"></a>相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径</h2><p>[root@aminglinux-01 ~]# cd /etc/sysconfig/ </p>
+<p>[root@aminglinux-01 sysconfig]# ls network-scripts/ifcfg-ens33</p>
+<p>network-scripts/ifcfg-ens33</p>
+<p>[root@aminglinux-01 sysconfig]# pwd </p>
+<p>/etc/sysconfig</p>
+<ul>
+<li>pwd命令是用来显示当前路径，当前的目录是哪里。</li>
+<li>cd 是切换目录的命令<h2 id="2-7-cd命令"><a href="#2-7-cd命令" class="headerlink" title="2.7 cd命令"></a>2.7 cd命令</h2></li>
+</ul>
+<p>cd 切换目录命令。change directory 的缩写</p>
+<ul>
+<li>cd - ：这个命令的就是切换上一次目录的所在位置。切换非常方便。</li>
+</ul>
+<p>[root@localhost ~]# cd -</p>
+<p>/</p>
+<p>[root@localhost /]# cd -</p>
+<p>/root</p>
+<p>[root@localhost ~]# cd -</p>
+<p>/<br>[root@localhost /]# cd -<br>/root<br>[root@localhost ~]#</p>
+<ul>
+<li>直接输入命令：cd<br>无论在哪个目录下，输入cd都会回到登陆系统的用户的家目录下。</li>
+</ul>
+<p>[root@localhost ~]# pwd</p>
+<p>/root<br>[root@localhost ~]# cd</p>
+<p>[root@localhost ~]# pwd</p>
+<p>/root<br>[root@localhost ~]#</p>
+<ul>
+<li><p>命令：cd ~<br>同样是直接返回用户的家目录</p>
+</li>
+<li><p>命令：cd ..<br>返回上一层目录</p>
+</li>
+<li>其他选项不常用，可以man cd 来查看用法。<h2 id="2-8-创建和删除目录"><a href="#2-8-创建和删除目录" class="headerlink" title="2.8 创建和删除目录"></a>2.8 创建和删除目录</h2></li>
+</ul>
+<p>创建目录 mkdir</p>
+<p>mkdir是make directory的缩写</p>
+<p>[root@localhost ~]# ls</p>
+<p>anaconda-ks.cfg<br>[root@localhost ~]# mkdir 1.txt</p>
+<p>[root@localhost ~]# ls</p>
+<p>1.txt  anaconda-ks.cfg</p>
+<p>[root@localhost ~]#</p>
+<ul>
+<li>mkdir -p 创建连续的文件夹<br>正常用mkdir创建连续的文件夹是不可以的，如下</li>
+</ul>
+<p>[root@localhost ~]# mkdir 11/22/33/44/55</p>
+<p>mkdir: 无法创建目录”11/22/33/44/55”: 没有那个文件或目录<br>[root@localhost ~]#</p>
+<p>加-p 属性即可创建成功</p>
+<p>[root@localhost ~]# mkdir -p 11/22/33/44/55<br>[root@localhost ~]# tree<br>.<br>├── 11<br>│   └── 22<br>│       └── 33<br>│           └── 44<br>│               └── 55<br>├── 1.txt<br>└── anaconda-ks.cfg</p>
+<p>6 directories, 1 file<br>[root@localhost ~]#</p>
+<ul>
+<li>mkdir -pv 创建连续的文件夹并显示创建过程</li>
+</ul>
+<p>[root@localhost ~]# mkdir -pv 111/222/333/444/555</p>
+<p>mkdir: 已创建目录 “111”</p>
+<p>mkdir: 已创建目录 “111/222”</p>
+<p>mkdir: 已创建目录 “111/222/333”</p>
+<p>mkdir: 已创建目录 “111/222/333/444”</p>
+<p>mkdir: 已创建目录 “111/222/333/444/555”</p>
+<p>[root@localhost ~]#</p>
+<h2 id="删除目录-rmdir"><a href="#删除目录-rmdir" class="headerlink" title="删除目录 rmdir"></a>删除目录 rmdir</h2><p>rmdir是remove directory的缩写</p>
+<ul>
+<li>rmdir 直接运行时不能删除非空目录，也就是只能删除空文件夹，如下</li>
+</ul>
+<p>root@localhost ~]# rmdir /tmp/aminglinux/</p>
+<p>rmdir: 删除 “/tmp/aminglinux/“ 失败: 目录非空</p>
+<p>[root@localhost ~]# touch /tmp/aminglinux/222/aaa/2.txt</p>
+<p>[root@localhost ~]# rmdir /tmp/aminglinux/222/aaa/</p>
+<p>rmdir: 删除 “/tmp/aminglinux/222/aaa/“ 失败: 目录非空</p>
+<p>[root@localhost ~]#</p>
+<ul>
+<li>rmdir -p 也是可以连续删除空文件夹的。但必须是空的，如果是非空则删不掉，只删除空的</li>
+</ul>
+<p>[root@aminglinux-01 ~]# mkdir -p /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
+<p>[root@aminglinux-01 ~]# rmdir -pv /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
+<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu/iiii/“ </p>
+<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222”<br>rmdir: 删除目录 “/tmp/aminglinux/222” 失败: 目录非空</p>
+<p>mdir只能删除目录，而且必须是空目录，要想全部删除只能先删除里面的文件夹后者是文件。-p 比较危险，一般不用。</p>
+<h2 id="2-9-rm命令"><a href="#2-9-rm命令" class="headerlink" title="2.9 rm命令"></a>2.9 rm命令</h2><p>之前学习的rmdir 删除局限性是比较大的。这回试试rm命令能否顺利删除有文件的目录呢</p>
+<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/<br>/tmp/aminglinux/ ├── 111<br>                              │        └── 222<br>                              │                └── 333<br>                              └── 222<br>                                        └── aaa<br>                                                 ├── 1.txt<br>                                                 └── bbb<br>                                                           └── ccc<br> 7 directories, 1 file<br>[root@aminglinux-01 ~]# rm /tmp/aminglinux/222/ </p>
+<p>rm: 无法删除”/tmp/aminglinux/222/“: 是一个目录 </p>
+<p>[root@aminglinux-01 ~]# rm -r /tmp/aminglinux/222/</p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/“? y </p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/aaa”? y </p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/aaa/bbb”? y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb/ccc”？y</p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb”？y</p>
+<p>rm：是否删除普通空文件 “/tmp/aminglinux/222/aaa/1.txt”？y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa”？y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/“？y</p>
+<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/</p>
+<p>/tmp/aminglinux/<br>└── 111<br>          └── 222<br>                   └── 333<br>3 directories, 0 files<br>[root@aminglinux-01 ~]#<br>可以看到rm 是不能直接删有文件的目录的。但是加上-r指令，就可以可以全部删除啦。</p>
+<p>可以看到文件1.txt也是被直接删除了。<br>如果加上-f命令就会强制性删除，不会问是否删除文件，这样省去如果文件夹或文件过多一直问下去的麻烦。</p>
+<ul>
+<li>总结<br>rm 只删除目录里面的文件</li>
+</ul>
+<p>rm -r删除所有目录以及文件</p>
+<p>rm -f强制删除文件，不提示是否删除</p>
+<p>rm -v显示删除过程</p>
+<p>rm -rfv 指令可以叠加使用，效果叠加。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/系统目录 文件类型 ls命令 alias命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -967,225 +1186,6 @@ and &apos;journalctl -xn&apos; for details.
 <li>如果所在网络环境是可以正常使用NET模式，打开vi /etc/sysconfig/network-scripts/ifcfg-ens33网卡配置文件更改是否正确。</li>
 <li>以上方法都不可以恢复，可以删除下虚拟8网卡重新添加 （编辑&gt;虚拟网络编辑器&gt;选中VMnet8移除网络&gt;添加VMnet8模式改为NET） 重新配置静态IP。</li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/2.6-2.9/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哈哈哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/05/2.6-2.9/" itemprop="url">2.6--2.9 相对与绝对路径  cd命令 创建和删除目录mkdir/rmdir  rm命令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T22:31:30+08:00">
-                2018-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="绝对路径-：以根“-”开头的路径都是绝对路径。"><a href="#绝对路径-：以根“-”开头的路径都是绝对路径。" class="headerlink" title="绝对路径 ：以根“/”开头的路径都是绝对路径。"></a>绝对路径 ：以根“/”开头的路径都是绝对路径。</h2><p>[root@aminglinux-01 ~]# ls /root/.ssh/authorized_keys<br>/root/.ssh/authorized_keys</p>
-<p>不管在那个路径下，都能都能通过绝对路径找到文件。从根“/”开始<br>任何文件都有绝对路径。</p>
-<h2 id="相对路径-：相对于当前目录的路径，不是从根“-”开始的路径"><a href="#相对路径-：相对于当前目录的路径，不是从根“-”开始的路径" class="headerlink" title="相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径"></a>相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径</h2><p>[root@aminglinux-01 ~]# cd /etc/sysconfig/ </p>
-<p>[root@aminglinux-01 sysconfig]# ls network-scripts/ifcfg-ens33</p>
-<p>network-scripts/ifcfg-ens33</p>
-<p>[root@aminglinux-01 sysconfig]# pwd </p>
-<p>/etc/sysconfig</p>
-<ul>
-<li>pwd命令是用来显示当前路径，当前的目录是哪里。</li>
-<li>cd 是切换目录的命令<h2 id="2-7-cd命令"><a href="#2-7-cd命令" class="headerlink" title="2.7 cd命令"></a>2.7 cd命令</h2></li>
-</ul>
-<p>cd 切换目录命令。change directory 的缩写</p>
-<ul>
-<li>cd - ：这个命令的就是切换上一次目录的所在位置。切换非常方便。</li>
-</ul>
-<p>[root@localhost ~]# cd -</p>
-<p>/</p>
-<p>[root@localhost /]# cd -</p>
-<p>/root</p>
-<p>[root@localhost ~]# cd -</p>
-<p>/<br>[root@localhost /]# cd -<br>/root<br>[root@localhost ~]#</p>
-<ul>
-<li>直接输入命令：cd<br>无论在哪个目录下，输入cd都会回到登陆系统的用户的家目录下。</li>
-</ul>
-<p>[root@localhost ~]# pwd</p>
-<p>/root<br>[root@localhost ~]# cd</p>
-<p>[root@localhost ~]# pwd</p>
-<p>/root<br>[root@localhost ~]#</p>
-<ul>
-<li><p>命令：cd ~<br>同样是直接返回用户的家目录</p>
-</li>
-<li><p>命令：cd ..<br>返回上一层目录</p>
-</li>
-<li>其他选项不常用，可以man cd 来查看用法。<h2 id="2-8-创建和删除目录"><a href="#2-8-创建和删除目录" class="headerlink" title="2.8 创建和删除目录"></a>2.8 创建和删除目录</h2></li>
-</ul>
-<p>创建目录 mkdir</p>
-<p>mkdir是make directory的缩写</p>
-<p>[root@localhost ~]# ls</p>
-<p>anaconda-ks.cfg<br>[root@localhost ~]# mkdir 1.txt</p>
-<p>[root@localhost ~]# ls</p>
-<p>1.txt  anaconda-ks.cfg</p>
-<p>[root@localhost ~]#</p>
-<ul>
-<li>mkdir -p 创建连续的文件夹<br>正常用mkdir创建连续的文件夹是不可以的，如下</li>
-</ul>
-<p>[root@localhost ~]# mkdir 11/22/33/44/55</p>
-<p>mkdir: 无法创建目录”11/22/33/44/55”: 没有那个文件或目录<br>[root@localhost ~]#</p>
-<p>加-p 属性即可创建成功</p>
-<p>[root@localhost ~]# mkdir -p 11/22/33/44/55<br>[root@localhost ~]# tree<br>.<br>├── 11<br>│   └── 22<br>│       └── 33<br>│           └── 44<br>│               └── 55<br>├── 1.txt<br>└── anaconda-ks.cfg</p>
-<p>6 directories, 1 file<br>[root@localhost ~]#</p>
-<ul>
-<li>mkdir -pv 创建连续的文件夹并显示创建过程</li>
-</ul>
-<p>[root@localhost ~]# mkdir -pv 111/222/333/444/555</p>
-<p>mkdir: 已创建目录 “111”</p>
-<p>mkdir: 已创建目录 “111/222”</p>
-<p>mkdir: 已创建目录 “111/222/333”</p>
-<p>mkdir: 已创建目录 “111/222/333/444”</p>
-<p>mkdir: 已创建目录 “111/222/333/444/555”</p>
-<p>[root@localhost ~]#</p>
-<h2 id="删除目录-rmdir"><a href="#删除目录-rmdir" class="headerlink" title="删除目录 rmdir"></a>删除目录 rmdir</h2><p>rmdir是remove directory的缩写</p>
-<ul>
-<li>rmdir 直接运行时不能删除非空目录，也就是只能删除空文件夹，如下</li>
-</ul>
-<p>root@localhost ~]# rmdir /tmp/aminglinux/</p>
-<p>rmdir: 删除 “/tmp/aminglinux/“ 失败: 目录非空</p>
-<p>[root@localhost ~]# touch /tmp/aminglinux/222/aaa/2.txt</p>
-<p>[root@localhost ~]# rmdir /tmp/aminglinux/222/aaa/</p>
-<p>rmdir: 删除 “/tmp/aminglinux/222/aaa/“ 失败: 目录非空</p>
-<p>[root@localhost ~]#</p>
-<ul>
-<li>rmdir -p 也是可以连续删除空文件夹的。但必须是空的，如果是非空则删不掉，只删除空的</li>
-</ul>
-<p>[root@aminglinux-01 ~]# mkdir -p /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
-<p>[root@aminglinux-01 ~]# rmdir -pv /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
-<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu/iiii/“ </p>
-<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222”<br>rmdir: 删除目录 “/tmp/aminglinux/222” 失败: 目录非空</p>
-<p>mdir只能删除目录，而且必须是空目录，要想全部删除只能先删除里面的文件夹后者是文件。-p 比较危险，一般不用。</p>
-<h2 id="2-9-rm命令"><a href="#2-9-rm命令" class="headerlink" title="2.9 rm命令"></a>2.9 rm命令</h2><p>之前学习的rmdir 删除局限性是比较大的。这回试试rm命令能否顺利删除有文件的目录呢</p>
-<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/<br>/tmp/aminglinux/ ├── 111<br>                              │        └── 222<br>                              │                └── 333<br>                              └── 222<br>                                        └── aaa<br>                                                 ├── 1.txt<br>                                                 └── bbb<br>                                                           └── ccc<br> 7 directories, 1 file<br>[root@aminglinux-01 ~]# rm /tmp/aminglinux/222/ </p>
-<p>rm: 无法删除”/tmp/aminglinux/222/“: 是一个目录 </p>
-<p>[root@aminglinux-01 ~]# rm -r /tmp/aminglinux/222/</p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/“? y </p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/aaa”? y </p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/aaa/bbb”? y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb/ccc”？y</p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb”？y</p>
-<p>rm：是否删除普通空文件 “/tmp/aminglinux/222/aaa/1.txt”？y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa”？y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/“？y</p>
-<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/</p>
-<p>/tmp/aminglinux/<br>└── 111<br>          └── 222<br>                   └── 333<br>3 directories, 0 files<br>[root@aminglinux-01 ~]#<br>可以看到rm 是不能直接删有文件的目录的。但是加上-r指令，就可以可以全部删除啦。</p>
-<p>可以看到文件1.txt也是被直接删除了。<br>如果加上-f命令就会强制性删除，不会问是否删除文件，这样省去如果文件夹或文件过多一直问下去的麻烦。</p>
-<ul>
-<li>总结<br>rm 只删除目录里面的文件</li>
-</ul>
-<p>rm -r删除所有目录以及文件</p>
-<p>rm -f强制删除文件，不提示是否删除</p>
-<p>rm -v显示删除过程</p>
-<p>rm -rfv 指令可以叠加使用，效果叠加。</p>
 
           
         
