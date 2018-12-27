@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/用户模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/9月12日 相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="哈哈哥">
@@ -313,7 +313,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/用户模式/" itemprop="url">9月10日 1.13-1.16 单用户模式 救援模式 克隆虚拟机 linux相互登录</a></h1>
+                <a class="post-title-link" href="/2018/12/09/9月12日 相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/" itemprop="url">9月12日 2.6--2.9 相对与绝对路径  cd命令 创建和删除目录mkdir/rmdir  rm命令</a></h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T15:55:45+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-09T19:39:52+08:00">
+                2018-12-09
               </time>
             
 
@@ -365,39 +365,333 @@
       
         
           
-            <h2 id="单用户模式"><a href="#单用户模式" class="headerlink" title="单用户模式"></a>单用户模式</h2><p>如果忘记了root密码，怎么办，从新装系统是不现实的，可以通过单用户模式来更改root密码</p>
+            <h2 id="绝对路径-：以根“-”开头的路径都是绝对路径。"><a href="#绝对路径-：以根“-”开头的路径都是绝对路径。" class="headerlink" title="绝对路径 ：以根“/”开头的路径都是绝对路径。"></a>绝对路径 ：以根“/”开头的路径都是绝对路径。</h2><p>[root@aminglinux-01 ~]# ls /root/.ssh/authorized_keys<br>/root/.ssh/authorized_keys</p>
+<p>不管在那个路径下，都能都能通过绝对路径找到文件。从根“/”开始<br>任何文件都有绝对路径。</p>
+<h2 id="相对路径-：相对于当前目录的路径，不是从根“-”开始的路径"><a href="#相对路径-：相对于当前目录的路径，不是从根“-”开始的路径" class="headerlink" title="相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径"></a>相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径</h2><p>[root@aminglinux-01 ~]# cd /etc/sysconfig/ </p>
+<p>[root@aminglinux-01 sysconfig]# ls network-scripts/ifcfg-ens33</p>
+<p>network-scripts/ifcfg-ens33</p>
+<p>[root@aminglinux-01 sysconfig]# pwd </p>
+<p>/etc/sysconfig</p>
 <ul>
-<li>开机时候在启动项还没有跳转开机的时候迅速按上下方向键<br>#<br>选择第一个选项centos linux (3.10.0——514系列）<br>按“e”进入grub界面，grub是一个引导管理工具<br>注意这个需要更改两个地方，光标下移到红色方框位置，找到“ro”只读的意思改成“rw”读写<br>第二个地方在修改的 ‘rw’ 后面加上 init=/sysroot/bin/sh</li>
+<li>pwd命令是用来显示当前路径，当前的目录是哪里。</li>
+<li>cd 是切换目录的命令<h2 id="2-7-cd命令"><a href="#2-7-cd命令" class="headerlink" title="2.7 cd命令"></a>2.7 cd命令</h2></li>
 </ul>
-<p>然后根据下面提示按“Ctrl-x” 就进入下面的界面了，下面的界面类似在安全模式，还没有到系统里面去，原来的系统在sysroot下面</p>
+<p>cd 切换目录命令。change directory 的缩写</p>
 <ul>
-<li>切换到原系统下输入：chroot /sysroot/</li>
-<li>输入passwd root 设置新密码</li>
-<li>然后输入：touch /.autorelabel,这步非常重要，不然无法进入系统</li>
-<li>设置完成后就可以重启了。重启之后就可以用新的root密码登录了</li>
-<li><a href="https://app.yinxiang.com/shard/s63/nl/13934915/873164af-f53d-4998-b4f8-9679ee9302a0" target="_blank" rel="noopener">https://app.yinxiang.com/shard/s63/nl/13934915/873164af-f53d-4998-b4f8-9679ee9302a0</a></li>
+<li>cd - ：这个命令的就是切换上一次目录的所在位置。切换非常方便。</li>
 </ul>
-<h2 id="救援模式"><a href="#救援模式" class="headerlink" title="救援模式"></a>救援模式</h2><p>首先看一下centos7的7个运行级别 [root@localhost ~]# ls -l /usr/lib/systemd/system/runlevel*target<br>刚刚上面说了利用单用户模式进行更改root密码，是在grub没有设置密码或着已知密码的情况下可以更改root密码。如果进不去grub。那么只能用另一种方法，就是进入救援模式<br>设置grub密码 ： <a href="http://ask.apelearn.com/question/18012" target="_blank" rel="noopener">http://ask.apelearn.com/question/18012</a></p>
-<p>救援模式的进入<br>首先需要加载光驱里面或者u盘里面的系统。开机后更改bios启动项，改为cd启动或u盘为第一启动项，保存重启。</p>
-<p>下图就是进入系统盘启动了，选择第三项，第一项是安装操作系统，第二项是测试<br>选troubleshooting这项</p>
-<p>回车之后又出现几项，选第二项 linux system</p>
-<p>然后出现这个再按下回车</p>
-<p>出现这个界面，选“1” 继续</p>
-<p>之后就进入了命令行界面了，输入它提示的chroot /mut/sysimage/ 之后输入命令passwd root 更改密码就可以了。<br>之后就可以重启用新密码登陆了，把启动项改回硬盘启动<br>救援模式不光可以更改root密码，还可以把不小心修改错了系统文件，进救援模式再改回来，重启恢复</p>
-<h2 id="克隆虚拟机"><a href="#克隆虚拟机" class="headerlink" title="克隆虚拟机"></a>克隆虚拟机</h2><p>有时候在做实验的时候需要2台甚至更多的linux系统，如果都要装一便系统比较麻烦浪费时间。这种问题可以用虚拟机克隆来解决。而且可以节省不必要的磁盘空间。</p>
-<p>步骤<br>1 在虚拟机右上方菜单栏找到 虚拟机&gt;管理&gt;克隆<br>然后 下一步下一步 选择创建链接克隆，完整克隆就是全都复制一份也比较慢，占空间 </p>
-<p>2 设置名称和储存位置</p>
-<p>3 成功后这边就出现两个虚拟机了</p>
-<p>4 开机之后要更改下ip地址，因为是克隆的，不然会有IP冲突,更改IP时UUID也需要删除以下</p>
-<p>5 最后更改下两台机器的主机名<br>查看主机名称：hostname</p>
-<p>永久更改主机名称：hostnamectl set-hostname aminglinux-02</p>
-<h2 id="Linux机器互相登陆"><a href="#Linux机器互相登陆" class="headerlink" title="Linux机器互相登陆"></a>Linux机器互相登陆</h2><p>如果需要远程连接的系统没有没有关闭selinux，输入getenforce命令，显示Enforcing表示开启，显示Permissive表示关闭。输入命令：setenforce 0,可以临时关闭，重启后恢复。</p>
-<p>1 远程登陆命令格式：ssh username@IP 或者ssh -p 指定端口号 username@IP</p>
-<p>2 “w”命令查看有几个客户端进行连接</p>
-<p>3 linux系统也是可以生产密钥对来进行连接的<br>假如我们用2机器连接1机器，那么肯定2机器上有一个私钥，1机器上有一个公钥。这样的思路就是我们要生成一对儿密钥，然后把公钥写到1机器的/root/.ssh/authorized_keys里面去。</p>
-<p>4 linux生成密钥工具 ssh-keygen,假如我们用2机器连接1机器，那么肯定2机器上有一个私钥，1机器上有一个公钥。这样的思路就是我们要生成一对儿密钥，然后把公钥写到1机器的/root/.ssh/authorized_keys里面去。</p>
-<p>5 linux生成密钥工具 ssh-keygen<br>查看公钥并且写到要访问的计算机配置文件里。<br>然后把这个复制下来写入到需要远程登陆的机器/root/.ssh/authorized_keys这个文件中之后即可用密钥认证登陆。</p>
-<p><a href="https://app.yinxiang.com/shard/s63/nl/13934915/2d4914b3-7275-469d-b0d7-5c2d09c67100" target="_blank" rel="noopener">https://app.yinxiang.com/shard/s63/nl/13934915/2d4914b3-7275-469d-b0d7-5c2d09c67100</a></p>
+<p>[root@localhost ~]# cd -</p>
+<p>/</p>
+<p>[root@localhost /]# cd -</p>
+<p>/root</p>
+<p>[root@localhost ~]# cd -</p>
+<p>/<br>[root@localhost /]# cd -<br>/root<br>[root@localhost ~]#</p>
+<ul>
+<li>直接输入命令：cd<br>无论在哪个目录下，输入cd都会回到登陆系统的用户的家目录下。</li>
+</ul>
+<p>[root@localhost ~]# pwd</p>
+<p>/root<br>[root@localhost ~]# cd</p>
+<p>[root@localhost ~]# pwd</p>
+<p>/root<br>[root@localhost ~]#</p>
+<ul>
+<li><p>命令：cd ~<br>同样是直接返回用户的家目录</p>
+</li>
+<li><p>命令：cd ..<br>返回上一层目录</p>
+</li>
+<li>其他选项不常用，可以man cd 来查看用法。<h2 id="2-8-创建和删除目录"><a href="#2-8-创建和删除目录" class="headerlink" title="2.8 创建和删除目录"></a>2.8 创建和删除目录</h2></li>
+</ul>
+<p>创建目录 mkdir</p>
+<p>mkdir是make directory的缩写</p>
+<p>[root@localhost ~]# ls</p>
+<p>anaconda-ks.cfg<br>[root@localhost ~]# mkdir 1.txt</p>
+<p>[root@localhost ~]# ls</p>
+<p>1.txt  anaconda-ks.cfg</p>
+<p>[root@localhost ~]#</p>
+<ul>
+<li>mkdir -p 创建连续的文件夹<br>正常用mkdir创建连续的文件夹是不可以的，如下</li>
+</ul>
+<p>[root@localhost ~]# mkdir 11/22/33/44/55</p>
+<p>mkdir: 无法创建目录”11/22/33/44/55”: 没有那个文件或目录<br>[root@localhost ~]#</p>
+<p>加-p 属性即可创建成功</p>
+<p>[root@localhost ~]# mkdir -p 11/22/33/44/55<br>[root@localhost ~]# tree<br>.<br>├── 11<br>│   └── 22<br>│       └── 33<br>│           └── 44<br>│               └── 55<br>├── 1.txt<br>└── anaconda-ks.cfg</p>
+<p>6 directories, 1 file<br>[root@localhost ~]#</p>
+<ul>
+<li>mkdir -pv 创建连续的文件夹并显示创建过程</li>
+</ul>
+<p>[root@localhost ~]# mkdir -pv 111/222/333/444/555</p>
+<p>mkdir: 已创建目录 “111”</p>
+<p>mkdir: 已创建目录 “111/222”</p>
+<p>mkdir: 已创建目录 “111/222/333”</p>
+<p>mkdir: 已创建目录 “111/222/333/444”</p>
+<p>mkdir: 已创建目录 “111/222/333/444/555”</p>
+<p>[root@localhost ~]#</p>
+<h2 id="删除目录-rmdir"><a href="#删除目录-rmdir" class="headerlink" title="删除目录 rmdir"></a>删除目录 rmdir</h2><p>rmdir是remove directory的缩写</p>
+<ul>
+<li>rmdir 直接运行时不能删除非空目录，也就是只能删除空文件夹，如下</li>
+</ul>
+<p>root@localhost ~]# rmdir /tmp/aminglinux/</p>
+<p>rmdir: 删除 “/tmp/aminglinux/“ 失败: 目录非空</p>
+<p>[root@localhost ~]# touch /tmp/aminglinux/222/aaa/2.txt</p>
+<p>[root@localhost ~]# rmdir /tmp/aminglinux/222/aaa/</p>
+<p>rmdir: 删除 “/tmp/aminglinux/222/aaa/“ 失败: 目录非空</p>
+<p>[root@localhost ~]#</p>
+<ul>
+<li>rmdir -p 也是可以连续删除空文件夹的。但必须是空的，如果是非空则删不掉，只删除空的</li>
+</ul>
+<p>[root@aminglinux-01 ~]# mkdir -p /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
+<p>[root@aminglinux-01 ~]# rmdir -pv /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
+<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu/iiii/“ </p>
+<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222”<br>rmdir: 删除目录 “/tmp/aminglinux/222” 失败: 目录非空</p>
+<p>mdir只能删除目录，而且必须是空目录，要想全部删除只能先删除里面的文件夹后者是文件。-p 比较危险，一般不用。</p>
+<h2 id="2-9-rm命令"><a href="#2-9-rm命令" class="headerlink" title="2.9 rm命令"></a>2.9 rm命令</h2><p>之前学习的rmdir 删除局限性是比较大的。这回试试rm命令能否顺利删除有文件的目录呢</p>
+<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/<br>/tmp/aminglinux/ ├── 111<br>                              │        └── 222<br>                              │                └── 333<br>                              └── 222<br>                                        └── aaa<br>                                                 ├── 1.txt<br>                                                 └── bbb<br>                                                           └── ccc<br> 7 directories, 1 file<br>[root@aminglinux-01 ~]# rm /tmp/aminglinux/222/ </p>
+<p>rm: 无法删除”/tmp/aminglinux/222/“: 是一个目录 </p>
+<p>[root@aminglinux-01 ~]# rm -r /tmp/aminglinux/222/</p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/“? y </p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/aaa”? y </p>
+<p>rm：是否进入目录”/tmp/aminglinux/222/aaa/bbb”? y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb/ccc”？y</p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb”？y</p>
+<p>rm：是否删除普通空文件 “/tmp/aminglinux/222/aaa/1.txt”？y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa”？y </p>
+<p>rm：是否删除目录 “/tmp/aminglinux/222/“？y</p>
+<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/</p>
+<p>/tmp/aminglinux/<br>└── 111<br>          └── 222<br>                   └── 333<br>3 directories, 0 files<br>[root@aminglinux-01 ~]#<br>可以看到rm 是不能直接删有文件的目录的。但是加上-r指令，就可以可以全部删除啦。</p>
+<p>可以看到文件1.txt也是被直接删除了。<br>如果加上-f命令就会强制性删除，不会问是否删除文件，这样省去如果文件夹或文件过多一直问下去的麻烦。</p>
+<ul>
+<li>总结<br>rm 只删除目录里面的文件</li>
+</ul>
+<p>rm -r删除所有目录以及文件</p>
+<p>rm -f强制删除文件，不提示是否删除</p>
+<p>rm -v显示删除过程</p>
+<p>rm -rfv 指令可以叠加使用，效果叠加。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/系统目录 文件类型 ls命令 alias命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/07/系统目录 文件类型 ls命令 alias命令/" itemprop="url">9月11日 系统目录 文件类型 ls alias 命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T16:30:49+08:00">
+                2018-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="系统目录结构"><a href="#系统目录结构" class="headerlink" title="系统目录结构"></a>系统目录结构</h2><p>linux系统目录结构图：<a href="http://www.apelearn.com/study_v2/linux_dir_tree.jpg" target="_blank" rel="noopener">http://www.apelearn.com/study_v2/linux_dir_tree.jpg</a></p>
+<p>/bin ：里面装的是用户用的命令，root也可以用</p>
+<p>/sbin ：里面是只有root能用的命令。</p>
+<p>/boot ：系统启动的相关文件，里面有系统启动的关键文件，删除后系统无法启动</p>
+<p>/dev ：linux系统下的设备文件</p>
+<p>/etc ：配置文件的所在目录<br>/home ：用户的家目录<br>/lib :存系统库文件的<br>/lib64 :存系统的库文件 很多命令都会依赖一些库，查看命令依赖关系：ldd</p>
+<p>/media : 媒介目录。默认是空的。比如插一个U盘会自动放到这个目录下面去</p>
+<p>/mnt ： 临时挂载目录，默认也是空的。可以把新增的光驱或硬盘挂载这个目录下面</p>
+<p>/opt ： 空目录<br>/proc ：里面是一些系统进程<br>/root ：root用户的家目录</p>
+<p>/run ：一些进程产生的临时文件，重启就会消失的文件<br>/srv ：空的，存服务产生的文件<br>/sys ：存系统内核的相关文件<br>/tmp ：系统的临时目录，任何一个用户都可以在这个文件夹下读写删除文件。</p>
+<p>/usr ：用户的文件，</p>
+<p>/var ：是一个很重要的目录。 经常用的/var/log ，系统日志。</p>
+<p>从centOS7系统以后，就不再区分32位和64位版本，都是64位系统。</p>
+<p>总结：/bin，/sbin,/etc,/var,/usr/local这几个目录是用的最多的。常用的。</p>
+<p>tree命令：以树形的形式显示一个目录下面都有哪些目录和子文件</p>
+<p>如果系统没有tree命令就用yum下载一下</p>
+<p>[root@aminglinux-01 /]# yum install -y tree</p>
+<p>tree -L 是可以设置显示最大层数。 下面试一下只显示两层目录下的结构</p>
+<p>[root@aming1 /]# tree -L 2<br>.<br>├── bin -&gt; usr/bin</p>
+<p>├── boot</p>
+<p>│   ├── config-3.10.0-514.el7.x86_64</p>
+<p>│   ├── grub</p>
+<p>│   ├── grub2</p>
+<p>│   ├── initramfs-0-rescue-b1022dedd3b74686922ac31f3e680f36.img</p>
+<p>│   ├── initramfs-3.10.0-514.el7.x86_64.img</p>
+<p>│   ├── initramfs-3.10.0-514.el7.x86_64kdump.img</p>
+<p>│   ├── initrd-plymouth.img</p>
+<p>│   ├── symvers-3.10.0-514.el7.x86_64.gz</p>
+<p>│   ├── System.map-3.10.0-514.el7.x86_64</p>
+<p>│   ├── vmlinuz-0-rescue-b1022dedd3b74686922ac31f3e680f36</p>
+<p>│   └── vmlinuz-3.10.0-514.el7.x86_64</p>
+<p>├── dev</p>
+<p>│   ├── agpgart</p>
+<p>│   ├── autofs</p>
+<p>│   ├── block</p>
+<p>│   ├── bsg</p>
+<p>│   ├── btrfs-control</p>
+<h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><p>ls命令是列取目录或者文件的命令</p>
+<p>可以列取一下系统根目录看一下Linux系统都有哪些目录</p>
+<p>[root@aming1 /]# ls /<br>bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br>ls命令总结<br>ls -l :列取详细信息</p>
+<p>ls -i :列取inode</p>
+<p>ls -lh :看文件大小更直观</p>
+<p>ls -la :列出隐藏文件</p>
+<p>ls -lta: t是时间的意思，按时间顺序排列</p>
+<p>ls -ld :只列出文件夹</p>
+<p>ls命令详解<br>ls -l :列取详细信息（ll命令就是ls -l的缩写）<br>在inode使用量前面11位。第一位表示文件类型，后面九位表示文件权限，最后一个（.）是受制于selinux。如果关闭selinux，新建的文件或目录就会没有(.)</p>
+<p>[root@aminglinux-01 ~]# ls -l</p>
+<p>总用量 4</p>
+<pre><code>-        rw-------.               1                        root   root         1422     5月  12 23:06    anaconda-ks.cfg
+</code></pre><p> 文件类型    权限 .(selinux)      有几个文件使用了这个inode   所有者  所属组     文件大小    最后改动日期         文件名字</p>
+<p>ls -i :列取inode</p>
+<p>文件名字前面的数字就是inode号，inode号是储存除了文件名以外的所有文件信息，都存在inode之中。</p>
+<p>[root@aming1 ~]# ls</p>
+<p>123.txt  anaconda-ks.cfg  test.txt<br>[root@aming1 ~]# ls -i<br>33599795 123.txt  33574987 anaconda-ks.cfg  33599785 test.txt</p>
+<p>ls -lh :显示文件大小更直观<br>[root@aming1 ~]# ls -l</p>
+<p>总用量 12</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>[root@aming1 ~]# ls -lh</p>
+<p>总用量 12K</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1.4K 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>ls -la :列出隐藏文件<br>[root@aming1 ~]# ls -la<br>总用量 40<br>dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>-rw-r–r–.  1 root root   96 4月  25 21:33 123.txt<br>-rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw——-.  1 root root 2550 5月  11 20:55 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   48 5月  11 10:42 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>-rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>-rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
+<p>其中.开头的文件都是隐藏文件或者目录。</p>
+<p>还有两个目录 点和点点 。“.”代表是当前目录 “..”代表的是上层目录</p>
+<p>ls -lt ，t是时间的意思，按时间顺序排列,时间越近排在越前面<br>[root@aming1 ~]# ls -lt</p>
+<p>总用量 12</p>
+<p>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
+<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt</p>
+<p>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
+<p>ls -ld :只列出文件夹</p>
+<p>也可以同时使用 ls -liat</p>
+<p>[root@aming1 ~]# ls -liat</p>
+<p>总用量 40</p>
+<p>33574979 -rw——-.  1 root root 2550 5月  11 20:55 .bash_history</p>
+<p>50332748 drwx——.  2 root root   48 5月  11 10:42 .ssh</p>
+<p>33599785 -rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>33574977 dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>      64 dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>33599796 -rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
+<p>33599795 -rw-r–r–.  1 root root   96 4月  25 21:33 123.txt</p>
+<p>33574987 -rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
+<p>33975719 -rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>33975720 -rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>33975721 -rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>33975722 -rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>33975723 -rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>[root@aming1 ~]# </p>
+<p>其他命令选项使用也有很多，但是不常用，需要的时候可以man一下进行查看</p>
+<h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><p>文件属性前面第一排就是文件类型，就是在权限前面的</p>
+<p>常见的就是： - 是普通文件</p>
+<p>d 文件夹</p>
+<p>还有一些特殊的文件<br>c : 字符串设备</p>
+<p>l : 软连接文件</p>
+<p>b : 块设备，比如光盘，磁盘</p>
+<p>s : 通信文件</p>
+<p>[root@aminglinux-01 ~]# ls -l /dev/</p>
+<p>总用量 0</p>
+<p>crw-rw—-. 1 root video    10, 175 8月   4 20:53 agpgart</p>
+<p>crw——-. 1 root root     10, 235 8月   4 20:53 autofs</p>
+<p>drwxr-xr-x. 2 root root         140 8月   4 20:53 block<br>drwxr-xr-x. 2 root root          80 8月   4 20:53 bsg<br>crw——-. 1 root root     10, 234 8月   4 20:53 btrfs-control<br>drwxr-xr-x. 3 root root          60 8月   4 20:53 bus<br>lrwxrwxrwx. 1 root root           3 8月   4 20:53 cdrom -&gt; sr0<br>drwxr-xr-x. 2 root root        3020 8月   4 20:53 char<br>crw——-. 1 root root      5,   1 8月   4 20:53 console<br>srw-rw-rw-. 1 root root           0 8月   4 20:53 log<br>lrwxrwxrwx. 1 root root          11 8月   4 20:53 core -&gt; /proc/kcore</p>
+<h2 id="alias命令"><a href="#alias命令" class="headerlink" title="alias命令"></a>alias命令</h2><p>alias 就是 命令的别名,是命令加选线得组合。可以理解给一个很长的命令设置一个简单外号，这样可以方便操作。</p>
+<p>alias的作用就是，可以简写命令。</p>
+<p>用which来查看命令的别名</p>
+<p>[root@aminglinux-01 ~]# which ls<br>alias ls=’ls –color=auto’<br>    /usr/bin/ls<br>[root@aminglinux-01 ~]# which ll</p>
+<p>alias ll=’ls -l –color=auto’<br>    /usr/bin/ls</p>
+<p>可以输入alias来看系统有别名的命令有哪些</p>
+<p>[root@aming1 ~]# alias</p>
+<p>alias cp=’cp -i’<br>alias egrep=’egrep –color=auto’<br>alias fgrep=’fgrep –color=auto’<br>alias grep=’grep –color=auto’<br>alias l.=’ls -d .* –color=auto’<br>alias ll=’ls -l –color=auto’<br>alias ls=’ls –color=auto’<br>alias mv=’mv -i’<br>alias rm=’rm -i’<br>alias which=’alias | /usr/bin/which –tty-only –read-alias –show-dot –show-tilde’</p>
+<p>自定义一个别名的格式 ：“ alias aming=’ls -lha’ ”</p>
+<p>[root@aminglinux-01 ~]# aming</p>
+<p>-bash: aming: 未找到命令<br>[root@aminglinux-01 ~]# alias aming=’ls -lha’<br>[root@aminglinux-01 ~]# aming</p>
+<p>总用量 28K</p>
+<p>dr-xr-x—.  3 root root  147 8月   3 09:24 .<br>dr-xr-xr-x. 17 root root  224 8月   3 21:06 ..<br>-rw——-.  1 root root 1.4K 7月  31 23:06 anaconda-ks.cfg<br>-rw——-.  1 root root 1.4K 8月   4 16:45 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   80 8月   3 22:17 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc</p>
+<p>可以看到没有设置别名的时候直接输入aming是不起作用的。可以用which来看一下</p>
+<p>[root@aminglinux-01 ~]# which aming</p>
+<p>alias aming=’ls -lha’<br>    /usr/bin/ls<br>取消aming的别名 用unalias命令</p>
+<p>[root@aminglinux-01 ~]# unalias aming<br>[root@aminglinux-01 ~]# aming<br>-bash: aming: 未找到命令</p>
 
           
         
@@ -825,7 +1119,7 @@ and &apos;journalctl -xn&apos; for details.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

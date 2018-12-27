@@ -294,6 +294,389 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/9月26日磁盘挂载格式化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/27/9月26日磁盘挂载格式化/" itemprop="url">磁盘格式化 挂载及增加交换空间</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T15:08:33+08:00">
+                2018-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="fdisk磁盘分区"><a href="#fdisk磁盘分区" class="headerlink" title="fdisk磁盘分区"></a>fdisk磁盘分区</h2><p>首先添加一块磁盘<br>服务器上面磁盘是支持热插拔的。直接插上新加的硬盘就可以了。</p>
+<p>但是在虚拟机上需要关机加磁盘，在开机，不然无法识别。</p>
+<p>虚拟机可以直接添加（虚拟机》设置》硬盘》添加，然后一路下一步）</p>
+<p>添加好后fdisk -l 命令 查看系统磁盘<br>[root@aming1 ~]# fdisk -l</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节</p>
+<p>磁盘 /dev/sda：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x000c93ac</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sda1   *        2048      411647      204800   83  Linux<br>/dev/sda2          411648     4605951     2097152   82  Linux swap / Solaris<br>/dev/sda3         4605952    41943039    18668544   83  Linux</p>
+<p>可以看到增加了一个sdb 有20G的空间</p>
+<p>fdisk /dev/sdb 划分分区<br>fdisk后面跟硬盘路径，在虚拟机里面是/dev/sdb,在其他设备可能不是。</p>
+<p>[root@aming1 ~]# fdisk /dev/sdb<br>欢迎使用 fdisk (util-linux 2.23.2)。</p>
+<p>更改将停留在内存中，直到您决定将更改写入磁盘。<br>使用写入命令前请三思。</p>
+<p>Device does not contain a recognized partition table<br>使用磁盘标识符 0x421577a6 创建新的 DOS 磁盘标签。</p>
+<p>命令(输入 m 获取帮助)：<br>按下m</p>
+<p>命令(输入 m 获取帮助)：m<br>命令操作<br>   a   toggle a bootable flag<br>   b   edit bsd disklabel<br>   c   toggle the dos compatibility flag<br>   d   delete a partition<br>   g   create a new empty GPT partition table<br>   G   create an IRIX (SGI) partition table<br>   l   list known partition types<br>   m   print this menu<br>   n   add a new partition<br>   o   create a new empty DOS partition table<br>   p   print the partition table<br>   q   quit without saving changes<br>   s   create a new empty Sun disklabel<br>   t   change a partition’s system id<br>   u   change display/entry units<br>   v   verify the partition table<br>   w   write table to disk and exit<br>   x   extra functionality (experts only)</p>
+<p>常用选项：<br>n :增加一个新的分区</p>
+<p>p :列出分区</p>
+<p>w :保存</p>
+<p>d :删除</p>
+<p>首先 p 列出分区<br>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x421577a6</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System</p>
+<p>然后 n 增加一个分区<br>按n之后会出现选择分区类型，p 是主分区，e是扩展分区<br>fdisk分区工具，它的分区格式为MBR，特点是，最多分4个主分区，磁盘大小不能超过2T。如果想要多个分区，只能分扩展分区，然后在扩展分区里面划分逻辑分区。</p>
+<p>命令(输入 m 获取帮助)：n<br>Partition type:<br>   p   primary (0 primary, 0 extended, 4 free)<br>   e   extended<br>Select (default p): </p>
+<p>先选择p 主分区,分两个G得空间，如下操作。<br>Select (default p): p<br>分区号 (1-4，默认 1)：1<br>起始 扇区 (2048-41943039，默认为 2048)：<br>将使用默认值 2048<br>Last 扇区, +扇区 or +size{K,M,G} (2048-41943039，默认为 41943039)：+2G<br>分区 1 已设置为 Linux 类型，大小设为 2 GiB</p>
+<p>之后p 列出分区,可以看到分好了<br>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x22016dd4</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>如果分了四个主分区之后就不可以在分区了，下面看一下<br>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x8ef30a04</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352     8390655     2097152   83  Linux<br>/dev/sdb3         8390656    10487807     1048576   83  Linux<br>/dev/sdb4        10487808    16779263     3145728   83  Linux</p>
+<p>命令(输入 m 获取帮助)：n<br>If you want to create more than four partitions, you must replace a<br>primary partition with an extended partition first.<br>删除一个主分区，在分配一个10个G的扩展分区<br>命令(输入 m 获取帮助)：n<br>Partition type:<br>   p   primary (3 primary, 0 extended, 1 free)<br>   e   extended<br>Select (default e): e<br>已选择分区 4<br>起始 扇区 (12584960-41943039，默认为 12584960)：<br>将使用默认值 12584960<br>Last 扇区, +扇区 or +size{K,M,G} (12584960-41943039，默认为 41943039)：+10G<br>分区 4 已设置为 Extended 类型，大小设为 10 GiB</p>
+<p>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0xe38cbaff</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352    10487807     3145728   83  Linux<br>/dev/sdb3        10487808    12584959     1048576   83  Linux<br>/dev/sdb4        12584960    33556479    10485760    5  Extended</p>
+<p>逻辑分区的添加<br>逻辑分区是在扩展分区里面在进行分区的，可以分很多。所以逻辑分区的大小不能超过扩展分区。</p>
+<p>添加第一个逻辑分区<br>命令(输入 m 获取帮助)：n<br>All primary partitions are in use<br>添加逻辑分区 5<br>起始 扇区 (12587008-33556479，默认为 12587008)：<br>将使用默认值 12587008<br>Last 扇区, +扇区 or +size{K,M,G} (12587008-33556479，默认为 33556479)：+2G<br>分区 5 已设置为 Linux 类型，大小设为 2 GiB</p>
+<p>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0xe38cbaff</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352    10487807     3145728   83  Linux<br>/dev/sdb3        10487808    12584959     1048576   83  Linux<br>/dev/sdb4        12584960    33556479    10485760    5  Extended<br>/dev/sdb5        12587008    16781311     2097152   83  Linux</p>
+<p>如果主分区有空余，并且有扩展分区的情况下。在进行分区的时候会提示是要分主分区，还是要分逻辑分区</p>
+<ul>
+<li>命令(输入 m 获取帮助)：n<br>Partition type:<br> p   primary (2 primary, 1 extended, 1 free)<br> l   logical (numbered from 5)<br>d 删除一个分区<br>删除1分区<br>命令(输入 m 获取帮助)：d<br>分区号 (1-4，默认 4)：4<br>分区 4 已删除</li>
+</ul>
+<p>p查看下分区列表，已经没有1分区了。<br>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x8ef30a04</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb2         4196352     8390655     2097152   83  Linux<br>/dev/sdb3         8390656    10487807     1048576   83  Linux<br>/dev/sdb4        12584960    33556479    10485760    5  Extended<br>/dev/sdb5        12587008    16781311     2097152   83  Linux<br>/dev/sdb6        16783360    20977663     2097152   83  Linux</p>
+<p>删除逻辑分区5<br>结果发现，逻辑分区6没了，5还在，仔细看之前的分区6变成了分区5。5已经被删除了。</p>
+<p>命令(输入 m 获取帮助)：d<br>分区号 (1-6，默认 6)：5<br>分区 5 已删除</p>
+<p>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：21.5 GB, 21474836480 字节，41943040 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0xe38cbaff</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb2         4196352    10487807     3145728   83  Linux<br>/dev/sdb3        10487808    12584959     1048576   83  Linux<br>/dev/sdb4        12584960    33556479    10485760    5  Extended<br>/dev/sdb5        16783360    20977663     2097152   83  Linux</p>
+<p>w 保存操作<br>w ,保存后退出<br>命令(输入 m 获取帮助)：w<br>The partition table has been altered!</p>
+<p>Calling ioctl() to re-read partition table.<br>正在同步磁盘。<br>[root@aming1 ~]# </p>
+<p>parted分区gpt格式<br>上面学习了fdisk分区工具，它的分区格式为MBR，特点是，最多分4个主分区，磁盘大小不能超过2T。而GPT分区格式，突破了这些限制，它没有主分区、扩展分区、逻辑分区之分，在一块磁盘上最多可以分128个分区出来，支持大于2T的分区，最大卷可达18EB。 相信，随着存储级别的升级，将来的分区格式逐渐会淘汰MBR，而GPT成为主流。</p>
+<p>在命令行输入parted后，进入parted命令的交互模式。输入help会显示帮助信息。<br>[root@aming1 ~]# parted<br>GNU Parted 3.1<br>使用 /dev/sda<br>Welcome to GNU Parted! Type ‘help’ to view a list of commands.<br>(parted) help<br>  align-check TYPE N                        check partition N for TYPE(min|opt) alignment<br>  help [COMMAND]                           print general help, or help on COMMAND<br>  mklabel,mktable LABEL-TYPE               create a new disklabel (partition table)<br>  mkpart PART-TYPE [FS-TYPE] START END     make a partition<br>  name NUMBER NAME                         name partition NUMBER as NAME<br>  print [devices|free|list,all|NUMBER]     display the partition table, available devices, free space, all found partitions, or a particular partition<br>  quit                                     exit program<br>  rescue START END                         rescue a lost partition near START and END<br>  rm NUMBER                                delete partition NUMBER<br>  select DEVICE                            choose the device to edit<br>  disk_set FLAG STATE                      change the FLAG on selected device<br>  disk_toggle [FLAG]                       toggle the state of FLAG on selected device<br>  set NUMBER FLAG STATE                    change the FLAG on partition NUMBER<br>  toggle [NUMBER [FLAG]]                   toggle the state of FLAG on partition NUMBER<br>  unit UNIT                                set the default unit to UNIT<br>  version                                  display the version number and copyright information of GNU Parted<br>(parted)<br>用法：<br>1，将磁盘上原有的分区删除掉：<br>进入：# parted /dev/sdb<br>查看：（parted）p</p>
+<p>删除：（parted）rm 1</p>
+<p>[root@aming1 ~]# parted /dev/sdb<br>GNU Parted 3.1<br>使用 /dev/sdb<br>Welcome to GNU Parted! Type ‘help’ to view a list of commands.</p>
+<p>(parted) p<br>Model: VMware, VMware Virtual S (scsi)<br>Disk /dev/sdb: 21.5GB<br>Sector size (logical/physical): 512B/512B<br>Partition Table: msdos<br>Disk Flags: </p>
+<p>Number  Start   End     Size    Type      File system  标志<br> 2      2149MB  5370MB  3221MB  primary<br> 3      5370MB  6443MB  1074MB  primary<br> 4      6443MB  17.2GB  10.7GB  extended<br> 5      8593MB  10.7GB  2147MB  logical</p>
+<p>(parted) rm 2<br>(parted) rm 3<br>(parted) rm 4<br>(parted) rm 5<br>错误: 分区不存在。<br>(parted) p<br>Model: VMware, VMware Virtual S (scsi)<br>Disk /dev/sdb: 21.5GB<br>Sector size (logical/physical): 512B/512B<br>Partition Table: msdos<br>Disk Flags: </p>
+<p>Number  Start  End  Size  Type  File system  标志</p>
+<p>2,将磁盘格式变成gpt的格式（因为parted只能针对gpt格式的磁盘进行操作）<br>转换：（parted） mklabel gpt<br>(parted) mklabel gpt<br>警告: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?<br>是/Yes/否/No? yes</p>
+<p>分区：（parted） mkpart primary 1 500 （分第一个主分区500MB）<br>(parted) mkpart primary 1 500<br>(parted) p<br>Model: VMware, VMware Virtual S (scsi)<br>Disk /dev/sdb: 21.5GB<br>Sector size (logical/physical): 512B/512B<br>Partition Table: gpt<br>Disk Flags: </p>
+<p>Number  Start   End    Size   File system  Name     标志<br> 1      1049kB  500MB  499MB               primary</p>
+<p>(parted)                                                                  </p>
+<p>分区：（parted） mkpart primary 501 1000 (分第二个主分区500MB)<br> (parted) mkpart primary 501 1000<br>(parted) p<br>Model: VMware, VMware Virtual S (scsi)<br>Disk /dev/sdb: 21.5GB<br>Sector size (logical/physical): 512B/512B<br>Partition Table: gpt<br>Disk Flags: </p>
+<p>Number  Start   End     Size   File system  Name     标志<br> 1      1049kB  500MB   499MB               primary<br> 2      501MB   1000MB  499MB               primary<br>分区：（parted） mkpart logical 1001 2000 (分第三个逻辑分区1000MB) （parted的逻辑分区不用先分扩展分区，直接一步到位）<br>(parted) mkpart logical 1001 2000<br>(parted) p<br>Model: VMware, VMware Virtual S (scsi)<br>Disk /dev/sdb: 21.5GB<br>Sector size (logical/physical): 512B/512B<br>Partition Table: gpt<br>Disk Flags: </p>
+<p>Number  Start   End     Size   File system  Name     标志<br> 1      1049kB  500MB   499MB               primary<br> 2      501MB   1000MB  499MB               primary<br> 3      1001MB  2000MB  998MB               logical</p>
+<p>查看：（parted） p</p>
+<p>退出：（parted）quit ( parted分区自动保存，不用手动保存 )</p>
+<p>##磁盘格式化<br>首先看一下CentOS7支持那些磁盘格式：cat /etc/filesystems<br>[root@aming1 ~]# cat /etc/filesystems<br>xfs<br>ext4<br>ext3<br>ext2<br>nodev proc<br>nodev devpts<br>iso9660<br>vfat<br>hfs<br>hfsplus<br>*<br>[root@aming1 ~]# </p>
+<p>xfs是centOS7的默认文件系统。在centOS6以及以前的系统使用的是ext的文件系统。</p>
+<p>可以用 mount 命令查看目前磁盘的文件系统（会出来很多，主要看倒数第二行）</p>
+<p>[root@aming1 ~]# mount</p>
+<p>debugfs on /sys/kernel/debug type debugfs (rw,relatime)<br>hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)<br>/dev/sda1 on /boot type xfs (rw,relatime,seclabel,attr2,inode64,noquota)                   —————————————————-主要看这行——————-<br>tmpfs on /run/user/0 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=99996k,mode=700)</p>
+<p>磁盘格式化命令：mke2fs, mkfs.ext2, mkfs.ext3, mkfs.ext4, mkfs.xfs<br>这几个命令的作用都是一样的。mke2fs -t ext2/3/4等于mkfs.ext2, mkfs.ext3, mkfs.ext4, 如果想格成xfs格式只能用mkfs.xfs来格，系统不支持mke2fs -t xfs。</p>
+<p>mke2fs 用法<br>-t :指定文件系统类型。<br>-b ：分区时设定块大小。可以后面跟指定 1024B ，2048B,4096B<br>-m : 更改磁盘预留boot空间大小（一般默认预留5%，磁盘空间越大，越浪费）<br>-i : 指定”字节/inode”的比例<br>-t :指定文件系统类型。</p>
+<p>[root@localhost ~]# mke2fs -t ext4 /dev/sdb1<br>mke2fs 1.42.9 (28-Dec-2013)<br>文件系统标签=<br>OS type: Linux<br>块大小=4096 (log=2)<br>分块大小=4096 (log=2)<br>Stride=0 blocks, Stripe width=0 blocks<br>131072 inodes, 524288 blocks<br>26214 blocks (5.00%) reserved for the super user<br>第一个数据块=0<br>Maximum filesystem blocks=536870912<br>16 block groups<br>32768 blocks per group, 32768 fragments per group<br>8192 inodes per group<br>Superblock backups stored on blocks:<br>32768, 98304, 163840, 229376, 294912</p>
+<p>Allocating group tables: 完成<br>正在写入inode表: 完成<br>Creating journal (16384 blocks): 完成<br>Writing superblocks and filesystem accounting information: 完成<br>-b ：分区时设定块大小。可以后面跟指定 1024B ，2048B,4096B</p>
+<p>[root@localhost ~]# mke2fs -b 8192 /dev/sdb1<br>Warning: blocksize 8192 not usable on most systems.<br>mke2fs 1.42.9 (28-Dec-2013)<br>mke2fs: 8192-byte blocks too big for system (max 4096)<br>无论如何也要继续? (y,n) y<br>Warning: 8192-byte blocks too big for system (max 4096), forced to continue<br>warning: 32 blocks unused.</p>
+<p>文件系统标签=<br>OS type: Linux<br>块大小=8192 (log=3)<br>分块大小=8192 (log=3)<br>Stride=0 blocks, Stripe width=0 blocks<br>131072 inodes, 262112 blocks<br>13105 blocks (5.00%) reserved for the super user<br>第一个数据块=0<br>Maximum filesystem blocks=268402688<br>4 block groups<br>65528 blocks per group, 65528 fragments per group<br>32768 inodes per group<br>Superblock backups stored on blocks:<br>65528, 196584</p>
+<p>Allocating group tables: 完成<br>正在写入inode表: 完成<br>Writing superblocks and filesystem accounting information: 完成</p>
+<p>-m : 更改磁盘预留boot空间大小（一般默认预留5%，磁盘空间越大，越浪费）</p>
+<p>  [root@localhost ~]# mke2fs -m 0.1 /dev/sdb1<br>mke2fs 1.42.9 (28-Dec-2013)<br>文件系统标签=<br>OS type: Linux<br>块大小=4096 (log=2)<br>分块大小=4096 (log=2)<br>Stride=0 blocks, Stripe width=0 blocks<br>131072 inodes, 524288 blocks<br>524 blocks (0.10%) reserved for the super user<br>第一个数据块=0<br>Maximum filesystem blocks=536870912<br>16 block groups<br>32768 blocks per group, 32768 fragments per group<br>8192 inodes per group<br>Superblock backups stored on blocks:<br>    32768, 98304, 163840, 229376, 294912</p>
+<p>Allocating group tables: 完成<br>正在写入inode表: 完成<br>Writing superblocks and filesystem accounting information: 完成 </p>
+<p>[root@localhost ~]#<br>-i : 指定”字节/inode”的比例 （inode会变多）</p>
+<p>[root@localhost ~]# mke2fs -i 8192 -t ext4 /dev/sdb1<br>mke2fs 1.42.9 (28-Dec-2013)<br>文件系统标签=<br>OS type: Linux<br>块大小=4096 (log=2)<br>分块大小=4096 (log=2)<br>Stride=0 blocks, Stripe width=0 blocks<br>262144 inodes, 524288 blocks<br>26214 blocks (5.00%) reserved for the super user<br>第一个数据块=0<br>Maximum filesystem blocks=536870912<br>16 block groups<br>32768 blocks per group, 32768 fragments per group<br>16384 inodes per group<br>Superblock backups stored on blocks:<br>    32768, 98304, 163840, 229376, 294912</p>
+<p>Allocating group tables: 完成<br>正在写入inode表: 完成<br>Creating journal (16384 blocks): 完成<br>Writing superblocks and filesystem accounting information: 完成 </p>
+<p>[root@localhost ~]#<br>blkid 查看还没有挂载的磁盘，查看UUID<br>[root@aming1 ~]# blkid<br>/dev/sdb1: PARTLABEL=”primary” PARTUUID=”7c0640c1-40d5-489a-987f-4f61ffcb3e2d”<br>/dev/sdb2: PARTLABEL=”primary” PARTUUID=”cce11e2d-b1cf-42e5-aab3-d90cf838aa4c”<br>/dev/sdb3: PARTLABEL=”logical” PARTUUID=”56a37982-891f-4dd1-b5c3-21d97d1fc8e3”<br>/dev/sda1: UUID=”404e395a-be3a-4061-8ad0-e32e271a0679” TYPE=”xfs”<br>/dev/sda2: UUID=”0932d791-1484-41bc-972b-71091c2c6410” TYPE=”swap”<br>/dev/sda3: UUID=”475a482e-19df-4629-abaf-6b989d1572ba” TYPE=”xfs” </p>
+<p>mkfs.xfs 没用什么特殊用法，后面直接跟分区就可以了。</p>
+<p>磁盘有没有分区都可以直接格式化！</p>
+<p>磁盘挂载<br>用法：mount 需要挂在的路径 挂载点<br>mount /dev/sdb 挂载点mount /dev/sdb 挂载点<br>[root@localhost ~]# df -h<br>文件系统        容量  已用  可用 已用% 挂载点<br>/dev/sda3        18G  1.1G   17G    7% /<br>devtmpfs        479M     0  479M    0% /dev<br>tmpfs           489M     0  489M    0% /dev/shm<br>tmpfs           489M  6.7M  482M    2% /run<br>tmpfs           489M     0  489M    0% /sys/fs/cgroup<br>/dev/sda1       197M  109M   88M   56% /boot<br>tmpfs            98M     0   98M    0% /run/user/0<br>[root@localhost ~]# mount /dev/sdb1 /mnt/<br>[root@localhost ~]# df -h<br>文件系统        容量  已用  可用 已用% 挂载点<br>/dev/sda3        18G  1.1G   17G    7% /<br>devtmpfs        479M     0  479M    0% /dev<br>tmpfs           489M     0  489M    0% /dev/shm<br>tmpfs           489M  6.7M  482M    2% /run<br>tmpfs           489M     0  489M    0% /sys/fs/cgroup<br>/dev/sda1       197M  109M   88M   56% /boot<br>tmpfs            98M     0   98M    0% /run/user/0<br>/dev/sdb1       1.9G  6.0M  1.8G    1% /mnt<br>可以看到最后一行已经有sdb1了。</p>
+<p>挂载磁盘的卸载 umount /dev/sdb1<br>[root@localhost ~]# mount /dev/sdb1 /mnt/<br>[root@localhost ~]# umount /dev/sdb1<br>如果提示目标忙，加 -l 参数</p>
+<p>mount 选项<br>mount -t 类型 -o 挂接方式 源路径 目标路径<br>-t 详细选项:</p>
+<pre><code>光盘或光盘镜像：iso9660
+
+DOS fat16文件系统：msdos
+
+Windows 9x fat32文件系统：vfat
+
+Windows NT ntfs文件系统：ntfs
+
+Mount Windows文件网络共享：smbfs（需内核支持）推荐cifs
+
+UNIX(LINUX) 文件网络共享：nfs
+</code></pre><p>   -o 详细选项:</p>
+<pre><code>loop ：用来把一个文件当成硬盘分区挂接上系统
+
+ro ：采用只读方式挂接设备
+
+rw ：采用读写方式挂接设备
+
+iocharset ：指定访问文件系统所用字符集,例如iocharset=utf8
+
+remount ：重新挂载
+</code></pre><p>使用实例:</p>
+<p>   挂载windows文件共享:</p>
+<pre><code>mount -t smbfs -o username=admin,password=888888 //192.168.1.2/c$ /mnt/samba
+
+mount -t cifs -o username=xxx,password=xxx //IP/sharename /mnt/dirname
+</code></pre><p>   挂载Linux文件nfs共享:</p>
+<pre><code>mount -t nfs -o rw 192.168.1.2:/usr/www /usr/www
+</code></pre><p>   挂载ISO镜像:</p>
+<pre><code>mount -o loop -t iso9660 /usr/mydisk.iso /home/ping.bao/cd
+</code></pre><p>   挂载USB移动硬盘:</p>
+<pre><code>mount -t ntfs /dev/sdc1 /root/usb
+</code></pre><p>   挂载CDROM:</p>
+<pre><code>mount /dev/cdrom /home/ping.bao/cd
+</code></pre><p>   取消挂载:</p>
+<pre><code>umount /dev/cdrom /home/ping.bao/cd
+</code></pre><p>   单用户模式重新挂载根分区：</p>
+<pre><code>mount -o remount,rw /
+</code></pre><p>ro : 表示按只读挂在权限<br>rw ：表示按可读可写权限挂载<br>async/sync : async表示与磁盘和内存不同步，系统每隔一段时间就会把内存数据写入磁盘中，而sync则会时时同步内存和磁盘中的数据。<br>t : 指定分区类型<br>user/nouser : 表示允许/不允许root外其他的用户挂载分区，为了安全，使用nouser。<br>vi /etc/fstab 这个文件是系统启动都挂载了那些磁盘，都写在这个配置文件里里面。<br>可以自己手动添加。<br>[root@localhost ~]# vi /etc/fstab </p>
+<p> /etc/fstab<br> Created by anaconda on Mon Aug 14 23:56:24 2017</p>
+<p> Accessible filesystems, by reference, are maintained under ‘/dev/disk’<br> See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</p>
+<p>UUID=58f4e3c9-b84f-4689-be51-3396d2231926 /                       xfs     defaults        0 0<br>UUID=4203cad2-52e1-4a3a-9dd6-2f7e78c28805 /boot                   xfs     defaults        0 0<br>UUID=9877b5cd-7fed-450f-9153-1ee3ec839d77 swap                    swap    defaults        0 0<br>/dev/sdb1                                  /mnt                   ext4    defaults        0 0</p>
+<h2 id="手动增加swap空间"><a href="#手动增加swap空间" class="headerlink" title="手动增加swap空间"></a>手动增加swap空间</h2><p>首先虚拟一些空间 dd if=/dev/zero of=/tmp/newdisk bs=1M count=100<br>[root@localhost ~]# dd if=/dev/zero of=/tmp/newdisk bs=1M count=100<br>记录了100+0 的读入<br>记录了100+0 的写出<br>104857600字节(105 MB)已复制，0.978038 秒，107 MB/秒<br>dd :是用来操作磁盘的<br>if :指定去哪里读<br>/dev/zero ：linux可以调用无限大的zero<br>of : 写入到哪里去<br>bs : 块大小<br>count=100 : 就是100个块<br>查看调取的空间<br>[root@localhost ~]# du -sh /tmp/newdisk<br>100M    /tmp/newdisk<br>用mkswap格式化<br>[root@localhost ~]# mkswap -f /tmp/newdisk<br>正在设置交换空间版本 1，大小 = 102396 KiB<br>无标签，UUID=3522cba1-6012-4596-a8d1-bb38a47a5dd2<br>[root@localhost ~]#<br>之后把空间加到swap里面<br>先查看swap空间大小<br>root@localhost ~]# free -m<br>              total        used        free      shared  buff/cache   available<br>Mem:            976         108         603           6         264         690<br>Swap:          2047           0        2047<br>swapon /tmp/newdisk 把空间加载到现有磁盘空间去<br>[root@localhost ~]# swapon /tmp/newdisk<br>swapon: /tmp/newdisk：不安全的权限 0644，建议使用 0600。<br>[root@localhost ~]# free -m<br>              total        used        free      shared  buff/cache   available<br>Mem:            976         108         603           6         264         690<br>Swap:          2147           0        2147<br>[root@localhost ~]#<br>swapoff /tmp/newdisk 把空间卸载掉<br>[root@localhost ~]# swapoff /tmp/newdisk<br>[root@localhost ~]# free -m<br>              total        used        free      shared  buff/cache   available<br>Mem:            976         108         603           6         264         690<br>Swap:          2047           0        2047<br>dd工具使用场景</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/26/hello-world/" itemprop="url">Hello World</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T15:58:24+08:00">
+                2018-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/9月25日 磁盘管理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1854,452 +2237,6 @@ fidone
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/9月12日 相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哈哈哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/09/9月12日 相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/" itemprop="url">9月12日 2.6--2.9 相对与绝对路径  cd命令 创建和删除目录mkdir/rmdir  rm命令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-09T19:39:52+08:00">
-                2018-12-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="绝对路径-：以根“-”开头的路径都是绝对路径。"><a href="#绝对路径-：以根“-”开头的路径都是绝对路径。" class="headerlink" title="绝对路径 ：以根“/”开头的路径都是绝对路径。"></a>绝对路径 ：以根“/”开头的路径都是绝对路径。</h2><p>[root@aminglinux-01 ~]# ls /root/.ssh/authorized_keys<br>/root/.ssh/authorized_keys</p>
-<p>不管在那个路径下，都能都能通过绝对路径找到文件。从根“/”开始<br>任何文件都有绝对路径。</p>
-<h2 id="相对路径-：相对于当前目录的路径，不是从根“-”开始的路径"><a href="#相对路径-：相对于当前目录的路径，不是从根“-”开始的路径" class="headerlink" title="相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径"></a>相对路径 ：相对于当前目录的路径，不是从根“/”开始的路径</h2><p>[root@aminglinux-01 ~]# cd /etc/sysconfig/ </p>
-<p>[root@aminglinux-01 sysconfig]# ls network-scripts/ifcfg-ens33</p>
-<p>network-scripts/ifcfg-ens33</p>
-<p>[root@aminglinux-01 sysconfig]# pwd </p>
-<p>/etc/sysconfig</p>
-<ul>
-<li>pwd命令是用来显示当前路径，当前的目录是哪里。</li>
-<li>cd 是切换目录的命令<h2 id="2-7-cd命令"><a href="#2-7-cd命令" class="headerlink" title="2.7 cd命令"></a>2.7 cd命令</h2></li>
-</ul>
-<p>cd 切换目录命令。change directory 的缩写</p>
-<ul>
-<li>cd - ：这个命令的就是切换上一次目录的所在位置。切换非常方便。</li>
-</ul>
-<p>[root@localhost ~]# cd -</p>
-<p>/</p>
-<p>[root@localhost /]# cd -</p>
-<p>/root</p>
-<p>[root@localhost ~]# cd -</p>
-<p>/<br>[root@localhost /]# cd -<br>/root<br>[root@localhost ~]#</p>
-<ul>
-<li>直接输入命令：cd<br>无论在哪个目录下，输入cd都会回到登陆系统的用户的家目录下。</li>
-</ul>
-<p>[root@localhost ~]# pwd</p>
-<p>/root<br>[root@localhost ~]# cd</p>
-<p>[root@localhost ~]# pwd</p>
-<p>/root<br>[root@localhost ~]#</p>
-<ul>
-<li><p>命令：cd ~<br>同样是直接返回用户的家目录</p>
-</li>
-<li><p>命令：cd ..<br>返回上一层目录</p>
-</li>
-<li>其他选项不常用，可以man cd 来查看用法。<h2 id="2-8-创建和删除目录"><a href="#2-8-创建和删除目录" class="headerlink" title="2.8 创建和删除目录"></a>2.8 创建和删除目录</h2></li>
-</ul>
-<p>创建目录 mkdir</p>
-<p>mkdir是make directory的缩写</p>
-<p>[root@localhost ~]# ls</p>
-<p>anaconda-ks.cfg<br>[root@localhost ~]# mkdir 1.txt</p>
-<p>[root@localhost ~]# ls</p>
-<p>1.txt  anaconda-ks.cfg</p>
-<p>[root@localhost ~]#</p>
-<ul>
-<li>mkdir -p 创建连续的文件夹<br>正常用mkdir创建连续的文件夹是不可以的，如下</li>
-</ul>
-<p>[root@localhost ~]# mkdir 11/22/33/44/55</p>
-<p>mkdir: 无法创建目录”11/22/33/44/55”: 没有那个文件或目录<br>[root@localhost ~]#</p>
-<p>加-p 属性即可创建成功</p>
-<p>[root@localhost ~]# mkdir -p 11/22/33/44/55<br>[root@localhost ~]# tree<br>.<br>├── 11<br>│   └── 22<br>│       └── 33<br>│           └── 44<br>│               └── 55<br>├── 1.txt<br>└── anaconda-ks.cfg</p>
-<p>6 directories, 1 file<br>[root@localhost ~]#</p>
-<ul>
-<li>mkdir -pv 创建连续的文件夹并显示创建过程</li>
-</ul>
-<p>[root@localhost ~]# mkdir -pv 111/222/333/444/555</p>
-<p>mkdir: 已创建目录 “111”</p>
-<p>mkdir: 已创建目录 “111/222”</p>
-<p>mkdir: 已创建目录 “111/222/333”</p>
-<p>mkdir: 已创建目录 “111/222/333/444”</p>
-<p>mkdir: 已创建目录 “111/222/333/444/555”</p>
-<p>[root@localhost ~]#</p>
-<h2 id="删除目录-rmdir"><a href="#删除目录-rmdir" class="headerlink" title="删除目录 rmdir"></a>删除目录 rmdir</h2><p>rmdir是remove directory的缩写</p>
-<ul>
-<li>rmdir 直接运行时不能删除非空目录，也就是只能删除空文件夹，如下</li>
-</ul>
-<p>root@localhost ~]# rmdir /tmp/aminglinux/</p>
-<p>rmdir: 删除 “/tmp/aminglinux/“ 失败: 目录非空</p>
-<p>[root@localhost ~]# touch /tmp/aminglinux/222/aaa/2.txt</p>
-<p>[root@localhost ~]# rmdir /tmp/aminglinux/222/aaa/</p>
-<p>rmdir: 删除 “/tmp/aminglinux/222/aaa/“ 失败: 目录非空</p>
-<p>[root@localhost ~]#</p>
-<ul>
-<li>rmdir -p 也是可以连续删除空文件夹的。但必须是空的，如果是非空则删不掉，只删除空的</li>
-</ul>
-<p>[root@aminglinux-01 ~]# mkdir -p /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
-<p>[root@aminglinux-01 ~]# rmdir -pv /tmp/aminglinux/222/yyyy/uuuu/iiii/ </p>
-<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu/iiii/“ </p>
-<p>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy/uuuu”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222/yyyy”<br>rmdir: 正在删除目录 “/tmp/aminglinux/222”<br>rmdir: 删除目录 “/tmp/aminglinux/222” 失败: 目录非空</p>
-<p>mdir只能删除目录，而且必须是空目录，要想全部删除只能先删除里面的文件夹后者是文件。-p 比较危险，一般不用。</p>
-<h2 id="2-9-rm命令"><a href="#2-9-rm命令" class="headerlink" title="2.9 rm命令"></a>2.9 rm命令</h2><p>之前学习的rmdir 删除局限性是比较大的。这回试试rm命令能否顺利删除有文件的目录呢</p>
-<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/<br>/tmp/aminglinux/ ├── 111<br>                              │        └── 222<br>                              │                └── 333<br>                              └── 222<br>                                        └── aaa<br>                                                 ├── 1.txt<br>                                                 └── bbb<br>                                                           └── ccc<br> 7 directories, 1 file<br>[root@aminglinux-01 ~]# rm /tmp/aminglinux/222/ </p>
-<p>rm: 无法删除”/tmp/aminglinux/222/“: 是一个目录 </p>
-<p>[root@aminglinux-01 ~]# rm -r /tmp/aminglinux/222/</p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/“? y </p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/aaa”? y </p>
-<p>rm：是否进入目录”/tmp/aminglinux/222/aaa/bbb”? y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb/ccc”？y</p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa/bbb”？y</p>
-<p>rm：是否删除普通空文件 “/tmp/aminglinux/222/aaa/1.txt”？y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/aaa”？y </p>
-<p>rm：是否删除目录 “/tmp/aminglinux/222/“？y</p>
-<p>[root@aminglinux-01 ~]# tree /tmp/aminglinux/</p>
-<p>/tmp/aminglinux/<br>└── 111<br>          └── 222<br>                   └── 333<br>3 directories, 0 files<br>[root@aminglinux-01 ~]#<br>可以看到rm 是不能直接删有文件的目录的。但是加上-r指令，就可以可以全部删除啦。</p>
-<p>可以看到文件1.txt也是被直接删除了。<br>如果加上-f命令就会强制性删除，不会问是否删除文件，这样省去如果文件夹或文件过多一直问下去的麻烦。</p>
-<ul>
-<li>总结<br>rm 只删除目录里面的文件</li>
-</ul>
-<p>rm -r删除所有目录以及文件</p>
-<p>rm -f强制删除文件，不提示是否删除</p>
-<p>rm -v显示删除过程</p>
-<p>rm -rfv 指令可以叠加使用，效果叠加。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/系统目录 文件类型 ls命令 alias命令/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哈哈哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/07/系统目录 文件类型 ls命令 alias命令/" itemprop="url">9月11日 系统目录 文件类型 ls alias 命令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T16:30:49+08:00">
-                2018-12-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="系统目录结构"><a href="#系统目录结构" class="headerlink" title="系统目录结构"></a>系统目录结构</h2><p>linux系统目录结构图：<a href="http://www.apelearn.com/study_v2/linux_dir_tree.jpg" target="_blank" rel="noopener">http://www.apelearn.com/study_v2/linux_dir_tree.jpg</a></p>
-<p>/bin ：里面装的是用户用的命令，root也可以用</p>
-<p>/sbin ：里面是只有root能用的命令。</p>
-<p>/boot ：系统启动的相关文件，里面有系统启动的关键文件，删除后系统无法启动</p>
-<p>/dev ：linux系统下的设备文件</p>
-<p>/etc ：配置文件的所在目录<br>/home ：用户的家目录<br>/lib :存系统库文件的<br>/lib64 :存系统的库文件 很多命令都会依赖一些库，查看命令依赖关系：ldd</p>
-<p>/media : 媒介目录。默认是空的。比如插一个U盘会自动放到这个目录下面去</p>
-<p>/mnt ： 临时挂载目录，默认也是空的。可以把新增的光驱或硬盘挂载这个目录下面</p>
-<p>/opt ： 空目录<br>/proc ：里面是一些系统进程<br>/root ：root用户的家目录</p>
-<p>/run ：一些进程产生的临时文件，重启就会消失的文件<br>/srv ：空的，存服务产生的文件<br>/sys ：存系统内核的相关文件<br>/tmp ：系统的临时目录，任何一个用户都可以在这个文件夹下读写删除文件。</p>
-<p>/usr ：用户的文件，</p>
-<p>/var ：是一个很重要的目录。 经常用的/var/log ，系统日志。</p>
-<p>从centOS7系统以后，就不再区分32位和64位版本，都是64位系统。</p>
-<p>总结：/bin，/sbin,/etc,/var,/usr/local这几个目录是用的最多的。常用的。</p>
-<p>tree命令：以树形的形式显示一个目录下面都有哪些目录和子文件</p>
-<p>如果系统没有tree命令就用yum下载一下</p>
-<p>[root@aminglinux-01 /]# yum install -y tree</p>
-<p>tree -L 是可以设置显示最大层数。 下面试一下只显示两层目录下的结构</p>
-<p>[root@aming1 /]# tree -L 2<br>.<br>├── bin -&gt; usr/bin</p>
-<p>├── boot</p>
-<p>│   ├── config-3.10.0-514.el7.x86_64</p>
-<p>│   ├── grub</p>
-<p>│   ├── grub2</p>
-<p>│   ├── initramfs-0-rescue-b1022dedd3b74686922ac31f3e680f36.img</p>
-<p>│   ├── initramfs-3.10.0-514.el7.x86_64.img</p>
-<p>│   ├── initramfs-3.10.0-514.el7.x86_64kdump.img</p>
-<p>│   ├── initrd-plymouth.img</p>
-<p>│   ├── symvers-3.10.0-514.el7.x86_64.gz</p>
-<p>│   ├── System.map-3.10.0-514.el7.x86_64</p>
-<p>│   ├── vmlinuz-0-rescue-b1022dedd3b74686922ac31f3e680f36</p>
-<p>│   └── vmlinuz-3.10.0-514.el7.x86_64</p>
-<p>├── dev</p>
-<p>│   ├── agpgart</p>
-<p>│   ├── autofs</p>
-<p>│   ├── block</p>
-<p>│   ├── bsg</p>
-<p>│   ├── btrfs-control</p>
-<h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><p>ls命令是列取目录或者文件的命令</p>
-<p>可以列取一下系统根目录看一下Linux系统都有哪些目录</p>
-<p>[root@aming1 /]# ls /<br>bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var<br>ls命令总结<br>ls -l :列取详细信息</p>
-<p>ls -i :列取inode</p>
-<p>ls -lh :看文件大小更直观</p>
-<p>ls -la :列出隐藏文件</p>
-<p>ls -lta: t是时间的意思，按时间顺序排列</p>
-<p>ls -ld :只列出文件夹</p>
-<p>ls命令详解<br>ls -l :列取详细信息（ll命令就是ls -l的缩写）<br>在inode使用量前面11位。第一位表示文件类型，后面九位表示文件权限，最后一个（.）是受制于selinux。如果关闭selinux，新建的文件或目录就会没有(.)</p>
-<p>[root@aminglinux-01 ~]# ls -l</p>
-<p>总用量 4</p>
-<pre><code>-        rw-------.               1                        root   root         1422     5月  12 23:06    anaconda-ks.cfg
-</code></pre><p> 文件类型    权限 .(selinux)      有几个文件使用了这个inode   所有者  所属组     文件大小    最后改动日期         文件名字</p>
-<p>ls -i :列取inode</p>
-<p>文件名字前面的数字就是inode号，inode号是储存除了文件名以外的所有文件信息，都存在inode之中。</p>
-<p>[root@aming1 ~]# ls</p>
-<p>123.txt  anaconda-ks.cfg  test.txt<br>[root@aming1 ~]# ls -i<br>33599795 123.txt  33574987 anaconda-ks.cfg  33599785 test.txt</p>
-<p>ls -lh :显示文件大小更直观<br>[root@aming1 ~]# ls -l</p>
-<p>总用量 12</p>
-<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
-<p>[root@aming1 ~]# ls -lh</p>
-<p>总用量 12K</p>
-<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt<br>-rw——-. 1 root root 1.4K 3月  17 19:03 anaconda-ks.cfg<br>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
-<p>ls -la :列出隐藏文件<br>[root@aming1 ~]# ls -la<br>总用量 40<br>dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>-rw-r–r–.  1 root root   96 4月  25 21:33 123.txt<br>-rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg<br>-rw——-.  1 root root 2550 5月  11 20:55 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   48 5月  11 10:42 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>-rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>-rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
-<p>其中.开头的文件都是隐藏文件或者目录。</p>
-<p>还有两个目录 点和点点 。“.”代表是当前目录 “..”代表的是上层目录</p>
-<p>ls -lt ，t是时间的意思，按时间顺序排列,时间越近排在越前面<br>[root@aming1 ~]# ls -lt</p>
-<p>总用量 12</p>
-<p>-rw-r–r–. 1 root root 1008 4月  26 15:30 test.txt</p>
-<p>-rw-r–r–. 1 root root   96 4月  25 21:33 123.txt</p>
-<p>-rw——-. 1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
-<p>ls -ld :只列出文件夹</p>
-<p>也可以同时使用 ls -liat</p>
-<p>[root@aming1 ~]# ls -liat</p>
-<p>总用量 40</p>
-<p>33574979 -rw——-.  1 root root 2550 5月  11 20:55 .bash_history</p>
-<p>50332748 drwx——.  2 root root   48 5月  11 10:42 .ssh</p>
-<p>33599785 -rw-r–r–.  1 root root 1008 4月  26 15:30 test.txt<br>33574977 dr-xr-x—.  3 root root  194 4月  26 15:30 .<br>      64 dr-xr-xr-x. 17 root root  224 4月  26 15:29 ..<br>33599796 -rw——-.  1 root root 1609 4月  25 21:33 .viminfo</p>
-<p>33599795 -rw-r–r–.  1 root root   96 4月  25 21:33 123.txt</p>
-<p>33574987 -rw——-.  1 root root 1422 3月  17 19:03 anaconda-ks.cfg</p>
-<p>33975719 -rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>33975720 -rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>33975721 -rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>33975722 -rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>33975723 -rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc<br>[root@aming1 ~]# </p>
-<p>其他命令选项使用也有很多，但是不常用，需要的时候可以man一下进行查看</p>
-<h2 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h2><p>文件属性前面第一排就是文件类型，就是在权限前面的</p>
-<p>常见的就是： - 是普通文件</p>
-<p>d 文件夹</p>
-<p>还有一些特殊的文件<br>c : 字符串设备</p>
-<p>l : 软连接文件</p>
-<p>b : 块设备，比如光盘，磁盘</p>
-<p>s : 通信文件</p>
-<p>[root@aminglinux-01 ~]# ls -l /dev/</p>
-<p>总用量 0</p>
-<p>crw-rw—-. 1 root video    10, 175 8月   4 20:53 agpgart</p>
-<p>crw——-. 1 root root     10, 235 8月   4 20:53 autofs</p>
-<p>drwxr-xr-x. 2 root root         140 8月   4 20:53 block<br>drwxr-xr-x. 2 root root          80 8月   4 20:53 bsg<br>crw——-. 1 root root     10, 234 8月   4 20:53 btrfs-control<br>drwxr-xr-x. 3 root root          60 8月   4 20:53 bus<br>lrwxrwxrwx. 1 root root           3 8月   4 20:53 cdrom -&gt; sr0<br>drwxr-xr-x. 2 root root        3020 8月   4 20:53 char<br>crw——-. 1 root root      5,   1 8月   4 20:53 console<br>srw-rw-rw-. 1 root root           0 8月   4 20:53 log<br>lrwxrwxrwx. 1 root root          11 8月   4 20:53 core -&gt; /proc/kcore</p>
-<h2 id="alias命令"><a href="#alias命令" class="headerlink" title="alias命令"></a>alias命令</h2><p>alias 就是 命令的别名,是命令加选线得组合。可以理解给一个很长的命令设置一个简单外号，这样可以方便操作。</p>
-<p>alias的作用就是，可以简写命令。</p>
-<p>用which来查看命令的别名</p>
-<p>[root@aminglinux-01 ~]# which ls<br>alias ls=’ls –color=auto’<br>    /usr/bin/ls<br>[root@aminglinux-01 ~]# which ll</p>
-<p>alias ll=’ls -l –color=auto’<br>    /usr/bin/ls</p>
-<p>可以输入alias来看系统有别名的命令有哪些</p>
-<p>[root@aming1 ~]# alias</p>
-<p>alias cp=’cp -i’<br>alias egrep=’egrep –color=auto’<br>alias fgrep=’fgrep –color=auto’<br>alias grep=’grep –color=auto’<br>alias l.=’ls -d .* –color=auto’<br>alias ll=’ls -l –color=auto’<br>alias ls=’ls –color=auto’<br>alias mv=’mv -i’<br>alias rm=’rm -i’<br>alias which=’alias | /usr/bin/which –tty-only –read-alias –show-dot –show-tilde’</p>
-<p>自定义一个别名的格式 ：“ alias aming=’ls -lha’ ”</p>
-<p>[root@aminglinux-01 ~]# aming</p>
-<p>-bash: aming: 未找到命令<br>[root@aminglinux-01 ~]# alias aming=’ls -lha’<br>[root@aminglinux-01 ~]# aming</p>
-<p>总用量 28K</p>
-<p>dr-xr-x—.  3 root root  147 8月   3 09:24 .<br>dr-xr-xr-x. 17 root root  224 8月   3 21:06 ..<br>-rw——-.  1 root root 1.4K 7月  31 23:06 anaconda-ks.cfg<br>-rw——-.  1 root root 1.4K 8月   4 16:45 .bash_history<br>-rw-r–r–.  1 root root   18 12月 29 2013 .bash_logout<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bash_profile<br>-rw-r–r–.  1 root root  176 12月 29 2013 .bashrc<br>-rw-r–r–.  1 root root  100 12月 29 2013 .cshrc<br>drwx——.  2 root root   80 8月   3 22:17 .ssh<br>-rw-r–r–.  1 root root  129 12月 29 2013 .tcshrc</p>
-<p>可以看到没有设置别名的时候直接输入aming是不起作用的。可以用which来看一下</p>
-<p>[root@aminglinux-01 ~]# which aming</p>
-<p>alias aming=’ls -lha’<br>    /usr/bin/ls<br>取消aming的别名 用unalias命令</p>
-<p>[root@aminglinux-01 ~]# unalias aming<br>[root@aminglinux-01 ~]# aming<br>-bash: aming: 未找到命令</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2350,7 +2287,7 @@ fidone
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
