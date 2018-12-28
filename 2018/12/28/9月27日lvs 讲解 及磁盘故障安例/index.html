@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="工作日志,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="linux和windows互传文件* 首先需要安装一个包 yum install -y lrzsz *  安装完成之后输入 sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。 用户配置文件和密码文件* cat /etc/passwd 用户核心的配置文件 如果密码文件如果删除了，所有用户就登不上去了。 [root@aming1 ~]# cat /etc/passwd">
-<meta name="keywords" content="工作日志">
+<meta name="description" content="lvm讲解LVM是逻辑盘卷管理（LogicalVolumeManager）的简称，它是Linux环境下对磁盘分区进行管理的一种机制，LVM是建立在硬盘和 分区之上的一个逻辑层，来提高磁盘分区管理的灵活性。通过LVM系统管理员可以轻松管理磁盘分区，如：将若干个磁盘分区连接为一个整块的卷组 （volumegroup），形成一个存储池。管理员可以在卷组上随意创建逻辑卷组（logicalvolumes），">
 <meta property="og:type" content="article">
-<meta property="og:title" content="9月19日  linux 互传文件 用户管理及配置密码文件">
-<meta property="og:url" content="http://yoursite.com/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/index.html">
+<meta property="og:title" content="9月27日 lvm讲解 及磁盘故障安例">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/9月27日lvs 讲解 及磁盘故障安例/index.html">
 <meta property="og:site_name" content="MyBlog">
-<meta property="og:description" content="linux和windows互传文件* 首先需要安装一个包 yum install -y lrzsz *  安装完成之后输入 sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。 用户配置文件和密码文件* cat /etc/passwd 用户核心的配置文件 如果密码文件如果删除了，所有用户就登不上去了。 [root@aming1 ~]# cat /etc/passwd">
+<meta property="og:description" content="lvm讲解LVM是逻辑盘卷管理（LogicalVolumeManager）的简称，它是Linux环境下对磁盘分区进行管理的一种机制，LVM是建立在硬盘和 分区之上的一个逻辑层，来提高磁盘分区管理的灵活性。通过LVM系统管理员可以轻松管理磁盘分区，如：将若干个磁盘分区连接为一个整块的卷组 （volumegroup），形成一个存储池。管理员可以在卷组上随意创建逻辑卷组（logicalvolumes），">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-23T08:21:40.613Z">
+<meta property="og:updated_time" content="2018-12-28T06:04:21.123Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="9月19日  linux 互传文件 用户管理及配置密码文件">
-<meta name="twitter:description" content="linux和windows互传文件* 首先需要安装一个包 yum install -y lrzsz *  安装完成之后输入 sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。 用户配置文件和密码文件* cat /etc/passwd 用户核心的配置文件 如果密码文件如果删除了，所有用户就登不上去了。 [root@aming1 ~]# cat /etc/passwd">
+<meta name="twitter:title" content="9月27日 lvm讲解 及磁盘故障安例">
+<meta name="twitter:description" content="lvm讲解LVM是逻辑盘卷管理（LogicalVolumeManager）的简称，它是Linux环境下对磁盘分区进行管理的一种机制，LVM是建立在硬盘和 分区之上的一个逻辑层，来提高磁盘分区管理的灵活性。通过LVM系统管理员可以轻松管理磁盘分区，如：将若干个磁盘分区连接为一个整块的卷组 （volumegroup），形成一个存储池。管理员可以在卷组上随意创建逻辑卷组（logicalvolumes），">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/28/9月27日lvs 讲解 及磁盘故障安例/">
 
 
 
 
 
-  <title>9月19日  linux 互传文件 用户管理及配置密码文件 | MyBlog</title>
+  <title>9月27日 lvm讲解 及磁盘故障安例 | MyBlog</title>
   
 
 
@@ -295,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/28/9月27日lvs 讲解 及磁盘故障安例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="哈哈哥">
@@ -312,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">9月19日  linux 互传文件 用户管理及配置密码文件</h1>
+          <h1 class="post-title" itemprop="name headline">9月27日 lvm讲解 及磁盘故障安例</h1>
         
 
         <div class="post-meta">
@@ -324,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T16:20:43+08:00">
-                2018-12-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T14:03:53+08:00">
+                2018-12-28
               </time>
             
 
@@ -362,86 +361,50 @@
       
 
       
-        <h2 id="linux和windows互传文件"><a href="#linux和windows互传文件" class="headerlink" title="linux和windows互传文件"></a>linux和windows互传文件</h2><pre><code>* 首先需要安装一个包
-</code></pre><p>yum install -y lrzsz</p>
-<pre><code>* 
-</code></pre><p>安装完成之后输入</p>
-<p>sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。</p>
-<h2 id="用户配置文件和密码文件"><a href="#用户配置文件和密码文件" class="headerlink" title="用户配置文件和密码文件"></a>用户配置文件和密码文件</h2><pre><code>* cat /etc/passwd 用户核心的配置文件
-</code></pre><p>如果密码文件如果删除了，所有用户就登不上去了。</p>
-<p>[root@aming1 ~]# cat /etc/passwdroot:x:0:0:root:/root:/bin/bashbin:x:1:1:bin:/bin:/sbin/nologindaemon:x:2:2:daemon:/sbin:/sbin/nologinadm:x:3:4:adm:/var/adm:/sbin/nologinlp:x:4:7:lp:/var/spool/lpd:/sbin/nologinsync:x:5:0:sync:/sbin:/bin/syncshutdown:x:6:0:shutdown:/sbin:/sbin/shutdownhalt:x:7:0:halt:/sbin:/sbin/haltmail:x:8:12:mail:/var/spool/mail:/sbin/nologinoperator:x:11:0:operator:/root:/sbin/nologingames:x:12:100:games:/usr/games:/sbin/nologinftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>nobody:x:99:99:Nobody:/:/sbin/nologin<br>systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin<br>systemd-network:x:192:192:systemd Network Management:/:/sbin/nologindbus:x:81:81:System message bus:/:/sbin/nologinpolkitd:x:998:996:User for polkitd:/:/sbin/nologintss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>postfix:x:89:89::/var/spool/postfix:/sbin/nologinsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>chrony:x:997:995::/var/lib/chrony:/sbin/nologinaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bash</p>
-<pre><code>* 
-</code></pre><p>/etc/passwd 用“ : ”分为7段，每个字段都有具体的含义</p>
-<p>·第一个字段为用户名<br>·第二字段之前是存放的是该账号的密码.早期的Unix系统口令确实存放在这里，因为安全因素，后来就存放到了/etc/shadow中了，所·以用“x”来代替<br>·第三个字段为一个数字，表示用户的“uid”。<br>·第四个字段也是数字，表示为组标识号，称为“gid”<br>·第五个字段为注释说明，没有实际意义。<br>·第七段是用户的shell。如果是/sbin/nologin。则不允许登陆。</p>
-<pre><code>* 
-</code></pre><p>etc/shadow 密码配置文件</p>
-<p>[root@aming1 ~]# cat /etc/shadowroot:$6$TPvL1jnqi26yNubi$CnNodDe5nuT4WHIybkUvhS0.lSBNJUvYTov8VtEztJ0LKjo9cvAE2yFSzhzqom6bttBzgdC/9s7l8LDPmGjSD1::0:99999:7:::bin:<em>:17110:0:99999:7:::daemon:</em>:17110:0:99999:7:::adm:<em>:17110:0:99999:7:::lp:</em>:17110:0:99999:7:::sync:<em>:17110:0:99999:7:::shutdown:</em>:17110:0:99999:7:::halt:<em>:17110:0:99999:7:::mail:</em>:17110:0:99999:7:::operator:<em>:17110:0:99999:7:::games:</em>:17110:0:99999:7:::ftp:<em>:17110:0:99999:7:::nobody:</em>:17110:0:99999:7:::systemd-bus-proxy:!!:17607::::::systemd-network:!!:17607::::::dbus:!!:17607::::::polkitd:!!:17607::::::tss:!!:17607::::::postfix:!!:17607::::::sshd:!!:17607::::::chrony:!!:17607::::::aming:!!:17666:0:99999:7:::aming2:!!:17666:0:99999:7:::</p>
-<pre><code>* 
-</code></pre><p>/etc/shadow 分为9个字段。</p>
-<p>·第一段为用户名，与/etc/passwd 对应<br>·第二个字段为用户密码。是加密的。使用SHA-512加密方式加密的密码。无法反编译，即使相同的密码加密字符也会不同。如果!!代表密码为空是不能登陆的，如果是*则代表该用户是锁定的。<br>·第三个字段是上次更改密码的日期。这个数字以1970年1月1日和上次更改密码的日期计算而来。单位是“天”。<br>·第四段是要过多少天才可以更改密码。默认是0，就不受限制。<br>·第五段为密码多少天后到期。<br>·第六段为密码到期前多少天来进行提醒。<br>·第七段为账号失效期限，比如设置为3，如果密码到期，再过3天，这个账号会被锁定而失效。<br>·第8段为生命周期，也是从1970年1月1日开始算的，如果过期账号则作废。<br>·第九段是保留段，没有实际意义。<br>在这里第二段的加密字符即使密码相同加密字符也是不一样的，采用的是SHA-512加密方式。</p>
-<p>aming:$6$MesREyTp$J/IgN6.oT7uBJ292J.LLGC1dMQkN7ckgq0Olz/zDchzs6rQdWSee2o0fiJt8wPIHCNX4bNTOrsQsqsCTqhSPm.:17670:0:99999:7:::<br>aming2:$6$l.NeS.LF$EQGwaMvyhvJnAz0eoAbUDXsTwEwbHvAOlqjFHCTWOUykSf0mzC6j0HwEFzUpvcSOZM6R2.jvN8qTsupdC2ho4.:17670:0:99999:7:::</p>
-<h2 id="用户管理用法如下useradd-增加用户"><a href="#用户管理用法如下useradd-增加用户" class="headerlink" title="用户管理用法如下useradd 增加用户"></a>用户管理用法如下useradd 增加用户</h2><pre><code>* 
-</code></pre><p>-u：自定义UID</p>
-<pre><code>* 
-</code></pre><p>-g：自定义用户组</p>
-<pre><code>* 
-</code></pre><p>-d: 自定义用户家目录</p>
-<pre><code>* 
-</code></pre><p>-M：表示不建立家目录</p>
-<pre><code>* 
-</code></pre><p>-s ：表示自定义shell</p>
-<p>添加用户，默认uid是从1000开始的。</p>
-<p>[root@aming1 ~]# useradd aming3<br>[root@aming1 ~]# tail -n3 /etc/passwdaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bashaming3:x:1002:1002::/home/aming3:/bin/bash<br>[root@aming1 ~]#</p>
-<p>-u 与 -g 自定义UID与用户组</p>
-<p>[root@aming1 ~]# tail -3 /etc/groupaming:x:1000:<br>aming2:x:1001:<br>aming3:x:1002:<br>[root@aming1 ~]# useradd -u 1111 -g aming linyu1<br>[root@aming1 ~]# tail -n2 /etc/passwdaming3:x:1002:1002::/home/aming3:/bin/bashlinyu1:x:1111:1000::/home/linyu1:/bin/bash</p>
-<p>用 -d -s 自定义家目录与shell</p>
-<p>[root@aming1 ~]# useradd -u 1113 -g aming -d /home/linyu111 -s /sbin/nologin linyu3<br>[root@aming1 ~]# tail -n2 /etc/passwdlinyu2:x:1112:1000::/home/aming:/sbin/nologinlinyu3:x:1113:1000::/home/linyu111:/sbin/nologin</p>
-<p>-M：表示不建立家目录(并不是该用户没有家目录，只是没有创建)</p>
-<p>[root@aming1 ~]# useradd -M user1<br>[root@aming1 ~]# tail -n1 /etc/passwduser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
-<p>用户的家目录是可以更改的。可vi编辑etc/passwd 直接更改，<br>家目录是可以手动创建的。但是新建用户的家目录光有空文件夹不行，里面还要有bash ，不然会显示不正常。,在ls -la /etc/skel/ 有用户配置文件的模板，这里有模板，cp到新建的家目录里就可以了。然后赋予该目录有该用户与组的权限！</p>
-<p>[root@aming1 ~]# ls -la /etc/skel/<br>总用量 24<br>drwxr-xr-x. 2 root root 62 3月 17 18:59 .<br>drwxr-xr-x. 77 root root 8192 5月 19 15:02 ..<br>-rw-r–r–. 1 root root 18 8月 3 2016 .bash_logout-rw-r–r–. 1 root root 193 8月 3 2016 .bash_profile-rw-r–r–. 1 root root 231 8月 3 2016 .bashrc</p>
-<p>cp /etc/skel/.bash* /home/user<br>userdel 删除用户的命令。</p>
-<p>[root@aming1 ~]# userdel linyu3<br>[root@aming1 ~]# tail -n3 /etc/passwdlinyu1:x:1111:1000::/home/linyu1:/bin/bashlinyu2:x:1112:1000::/home/aming:/sbin/nologinuser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
-<p>可以看到删除用户后，用户的家目录并没有被删除。（留给管理员，确定这个家目录没有用了之后在手动删掉。）</p>
-<pre><code>* 
-</code></pre><p>userdel -r 选项可以连同用户家目录同时删除。</p>
-<p>用户组管理</p>
-<pre><code>* 
-</code></pre><p>groupadd 增加组命令</p>
-<p>[root@aming1 ~]# groupadd grp1<br>[root@aming1 ~]# tail -n1 /etc/group<br>grp1:x:1002:</p>
-<pre><code>* 
-</code></pre><p>用-g自定义新建用户组的gid 。groupadd -g 1006 group4</p>
-<p>[root@localhost ~]# groupadd -g 1006 group4<br>[root@localhost ~]# tail -n5 /etc/groupchrony:x:995:grp1:x:1000:grp2:x:1001:grp3:x:1002:group4:x:1006:<br>一般新建的组或者用户都是从1000 gid/uid开始的。1000以前都是为系统来保留的。</p>
-<pre><code>* 
-</code></pre><p>用户组管理文件 （还有用户组的密码文件在etc/gshadow）</p>
-<p>[root@aming1 ~]# cat /etc/grouproot:x:0:bin:x:1:daemon:x:2:sys:x:3:adm:x:4:games:x:20:tape:x:30:video:x:39:ftp:x:50:lock:x:54:audio:x:63:</p>
-<p>utempter:x:35:ssh_keys:x:999:input:x:998:systemd-journal:x:190:systemd-bus-proxy:x:997:systemd-network:x:192:dbus:x:81:polkitd:x:996:tss:x:59:dip:x:40:postdrop:x:90:postfix:x:89:sshd:x:74:chrony:x:995:aming:x:1000:aming2:x:1001:<br>[root@aming1 ~]#</p>
-<pre><code>* 
-</code></pre><p>groupdel 删除组命令</p>
-<p>[root@aming1 ~]# groupdel grp1<br>[root@aming1 ~]# tail -n2 /etc/gro<br>groff/ group group-<br>[root@aming1 ~]# tail -n2 /etc/group<br>aming:x:1000:<br>aming2:x:1001:</p>
-<p>不能直接删除有用户的组。需要先删除用户，在删除用户组。</p>
-<pre><code>* 
-</code></pre><p>系统自动备份用户，用户组管理及密码文件</p>
-<p>[root@localhost ~]# ls /etc/passwd<br>/etc/passwd<br>[root@localhost ~]# ls /etc/passwd<br>passwd passwd-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/gs<br>gshadow gshadow- gss/<br>后面带“-”号的文件就是系统自动备份的文件。<br>如果误删了配置文件可以copy一份带“-”号的进行恢复。<br>不过备份文件可能稍有误差，比如刚刚建立的用户还没有备份。恢复的时候就没有哪些没来得及备份的用户。usermod 更改用户属性的命令<br>以下是用法：</p>
-<pre><code>* 
-</code></pre><p>usermod – u 111 username 更改uid</p>
-<pre><code>* 
-</code></pre><p>usermod -g 1010 username 更改 gid</p>
-<pre><code>* 
-</code></pre><p>usermod –d /home/safasfa username 更改家目录</p>
-<pre><code>* 
-</code></pre><p>usermod -s /sbin/nologin username 更改shell</p>
-<pre><code>* 
-</code></pre><p>usermod –G 添加扩展组</p>
-<pre><code>* 
-</code></pre><p>每个用户可以通过 id username命令来查看一个用户的uid，gid,组，扩展组的。</p>
-<p>[root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2)</p>
-<pre><code>* 
-</code></pre><p>usermod –G 添加扩展组</p>
-<p>[root@aming1 ~]# usermod -G aming aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming)</p>
-<p>增加多个扩展组，</p>
-<p>[root@aming1 ~]# usermod -G aming,grp1 aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming),1115(grp1)</p>
-<p>如果不像上面那样添加，直接-G添加就会把之前的扩展组替换掉。用 -g 则不会。</p>
+        <h2 id="lvm讲解"><a href="#lvm讲解" class="headerlink" title="lvm讲解"></a>lvm讲解</h2><p>LVM是逻辑盘卷管理（LogicalVolumeManager）的简称，它是Linux环境下对磁盘分区进行管理的一种机制，LVM是建立在硬盘和 分区之上的一个逻辑层，来提高磁盘分区管理的灵活性。通过LVM系统管理员可以轻松管理磁盘分区，如：将若干个磁盘分区连接为一个整块的卷组 （volumegroup），形成一个存储池。管理员可以在卷组上随意创建逻辑卷组（logicalvolumes），并进一步在逻辑卷组上创建文件系 统。管理员通过LVM可以方便的调整存储卷组的大小，并且可以对磁盘存储按照组的方式进行命名、管理和分配，例如按照使用用途进行定义：“development”和“sales”，而不是使用物理磁盘名“sda”和“sdb”。而且当系统添加了新的磁盘，通过LVM管理员就不必将磁盘的 文件移动到新的磁盘上以充分利用新的存储空间，而是直接扩展文件系统跨越磁盘即可。</p>
+<p>•    首先准备磁盘分区</p>
+<p>o    fdisk /dev/sdb</p>
+<p>o    n 创建三个新分区</p>
+<p>o    t 改变分区类型为8e</p>
+<p>命令(输入 m 获取帮助)：n<br>Partition type:<br>   p   primary (2 primary, 0 extended, 2 free)<br>   e   extended<br>Select (default p): p<br>分区号 (3,4，默认 3)：<br>起始 扇区 (6293504-20971519，默认为 6293504)：<br>将使用默认值 6293504<br>Last 扇区, +扇区 or +size{K,M,G} (6293504-20971519，默认为 20971519)：+1g<br>不支持的后缀：“g”。<br>支持：10^N: KB (千字节), MB (兆字节), GB (吉字节)<br>            2^N: K  (约千字节), M  (约兆字节), G  (约吉字节)<br>Last 扇区, +扇区 or +size{K,M,G} (6293504-20971519，默认为 20971519)：+1G<br>分区 3 已设置为 Linux 类型，大小设为 1 GiB</p>
+<p>命令(输入 m 获取帮助)：t<br>分区号 (1-3，默认 3)：3<br>Hex 代码(输入 L 列出所有代码)：8e<br>已将分区“Linux”的类型更改为“Linux LVM”</p>
+<p>命令(输入 m 获取帮助)：p</p>
+<p>磁盘 /dev/sdb：10.7 GB, 10737418240 字节，20971520 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x34aa2b57</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352     6293503     1048576   8e  Linux LVM<br>/dev/sdb3         6293504     8390655     1048576   8e  Linux LVM</p>
+<p>命令(输入 m 获取帮助)：<br>•    准备物理卷<br>o    pvcreate /dev/sdb1<br>o    pvcreate /dev/sdb2<br>o    pvcreate /dev/sdb3<br>o    pvdisplay 列出当前的物理卷<br>o    pvremove /dev/sdb3 删除物理卷<br>默认系统没有安装lvm ,yum安装一下<br>[root@localhost ~]# pvcreate /dev/sdb2<br>-bash: pvcreate: 未找到命令<br>[root@localhost ~]# yum install -y lvm2<br>已加载插件：fastestmirror<br>base                                                                                                                         | 3.6 kB  00:00:00<br>extras                                                                                                                       | 3.4 kB  00:00:00<br>updates                                                                                                                      | 3.4 kB  00:00:00<br>extras/7/x86_64/primary_db                                                                                                   | 191 kB  00:00:02<br>Loading mirror speeds from cached hostfile<br>安装完成后运行pvcreate /dev/sdb2报错<br>[root@localhost ~]# pvcreate /dev/sdb2<br>  Device /dev/sdb2 not found (or ignored by filtering).<br>[root@localhost ~]#<br>实际上系统里面还没有新建两个lvm的文件<br>[root@localhost ~]# fdisk -l /dev/sdb</p>
+<p>磁盘 /dev/sdb：10.7 GB, 10737418240 字节，20971520 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x34aa2b57</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352     6293503     1048576   8e  Linux LVM<br>/dev/sdb3         6293504     8390655     1048576   8e  Linux LVM<br>[root@localhost ~]#<br>[root@localhost ~]# ls /dev/sdb2<br>ls: 无法访问/dev/sdb2: 没有那个文件或目录<br>这时候运行下partprobe就可以了<br>[root@localhost ~]# partprobe<br>Warning: 无法以读写方式打开 /dev/sr0 (只读文件系统)。/dev/sr0 已按照只读方式打开。<br>[root@localhost ~]# partprobe /dev/sdb<br>[root@localhost ~]# ls /dev/sdb2<br>/dev/sdb2<br>再次运行 pvcreate /dev/sdb2<br>[root@localhost ~]# pvcreate /dev/sdb2<br>  Physical volume “/dev/sdb2” successfully created.<br>[root@localhost ~]# pvcreate /dev/sdb3<br>  Physical volume “/dev/sdb3” successfully created.<br>[root@localhost ~]#<br>创建完物理卷之后用pvdisplay查看或者pvs查看<br>[root@localhost ~]# pvdisplay<br>  “/dev/sdb2” is a new physical volume of “1.00 GiB”<br>  — NEW Physical volume —<br>  PV Name               /dev/sdb2<br>  VG Name<br>  PV Size               1.00 GiB<br>  Allocatable           NO<br>  PE Size               0<br>  Total PE              0<br>  Free PE               0<br>  Allocated PE          0<br>  PV UUID               C6Uu8B-N7Ws-UGVs-L4FA-IsCJ-JhbW-0pOA4t</p>
+<p>  “/dev/sdb3” is a new physical volume of “1.00 GiB”<br>  — NEW Physical volume —<br>  PV Name               /dev/sdb3<br>  VG Name<br>  PV Size               1.00 GiB<br>  Allocatable           NO<br>  PE Size               0<br>  Total PE              0<br>  Free PE               0<br>  Allocated PE          0<br>  PV UUID               pDgD89-BQRT-SigZ-08x4-Knd5-C6Mf-qhy3P6</p>
+<p>[root@localhost ~]# </p>
+<p>•    创建完物理卷之后，下面开始创建卷组<br>创建卷组命令：vgcreate 卷组名字 /dev/sdb2 /dev/sdb3<br>[root@localhost ~]# vgcreate vg1 /dev/sdb2 /dev/sdb3<br>  Volume group “vg1” successfully created<br>[root@localhost ~]# </p>
+<p>查看卷组命令：vgdisplay</p>
+<p>[root@localhost ~]# vgdisplay </p>
+<p>  — Volume group —<br>  VG Name               vg1<br>  System ID<br>  Format                lvm2<br>  Metadata Areas        2<br>  Metadata Sequence No  1<br>  VG Access             read/write<br>  VG Status             resizable<br>  MAX LV                0<br>  Cur LV                0<br>  Open LV               0<br>  Max PV                0<br>  Cur PV                2<br>  Act PV                2<br>  VG Size               1.99 GiB<br>  PE Size               4.00 MiB<br>  Total PE              510<br>  Alloc PE / Size       0 / 0<br>  Free  PE / Size       510 / 1.99 GiB<br>  VG UUID               96JUV1-IK7V-hud2-Rrxd-krvz-u44H-J9sMpC</p>
+<p>[root@localhost ~]# vgs<br>  VG  #PV #LV #SN Attr   VSize VFree<br>  vg1   2   0   0 wz–n- 1.99g 1.99g<br>[root@localhost ~]#<br>•    有了卷组之后就可以创建逻辑卷了<br>用法 ：lvcreate -L 大小 名字 从哪个卷组创建<br>[root@localhost ~]# lvcreate -L 100M -n lv1 vg1<br>  Logical volume “lv1” created.<br>[root@localhost ~]#<br>•    之后就可以格式化了<br>[root@localhost ~]# mkfs.ext4 /dev/vg1/lv1<br>mke2fs 1.42.9 (28-Dec-2013)<br>文件系统标签=<br>OS type: Linux<br>块大小=1024 (log=0)<br>分块大小=1024 (log=0)<br>Stride=0 blocks, Stripe width=0 blocks<br>25688 inodes, 102400 blocks<br>5120 blocks (5.00%) reserved for the super user<br>第一个数据块=1<br>Maximum filesystem blocks=33685504<br>13 block groups<br>8192 blocks per group, 8192 fragments per group<br>1976 inodes per group<br>Superblock backups stored on blocks:<br>    8193, 24577, 40961, 57345, 73729</p>
+<p>Allocating group tables: 完成<br>正在写入inode表: 完成<br>Creating journal (4096 blocks): 完成<br>Writing superblocks and filesystem accounting information: 完成 </p>
+<p>[root@localhost ~]#<br>•    挂载<br>[root@localhost ~]# mount /dev/vg1/lv1  /mnt/<br>[root@localhost ~]# df -h<br>文件系统             容量  已用  可用 已用% 挂载点<br>/dev/sda3             18G  1.2G   17G    7% /<br>devtmpfs             479M     0  479M    0% /dev<br>tmpfs                489M     0  489M    0% /dev/shm<br>tmpfs                489M  6.7M  482M    2% /run<br>tmpfs                489M     0  489M    0% /sys/fs/cgroup<br>/dev/mapper/vg1-lv1   93M  1.6M   85M    2% /mnt<br>/dev/sda1            197M  109M   88M   56% /boot<br>tmpfs                 98M     0   98M    0% /run/user/0<br>扩容逻辑卷<br>•    lvresize -L 300M /dev/vg1/lv1 重新设置卷大小<br>•    e2fsck -f /dev/vg1/lv1 检查磁盘错误（ext4执行）<br>•    resize2fs /dev/vg1/lv1 更新逻辑卷信息（ext4执行）<br>•    xfs_growfs /dev/vg1/lv1 xfs文件系统需要执行<br>•    首先卸载挂载逻辑卷<br>[root@localhost ~]# umount /mnt/<br>[root@localhost ~]# df -h<br>文件系统        容量  已用  可用 已用% 挂载点<br>/dev/sda3        18G  1.2G   17G    7% /<br>devtmpfs        479M     0  479M    0% /dev<br>tmpfs           489M     0  489M    0% /dev/shm<br>tmpfs           489M  6.7M  482M    2% /run<br>tmpfs           489M     0  489M    0% /sys/fs/cgroup<br>/dev/sdb1       1.9G  6.0M  1.8G    1% /mnt<br>/dev/sda1       197M  109M   88M   56% /boot<br>tmpfs            98M     0   98M    0% /run/user/0</p>
+<p>•    在执行扩容 lvresize -L 300M /dev/vg1/lv1<br>[root@localhost ~]# lvresize -L 300M /dev/vg1/lv1<br>  Size of logical volume vg1/lv1 changed from 100.00 MiB (25 extents) to 300.00 MiB (75 extents).<br>  Logical volume vg1/lv1 successfully resized.<br>•    检查磁盘错误看看有没有问题<br>[root@localhost ~]# e2fsck -f /dev/vg1/lv1<br>e2fsck 1.42.9 (28-Dec-2013)<br>第一步: 检查inode,块,和大小<br>第二步: 检查目录结构<br>第3步: 检查目录连接性<br>Pass 4: Checking reference counts<br>第5步: 检查簇概要信息<br>/dev/vg1/lv1: 11/25688 files (9.1% non-contiguous), 8896/102400 blocks<br>[root@localhost ~]# </p>
+<p>•    然后更新逻辑卷信息，不然看不到逻辑卷增加<br>[root@localhost ~]# resize2fs /dev/vg1/lv1<br>resize2fs 1.42.9 (28-Dec-2013)<br>Resizing the filesystem on /dev/vg1/lv1 to 307200 (1k) blocks.<br>The filesystem on /dev/vg1/lv1 is now 307200 blocks long.</p>
+<p>[root@localhost ~]#<br>•    挂载一下<br>[root@localhost ~]# mount /dev/vg1/lv1  /mnt/<br>[root@localhost ~]# df -h<br>文件系统             容量  已用  可用 已用% 挂载点<br>/dev/sda3             18G  1.2G   17G    7% /<br>devtmpfs             479M     0  479M    0% /dev<br>tmpfs                489M     0  489M    0% /dev/shm<br>tmpfs                489M  6.7M  482M    2% /run<br>tmpfs                489M     0  489M    0% /sys/fs/cgroup<br>/dev/mapper/vg1-lv1  287M  2.0M  266M    1% /mnt<br>/dev/sda1            197M  109M   88M   56% /boot<br>tmpfs                 98M     0   98M    0% /run/user/0<br>[root@localhost ~]#<br>•    xfs格式扩容<br>先卸载然后重新格式化逻辑卷<br>[root@localhost ~]# umount /mnt/<br>[root@localhost ~]# mkfs.xfs -f /dev/vg1/lv1<br>meta-data=/dev/vg1/lv1           isize=512    agcount=4, agsize=6400 blks<br>         =                       sectsz=512   attr=2, projid32bit=1<br>         =                       crc=1        finobt=0, sparse=0<br>data     =                       bsize=4096   blocks=25600, imaxpct=25<br>         =                       sunit=0      swidth=0 blks<br>naming   =version 2              bsize=4096   ascii-ci=0 ftype=1<br>log      =internal log           bsize=4096   blocks=855, version=2<br>         =                       sectsz=512   sunit=0 blks, lazy-count=1<br>realtime =none                   extsz=4096   blocks=0, rtextents=0<br>[root@localhost ~]# </p>
+<p>然后挂在上<br>在扩容一下：lvresize -L 200M /dev/vg1/lv1<br>[root@localhost ~]# lvs<br>  LV   VG  Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert<br>  lv1  vg1 -wi-a—– 100.00m<br>[root@localhost ~]# lvresize -L 200M /dev/vg1/lv1<br>  Size of logical volume vg1/lv1 changed from 100.00 MiB (25 extents) to 200.00 MiB (50 extents).<br>  Logical volume vg1/lv1 successfully resized.<br>[root@localhost ~]# lvs<br>  LV   VG  Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert<br>  lv1  vg1 -wi-a—– 200.00m<br>[root@localhost ~]# df -h<br>文件系统             容量  已用  可用 已用% 挂载点<br>/dev/sda3             18G  1.2G   17G    7% /<br>devtmpfs             479M     0  479M    0% /dev<br>tmpfs                489M     0  489M    0% /dev/shm<br>tmpfs                489M  6.7M  482M    2% /run<br>tmpfs                489M     0  489M    0% /sys/fs/cgroup<br>/dev/mapper/vg1-lv1   97M  5.2M   92M    6% /mnt<br>/dev/sda1            197M  109M   88M   56% /boot<br>tmpfs                 98M     0   98M    0% /run/user/0</p>
+<p>这时候文件系统还是没有变化的。需要在执行一下xfs_growfs /dev/vg1/lv1<br>[root@localhost ~]# xfs_growfs  /dev/vg1/lv1<br>meta-data=/dev/mapper/vg1-lv1    isize=512    agcount=4, agsize=6400 blks<br>         =                       sectsz=512   attr=2, projid32bit=1<br>         =                       crc=1        finobt=0 spinodes=0<br>data     =                       bsize=4096   blocks=25600, imaxpct=25<br>         =                       sunit=0      swidth=0 blks<br>naming   =version 2              bsize=4096   ascii-ci=0 ftype=1<br>log      =internal               bsize=4096   blocks=855, version=2<br>         =                       sectsz=512   sunit=0 blks, lazy-count=1<br>realtime =none                   extsz=4096   blocks=0, rtextents=0<br>data blocks changed from 25600 to 51200<br>[root@localhost ~]# df -h<br>文件系统             容量  已用  可用 已用% 挂载点<br>/dev/sda3             18G  1.2G   17G    7% /<br>devtmpfs             479M     0  479M    0% /dev<br>tmpfs                489M     0  489M    0% /dev/shm<br>tmpfs                489M  6.7M  482M    2% /run<br>tmpfs                489M     0  489M    0% /sys/fs/cgroup<br>/dev/mapper/vg1-lv1  197M  5.3M  192M    3% /mnt<br>/dev/sda1            197M  109M   88M   56% /boot<br>tmpfs                 98M     0   98M    0% /run/user/0</p>
+<p>缩减逻辑卷（xfs不支持）<br>•    先umount<br>•    e2fsck -f /dev/vg1/lv1 检查磁盘错误（ext）<br>•    resize2fs /dev/vg1/lv1 100M 更新逻辑卷信息（ext）<br>•    lvresize -L 100M /dev/vg1/lv1 从新设置卷大小<br>•    先卸载挂载<br>[root@localhost ~]# umount  /mnt/<br>[root@localhost ~]# df -h<br>文件系统        容量  已用  可用 已用% 挂载点<br>/dev/sda3        18G  1.2G   17G    7% /<br>devtmpfs        479M     0  479M    0% /dev<br>tmpfs           489M     0  489M    0% /dev/shm<br>tmpfs           489M  6.7M  482M    2% /run<br>tmpfs           489M     0  489M    0% /sys/fs/cgroup<br>/dev/sdb1       1.9G  6.0M  1.8G    1% /mnt<br>/dev/sda1       197M  109M   88M   56% /boot<br>tmpfs            98M     0   98M    0% /run/user/0</p>
+<p>•    e2fsck -f /dev/vg1/lv1 检查磁盘错误（ext<br>[root@localhost ~]# e2fsck -f /dev/vg1/lv1<br>e2fsck 1.42.9 (28-Dec-2013)<br>第一步: 检查inode,块,和大小<br>第二步: 检查目录结构<br>第3步: 检查目录连接性<br>Pass 4: Checking reference counts<br>第5步: 检查簇概要信息<br>/dev/vg1/lv1: 11/75088 files (9.1% non-contiguous), 15637/307200 blocks<br>[root@localhost ~]# </p>
+<p>•    resize2fs /dev/vg1/lv1 100M 更新逻辑卷信息（ext）<br>[root@localhost ~]# resize2fs /dev/vg1/lv1 100M<br>resize2fs 1.42.9 (28-Dec-2013)<br>Resizing the filesystem on /dev/vg1/lv1 to 102400 (1k) blocks.<br>The filesystem on /dev/vg1/lv1 is now 102400 blocks long.</p>
+<p>[root@localhost ~]# </p>
+<p>•    lvresize -L 100M /dev/vg1/lv1 从新设置卷大小<br>[root@localhost ~]# lvresize -L 100M /dev/vg1/lv1<br>  WARNING: Reducing active logical volume to 100.00 MiB.<br>  THIS MAY DESTROY YOUR DATA (filesystem etc.)<br>Do you really want to reduce vg1/lv1? [y/n]: y<br>  Size of logical volume vg1/lv1 changed from 300.00 MiB (75 extents) to 100.00 MiB (25 extents).<br>  Logical volume vg1/lv1 successfully resized.<br>[root@localhost ~]# </p>
+<p>•    挂载<br>[root@localhost ~]# mount /dev/vg1/lv1  /mnt/<br>[root@localhost ~]# df -h<br>文件系统             容量  已用  可用 已用% 挂载点<br>/dev/sda3             18G  1.2G   17G    7% /<br>devtmpfs             479M     0  479M    0% /dev<br>tmpfs                489M     0  489M    0% /dev/shm<br>tmpfs                489M  6.7M  482M    2% /run<br>tmpfs                489M     0  489M    0% /sys/fs/cgroup<br>/dev/mapper/vg1-lv1   93M  1.6M   85M    2% /mnt<br>/dev/sda1            197M  109M   88M   56% /boot<br>tmpfs                 98M     0   98M    0% /run/user/0<br>[root@localhost ~]#<br>扩展卷组 （有问题）</p>
+<p>•    fdisk /dev/sdb 新增一个分区 类型8e<br>•    pvcreate /dev/sdb4 创建物理分区<br>•    vgextend vg1 /dev/sdb4 把sdb4加到vg1里面去<br>•    lvresize -L 100M /dev/vg1/lv1 重新设置卷大小<br>磁盘 /dev/sdb：10.7 GB, 10737418240 字节，20971520 个扇区<br>Units = 扇区 of 1 * 512 = 512 bytes<br>扇区大小(逻辑/物理)：512 字节 / 512 字节<br>I/O 大小(最小/最佳)：512 字节 / 512 字节<br>磁盘标签类型：dos<br>磁盘标识符：0x34aa2b57</p>
+<p>   设备 Boot      Start         End      Blocks   Id  System<br>/dev/sdb1            2048     4196351     2097152   83  Linux<br>/dev/sdb2         4196352     6293503     1048576   8e  Linux LVM<br>/dev/sdb3         6293504     8390655     1048576   8e  Linux LVM<br>/dev/sdb4         8390656    12584959     2097152    5  Extended<br>/dev/sdb5         8392704    10489855     1048576   83  Linux</p>
+<p>命令(输入 m 获取帮助)：t<br>分区号 (1-5，默认 5)：5<br>Hex 代码(输入 L 列出所有代码)：8e<br>已将分区“Linux”的类型更改为“Linux LVM”</p>
+<p>命令(输入 m 获取帮助)：w<br>The partition table has been altered!</p>
+<p>Calling ioctl() to re-read partition table.</p>
+<p>WARNING: Re-reading the partition table failed with error 16: 设备或资源忙.<br>The kernel still uses the old table. The new table will be used at<br>the next reboot or after you run partprobe(8) or kpartx(8)<br>正在同步磁盘。<br>[root@localhost ~]# pvcreate /dev/sdb5<br>  Device /dev/sdb5 not found (or ignored by filtering).<br>[root@localhost ~]#<br>•    如果出现这种报错用partprobe命令更新一下。<br>partprobe：将磁盘分区表变化信息通知内核，请求操作系统重新加载分区表。<br>    -d 不更新内核<br>    -s 显示磁盘分区汇总信息<br>    -h 显示帮助信息<br>    -v 显示版本信息<br>eg：<br>    partprobe /dev/sdb<br>当磁盘分区信息完整时，手动删除/dev/disk/by-id目录下对应的wwn链接文件，执行partprobe操作，系统会自己创建删除的链接文件。<br>通过udevadmin monitor命令可以监控到相关信息。</p>
+<hr>
+<p>##磁盘故障小案例<br>•    之前写到vi /etc/fstab 这个配置文件里面添加了一行配置。<br>[root@localhost ~]# vi /etc/fstab </p>
+<p>#<br> /etc/fstab<br> Created by anaconda on Mon Aug 14 23:56:24 2017</p>
+<p>Accessible filesystems, by reference, are maintained under ‘/dev/disk’ See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</p>
+<p>UUID=58f4e3c9-b84f-4689-be51-3396d2231926 /                       xfs     defaults        0 0<br>UUID=4203cad2-52e1-4a3a-9dd6-2f7e78c28805 /boot                   xfs     defaults        0 0<br>UUID=9877b5cd-7fed-450f-9153-1ee3ec839d77 swap                    swap    defaults        0 0<br>/dev/sdb1                                  /mnt                   ext4    defaults        0 0<br>•    然后做lvm实验的时候改动了这个分区，导致开机报错。无法正常开机。提示输入root密码<br>•    输入密码后进入系统，找到这个文件把最后一行删掉，重启即可恢复。</p>
 
       
     </div>
@@ -457,12 +420,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/工作日志/" rel="tag"># 工作日志</a>
-          
-        </div>
-      
 
       
       
@@ -472,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/23/9月18日 find 命令 文件名后缀/" rel="next" title="9月18日  2.23/24/25 find 命令 2.26  文件名后缀">
-                <i class="fa fa-chevron-left"></i> 9月18日  2.23/24/25 find 命令 2.26  文件名后缀
+              <a href="/2018/12/27/9月26日磁盘挂载格式化/" rel="next" title="磁盘格式化 挂载及增加交换空间">
+                <i class="fa fa-chevron-left"></i> 磁盘格式化 挂载及增加交换空间
               </a>
             
           </div>
@@ -481,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/25/9月20日 usermod 更改用户属性的命令及用户密码管理和mkpasswd命令/" rel="prev" title="9月20日 3.4/5/6  usermod 更改用户属性的命令及用户密码管理和mkpasswd命令">
-                9月20日 3.4/5/6  usermod 更改用户属性的命令及用户密码管理和mkpasswd命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -607,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux和windows互传文件"><span class="nav-number">1.</span> <span class="nav-text">linux和windows互传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户配置文件和密码文件"><span class="nav-number">2.</span> <span class="nav-text">用户配置文件和密码文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理用法如下useradd-增加用户"><span class="nav-number">3.</span> <span class="nav-text">用户管理用法如下useradd 增加用户</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lvm讲解"><span class="nav-number">1.</span> <span class="nav-text">lvm讲解</span></a></li></ol></div>
             
 
           </div>

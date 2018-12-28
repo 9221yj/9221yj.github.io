@@ -294,6 +294,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/9月13日 环境变量PATHcp命令mv命令 文档查看cat more less head tail/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/09/9月13日 环境变量PATHcp命令mv命令 文档查看cat more less head tail/" itemprop="url">9月13日 2.10 环境变量  PATH 2.11 cp命令  2.12 mv命令   2.13 文档查看cat/more/less/head/tail</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-09T20:07:32+08:00">
+                2018-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="2-10-环境变量"><a href="#2-10-环境变量" class="headerlink" title="2.10 环境变量"></a>2.10 环境变量</h2><p>平时在敲命令的时候可以在任何路径下直接执行。而输入其他 文本会提示找不到该文件，这是为什么呢？</p>
+<ul>
+<li>如果命令在以下目录的时候，可以不敲绝对路径。就能生效。这就是：环境变量<br>[root@aminglinux-01 ~]# echo $PATH</li>
+</ul>
+<p>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</p>
+<ul>
+<li>当然直接输入命令的绝对路径肯定也是可以生效的。拷贝到别的地方输入绝对路径一样可以生效。</li>
+<li><p>[root@aminglinux-01 ~]# which lsalias ls=’ls –color=auto’</p>
+<pre><code>/usr/bin/ls
+</code></pre><p>[root@aminglinux-01 ~]# ls /usr/bin/ls<br>/usr/bin/ls<br>[root@aminglinux-01 ~]# cp /usr/bin/ls /tmp/ls2<br>[root@aminglinux-01 ~]# /tmp/ls2<br>anaconda-ks.cfg<br>[root@aminglinux-01 ~]#</p>
+</li>
+<li><p>但是直接输入ls2会生效吗?是不可以的，看下面输出<br>[root@aminglinux-01 ~]# ls2<br>-bash: ls2: 未找到命令<br>结果是并没有生效，这是因为ls2所在的/tmp/目录并不在（PATH）环境变量里面，现在把目录加到环境变量里面。</p>
+</li>
+<li>PATH=$PATH:/tmp/ 这是个shell意思是把tmp加入到PATH</li>
+</ul>
+<p>[root@aminglinux-01 ~]# PATH=$PATH:/tmp/</p>
+<p>[root@aminglinux-01 ~]# echo $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/</p>
+<p>bin:/root/bin:/tmp/</p>
+<ul>
+<li>这样在输入ls2，就可以生效了。<br>[root@aminglinux-01 ~]# ls2<br>anaconda-ks.cfg<br>[root@aminglinux-01 ~]#</li>
+<li>这时候如果在打开新的终端连接系统，在输入ls2，就不再生效了。如果需要在任何时候都会生效，永久生效。需要加到系统配置/etc/profile文件里。添加到最后一行就可以了，如下：</li>
+</ul>
+<p>[root@aminglinux-01 ~]# vi /etc/profile<br>…</p>
+<p>if [ “$HISTCONTROL” = “ignorespace” ] ; then<br>    export HISTCONTROL=ignoreboth<br>else<br>    export HISTCONTROL=ignoredups<br>fi</p>
+<p>export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL</p>
+<h1 id="By-default-we-want-umask-to-get-set-This-sets-it-for-login-shell-Current-threshold-for-system-reserved-uid-gids-is-200-You-could-check-uidgid-reservation-validity-in-usr-share-doc-setup-uidgid-fileif-UID-gt-199-amp-amp-“-usr-bin-id-gn“-“-usr-bin-id-un“-then"><a href="#By-default-we-want-umask-to-get-set-This-sets-it-for-login-shell-Current-threshold-for-system-reserved-uid-gids-is-200-You-could-check-uidgid-reservation-validity-in-usr-share-doc-setup-uidgid-fileif-UID-gt-199-amp-amp-“-usr-bin-id-gn“-“-usr-bin-id-un“-then" class="headerlink" title="By default, we want umask to get set. This sets it for login shell# Current threshold for system reserved uid/gids is 200# You could check uidgid reservation validity in# /usr/share/doc/setup-*/uidgid fileif [ $UID -gt 199 ] &amp;&amp; [ “/usr/bin/id -gn“ = “/usr/bin/id -un“ ]; then"></a>By default, we want umask to get set. This sets it for login shell# Current threshold for system reserved uid/gids is 200# You could check uidgid reservation validity in# /usr/share/doc/setup-*/uidgid fileif [ $UID -gt 199 ] &amp;&amp; [ “<code>/usr/bin/id -gn</code>“ = “<code>/usr/bin/id -un</code>“ ]; then</h1><pre><code>umask 002
+</code></pre><p>else<br>    umask 022<br>fi</p>
+<p>for i in /etc/profile.d/*.sh ; do</p>
+<pre><code>if [ -r &quot;$i&quot; ]; then
+    if [ &quot;${-#*i}&quot; != &quot;$-&quot; ]; then
+        . &quot;$i&quot;
+    else
+        . &quot;$i&quot; &gt;/dev/null
+    fi
+fidone
+</code></pre><p>unset i<br>unset -f pathmunge<br>PATH=$PATH:/tmp/<br> *** 在最后加上：PATH=$PATH:/tmp/</p>
+<ul>
+<li>如果想恢复之前的PATH，就去掉/tmp/，复制之前的PATH。命令如下：</li>
+<li>[root@aminglinux-01 ~]# echo $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/<br>bin:/root/bin:/tmp/<br>[root@aminglinux-01 ~]#PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/<br>root/bin<br>[root@aminglinux-01 ~]# echo $PATH<br>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin<br>[root@aminglinux-01 ~]# ls2<br>-bash: ls2: 未找到命令</li>
+<li>如果设置了永久保存，就在vi /etc/profile里面把PATH=$PATH:/tmp/删掉重启就可以了。</li>
+<li></li>
+</ul>
+<h2 id="2-11-cp-拷贝命令"><a href="#2-11-cp-拷贝命令" class="headerlink" title="2.11 cp 拷贝命令"></a>2.11 cp 拷贝命令</h2><ul>
+<li><p>cp ,copy的意思，把源文件拷贝到目标文件,并且可以重命名目标文件名字<br>[root@aming1 ~]# ls123.txt  anaconda-ks.cfg<br>[root@aming1 ~]# cp /etc/passwd  456.txt<br>[root@aming1 ~]# ls123.txt  456.txt  anaconda-ks.cfg</p>
+</li>
+<li><p>cp 目录也是需要加上-r的。<br>[root@aming1 ~]# cp -r /tmp/aminglinux/   /tmp/aming/<br>[root@aming1 ~]# tree /tmp/aming<br>/tmp/aming<br>└── 111<br>  └── 222</p>
+<pre><code>└── 333
+</code></pre><p>[root@aming1 ~]# tree /tmp/aminglinux//tmp/aminglinux/<br>└── 111<br>  └── 222</p>
+<pre><code>└── 333
+</code></pre></li>
+<li><p>当复制文件已经存在的时候会问是否覆盖<br>[root@aming1 ~]# ls123.txt  anaconda-ks.cfg<br>[root@aming1 ~]# cp /etc/passwd  456.txt<br>[root@aming1 ~]# ls123.txt  456.txt  anaconda-ks.cfg<br>[root@aming1 ~]# cp /etc/passwd  456.txt<br>cp：是否覆盖”456.txt”？ y<br>[root@aming1 ~]#</p>
+</li>
+<li><p>那么当复制目录的时候会不会提示覆盖呢</p>
+</li>
+<li><p>经过测试是如果目录都是空的，就不会有提示，如果目录里有文件就会提示是否覆盖。</p>
+<h2 id="2-12-mv移动文件命令"><a href="#2-12-mv移动文件命令" class="headerlink" title="2.12 mv移动文件命令"></a>2.12 mv移动文件命令</h2></li>
+<li><p>mv ：move的缩写，移动文件命令</p>
+</li>
+<li>同一个目录下移动文件或者目录会给文件或目录更改名字</li>
+<li>[root@aminglinux-01 ~]# lsanaconda-ks.cfg[root@aminglinux-01 ~]# mv anaconda-<br>ks.cfg    anaconda-ks.cfg.1[root@aminglinux-01 ~]# lsanaconda-ks.cfg.1</li>
+<li>也可以移动文件或目录并且改名字。<br>[root@aminglinux-01 tmp]# mv 12.txt     /root/2.txt</li>
+</ul>
+<p>[root@aminglinux-01 tmp]# ls /root/2.txt  anaconda-ks.cfg.1<br>[root@aminglinux-01 tmp]#</p>
+<ul>
+<li>如果移动的位置已经有一个相同文件名的文件，也是会提示覆盖的。输入mv的绝对路径就不会提示了。<br>[root@aming1 ~]# mv 123.txt 111.txt[root@aming1 ~]# mv 111.txt 111.txtmv: “111.txt” 与”111.txt” 为同一文件<br>[root@aming1 ~]# mv 456.txt 111.txtmv：是否覆盖”111.txt”？ y</li>
+</ul>
+<p>另外如果移动相同文件夹里面如果有文件，那么是会报错目录非空。无法覆盖。<br>文件查看cat_more_less_head_tail</p>
+<h2 id="2-13-cat"><a href="#2-13-cat" class="headerlink" title="2.13 cat"></a>2.13 cat</h2><ul>
+<li><p>用cat查看一个文件的内容<br>[root@aming1 ~]# cat 111.txt root:x:0:0:root:/root:/bin/bashbin:x:1:1:bin:/bin:/<br>sbin/nologindaemon:x:2:2:daemon:/sbin:/sbin/nologinadm:x:3:4:adm:/var/adm:/sbin/nologinlp:x:4:7:lp:/var/spool/lpd:/sbin/nologinsync:x:5:0:sync:/sbin:/bin/syncshutdown:x:6:0:shutdown:/sbin:/sbin/shutdownhalt:x:7:0:halt:/sbin:/sbin/haltmail:x:8:12:mail:/var/spool/mail:/sbin/nologinoperator:x:11:0:operator:/root:/sbin/nologingames:x:12:100:games:/usr/games:/sbin/nologinftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>nobody:x:99:99:Nobody:/:/sbin/nologin<br>systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin<br>systemd-network:x:192:192:systemd Network Management:/:/sbin/nologindbus:x:81:81:System message bus:/:/sbin/nologinpolkitd:x:998:996:User for polkitd:/:/sbin/nologintss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>postfix:x:89:89::/var/spool/postfix:/sbin/nologinsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>chrony:x:997:995::/var/lib/chrony:/sbin/nologin<br>[root@aming1 ~]#</p>
+</li>
+<li><p>cat -n 显示行号</p>
+</li>
+<li><p>[root@aming1 ~]# cat -n 111.txt<br>   1 root:x:0:0:root:/root:/bin/bash<br>   2 bin:x:1:1:bin:/bin:/sbin/nologin<br>   3 daemon:x:2:2:daemon:/sbin:/sbin/nologin<br>   4 adm:x:3:4:adm:/var/adm:/sbin/nologin<br>   5 lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin<br>   6 sync:x:5:0:sync:/sbin:/bin/sync<br>   7 shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown<br>   8 halt:x:7:0:halt:/sbin:/sbin/halt<br>   9 mail:x:8:12:mail:/var/spool/mail:/sbin/nologin<br>  10 operator:x:11:0:operator:/root:/sbin/nologin<br>  11 games:x:12:100:games:/usr/games:/sbin/nologin<br>  12 ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>  13 nobody:x:99:99:Nobody:/:/sbin/nologin<br>  14 systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin<br>  15 systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin<br>  16 dbus:x:81:81:System message bus:/:/sbin/nologin<br>  17 polkitd:x:998:996:User for polkitd:/:/sbin/nologin<br>  18 tss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>  19 postfix:x:89:89::/var/spool/postfix:/sbin/nologin<br>  20 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>  21 chrony:x:997:995::/var/lib/chrony:/sbin/nologin<br>[root@aming1 ~]#</p>
+</li>
+<li><p>tac 倒序查看一个文件<br>[root@aming1 ~]# tac 111.txt chrony:x:997:995::/var/lib/chrony:/sbin/nologinsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>postfix:x:89:89::/var/spool/postfix:/sbin/nologintss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>polkitd:x:998:996:User for polkitd:/:/sbin/nologindbus:x:81:81:System message bus:/:/sbin/nologin<br>systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin<br>systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologinnobody:x:99:99:Nobody:/:/sbin/nologinftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>games:x:12:100:games:/usr/games:/sbin/nologinoperator:x:11:0:operator:/root:/sbin/nologinmail:x:8:12:mail:/var/spool/mail:/sbin/nologinhalt:x:7:0:halt:/sbin:/sbin/haltshutdown:x:6:0:shutdown:/sbin:/sbin/shutdownsync:x:5:0:sync:/sbin:/bin/synclp:x:4:7:lp:/var/spool/lpd:/sbin/nologinadm:x:3:4:adm:/var/adm:/sbin/nologindaemon:x:2:2:daemon:/sbin:/sbin/nologinbin:x:1:1:bin:/bin:/sbin/nologinroot:x:0:0:root:/root:/bin/bash</p>
+</li>
+<li><p>其他用法可以man cat一下。<br>more</p>
+</li>
+<li><p>也是查看文件内容的，但是不会像cat一样全部显示出来。</p>
+</li>
+<li>它会一屏一屏的显示。按空格键下翻页。</li>
+<li>看完之后就自动退出来了。</li>
+<li>按Ctrl+b键是向上翻页。<br>[root@aminglinux-01 ~]# more /etc/profile# /etc/profile</li>
+</ul>
+<h1 id="System-wide-environment-and-startup-programs-for-login-setup-Functions-and-aliases-go-in-etc-bashrc"><a href="#System-wide-environment-and-startup-programs-for-login-setup-Functions-and-aliases-go-in-etc-bashrc" class="headerlink" title="System wide environment and startup programs, for login setup# Functions and aliases go in /etc/bashrc"></a>System wide environment and startup programs, for login setup# Functions and aliases go in /etc/bashrc</h1><h1 id="It’s-NOT-a-good-idea-to-change-this-file-unless-you-know-what-you-are-doing-It’s-much-better-to-create-a-custom-sh-shell-script-in-etc-profile-d-to-make-custom-changes-to-your-environment-as-this-will-prevent-the-need-for-merging-in-future-updates"><a href="#It’s-NOT-a-good-idea-to-change-this-file-unless-you-know-what-you-are-doing-It’s-much-better-to-create-a-custom-sh-shell-script-in-etc-profile-d-to-make-custom-changes-to-your-environment-as-this-will-prevent-the-need-for-merging-in-future-updates" class="headerlink" title="It’s NOT a good idea to change this file unless you know what you# are doing. It’s much better to create a custom.sh shell script in# /etc/profile.d/ to make custom changes to your environment, as this# will prevent the need for merging in future updates."></a>It’s NOT a good idea to change this file unless you know what you# are doing. It’s much better to create a custom.sh shell script in# /etc/profile.d/ to make custom changes to your environment, as this# will prevent the need for merging in future updates.</h1><p>pathmunge () {<br>    case “:${PATH}:” in<br>        <em>:”$1”:</em>)<br>            ;;<br>        *)<br>            if [ “$2” = “after” ] ; then<br>                PATH=$PATH:$1<br>            else<br>                PATH=$1:$PATH<br>            fi<br>    esac<br>}</p>
+<p>–More–(66%)<br>less命令</p>
+<ul>
+<li>less的命令的用法包含了more的用法，同时可以用方向键来一行一行的翻页。翻到尾部不会自动退出来。</li>
+<li>按q可以退出。</li>
+<li>按“g”定位到行首</li>
+<li>按“G”定位到行尾</li>
+<li><p>还可以搜索内容<br>输入：/或者？“单词” 比如/and或？and 搜索下面文件内容所有的and都会高亮显示。 按“n”像下查询查找内容 按“N”从下向上查询查找内容<br>head 命令 tail 命令</p>
+</li>
+<li><p>head 命令查看文件的头十行</p>
+</li>
+<li>tail 命令查看文件的尾十行</li>
+<li>tail 和head都是可以输入-n 来指定看几行的。比如只看两行。<br>[root@aming1 ~]# head -n2 111.txt root:x:0:0:root:/root:/bin/bashbin:x:1:1:bin:/bin:/sbin/nologin<br>[root@aming1 ~]#</li>
+</ul>
+<p>wc -l 命令,显示一个文件的行数</p>
+<p>[root@aming1 ~]# wc -l 111.txt<br>21 111.txt</p>
+<p>追加重定向：前面命令的输出内容 &gt;&gt; 追加到目标文件内容的后面。</p>
+<ul>
+<li>分别查看1.txt与2.txt<br>[root@aming1 ~]# cat 1.txt 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111<br>[root@aming1 ~]# cat 2.txt 22222222222222222222</li>
+<li>把查看1.txt的输出追加重定向到2.txt后查看，<br>[root@aming1 ~]# cat 1.txt &gt;&gt; 2.txt<br>[root@aming1 ~]# cat 2.txt<br>22222222222222222222<br>11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/9月12日 相对与绝对路径  cd命令 创建和删除目录mkdirrmdir  rm命令/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1119,7 +1343,7 @@ and &apos;journalctl -xn&apos; for details.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
