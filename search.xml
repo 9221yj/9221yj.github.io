@@ -9,7 +9,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[9月28日 进入编辑模式vim命令模式 vim实践]]></title>
+    <title><![CDATA[9月29日 进入编辑模式vim命令模式 vim实践]]></title>
     <url>%2F2018%2F12%2F31%2F9%E6%9C%8829%E6%97%A5%E8%BF%9B%E5%85%A5%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%AE%9E%E6%88%98%2F</url>
     <content type="text"><![CDATA[进入编辑模式所谓编辑模式就是进入可以编辑文件内容的状态，就和进入word文档进入记事本是一样的，最普遍进入编辑模式的方式就是按i，即进入当前光标所在位置的编辑模式。下面介绍几种进入编辑模式的方式：Shift+i也可以进入编辑模式，但是光标会移动到光标所在行的行首。按o键则会往下换一行后进入编辑模式。Shift+o则是往上换一行后进入编辑模式。按a键光标会在当前的字符往后移动一位后，进入编辑模式。 Shift+a光标会移动到光标所在行的行末，并且进入编辑模式。 5.6 vim命令模式 :%s/str1/str2/ 用字符串 str2 替换行中首次出现的字符串 str1 :s/str1/str2/g 用字符串 str2 替换行中所有出现的字符串 str1 :.,$ s/str1/str2/g 用字符串 str2 替换正文当前行到末尾所有出现的字符串 str1 :1,$ s/str1/str2/g 用字符串 str2 替换正文中所有出现的字符串 str1 :g/str1/s//str2/g 功能同上 :m,ns/str1/str2/g 将从m行到n行的str1替换成str2 从上述替换命令可以看到：g 放在命令末尾，表示对搜索字符串的每次出现进行替换,不止匹配每行中的第一次出现；不加 g，表示只对搜索字符串的首次出现进行替换；g 放在命令开头，表示对正文中所有包含搜索字符串的行进行替换操作s 表示后面跟着一串替换的命令% 表示替换范围是所有行，即全文 x保存退出类似于wq，它们的区别是：在没有对文件进行操作的情况下使用wq会更改mtime，使用x则不会更改mtime，除非你对文件进行操作了。 5.7 vim实践 扩展：vim的特殊用法 http://www.apelearn.com/bbs/thread-9334-1-1.htmlvim常用快捷键总结 http://www.apelearn.com/bbs/thread-407-1-1.htmlvim快速删除一段字符 http://www.apelearn.com/bbs/thread-842-1-1.htmlvim乱码 http://www.apelearn.com/bbs/thread-6753-1-1.html小键盘问题 http://www.apelearn.com/bbs/thread-7215-1-1.htmlvim加密 http://www.apelearn.com/bbs/thread-7750-1-1.html]]></content>
       <tags>
