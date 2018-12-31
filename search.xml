@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[9月28日 进入编辑模式vim命令模式 vim实践]]></title>
+    <url>%2F2018%2F12%2F31%2F9%E6%9C%8829%E6%97%A5%E8%BF%9B%E5%85%A5%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E5%8F%8A%E5%AE%9E%E6%88%98%2F</url>
+    <content type="text"><![CDATA[进入编辑模式所谓编辑模式就是进入可以编辑文件内容的状态，就和进入word文档进入记事本是一样的，最普遍进入编辑模式的方式就是按i，即进入当前光标所在位置的编辑模式。下面介绍几种进入编辑模式的方式：Shift+i也可以进入编辑模式，但是光标会移动到光标所在行的行首。按o键则会往下换一行后进入编辑模式。Shift+o则是往上换一行后进入编辑模式。按a键光标会在当前的字符往后移动一位后，进入编辑模式。 Shift+a光标会移动到光标所在行的行末，并且进入编辑模式。 5.6 vim命令模式 :%s/str1/str2/ 用字符串 str2 替换行中首次出现的字符串 str1 :s/str1/str2/g 用字符串 str2 替换行中所有出现的字符串 str1 :.,$ s/str1/str2/g 用字符串 str2 替换正文当前行到末尾所有出现的字符串 str1 :1,$ s/str1/str2/g 用字符串 str2 替换正文中所有出现的字符串 str1 :g/str1/s//str2/g 功能同上 :m,ns/str1/str2/g 将从m行到n行的str1替换成str2 从上述替换命令可以看到：g 放在命令末尾，表示对搜索字符串的每次出现进行替换,不止匹配每行中的第一次出现；不加 g，表示只对搜索字符串的首次出现进行替换；g 放在命令开头，表示对正文中所有包含搜索字符串的行进行替换操作s 表示后面跟着一串替换的命令% 表示替换范围是所有行，即全文 x保存退出类似于wq，它们的区别是：在没有对文件进行操作的情况下使用wq会更改mtime，使用x则不会更改mtime，除非你对文件进行操作了。 5.7 vim实践 扩展：vim的特殊用法 http://www.apelearn.com/bbs/thread-9334-1-1.htmlvim常用快捷键总结 http://www.apelearn.com/bbs/thread-407-1-1.htmlvim快速删除一段字符 http://www.apelearn.com/bbs/thread-842-1-1.htmlvim乱码 http://www.apelearn.com/bbs/thread-6753-1-1.html小键盘问题 http://www.apelearn.com/bbs/thread-7215-1-1.htmlvim加密 http://www.apelearn.com/bbs/thread-7750-1-1.html]]></content>
+      <tags>
+        <tag>工作日志</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[9月28日 5.1-4 vim介绍 vim颜色显示和移动光标 vim一般模式下移动光标 vim一般模式下复制、剪切和粘贴]]></title>
     <url>%2F2018%2F12%2F29%2F9%E6%9C%8828%E6%97%A5%20vim%E4%BB%8B%E7%BB%8D%2F</url>
     <content type="text"><![CDATA[Vim是一个类似于Vi的著名的功能强大、高度可定制的文本编辑器，在Vi的基础上改进和增加了很多特性。VIM是自由软件。Vim是从 vi 发展出来的一个文本编辑器。代码补全、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用，和Emacs并列成为类Unix、Linux系统用户最喜欢的文本编辑器。 1.如果你的操作系统没有vim，可以使yum install -y vim-enhanced 命令进行安装： 2.Vim查看文本时是带有颜色显示的，例如我使用vim打开etc目录下的passwd文件： 3.Vim的一般模式，就是还没有按i进入编辑模式的状态，在一般模式下可以复制粘贴行和使用dd删除某一行。 4.Vim的编辑模式，就是按i或a键进入的文件编辑状态，能够编辑文件的内容。 5.Vim的命令模式，就是使用类似less命令去对文件进行操作，包括使用wq保存退出、q退出和q!强制退出等等，这些都属于命令模式。 5.2 vim颜色显示和移动光标由上面使用vim查看passwd文件可知vim是带有颜色显示的，但是如果把passwd文件拷贝到别的目录下，会发现使用vim查看却是没有颜色，例如我拷贝到tmp目录下： 此例说明相同的文件在不同的目录下，可能会导致颜色不显示。在CentOS中每个系统目录的性质不一样，etc目录下的是配置文件而tmp目录下的是临时文件，所以etc下的文件在别的目录不显示颜色也是正常的。 我们再看一个例子，我把etc下的fstap文件拷贝到tmp目录下，然后使用vim查看： 可以看到etc下的文件在tmp下也能显示颜色了，这是因为fstab文件的最上面的内容有以#号开头的，如果在passwd文件里也加上几行以#号开头的内容，那么这几行内容也是会显示颜色的： 这说明其实此文件本身并不是没有颜色，而是文件的内容不具备显示颜色的条件。 不仅可以根据文件内容显示颜色，还可以根据文件的名字，让文件内容显示颜色，例如我把passwd改为passwd.sh： Vim的配置文件是vimrc在etc目录下： Vim比较高级的用法都可以在此配置文件中配置，例如代码高亮、自动缩进等等。 5.3 vim一般模式下移动光标 补充：在使用按键移动光标的时候，加上一个数字，就可以根据这个数字来移动多少位字符。5.4 vim一般模式下复制、剪切和粘贴]]></content>

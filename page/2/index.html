@@ -294,6 +294,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/9月17日  特殊权限 set_uid  set_gid stick_bit/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/17/9月17日  特殊权限 set_uid  set_gid stick_bit/" itemprop="url">9月17日  特殊权限 set_uid  set_gid stick_bit 软链接与硬链接</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T22:28:06+08:00">
+                2018-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="特殊权限-set-uid"><a href="#特殊权限-set-uid" class="headerlink" title="特殊权限 set_uid"></a>特殊权限 set_uid</h2><p>set_uid 的作用：可以在普通用户用到这个命令的时候临时授予普通用户拥有root权限。</p>
+<p>之前用到的一个命令就是更改密码的时候用到的passwd命令<br>[root@aminglinux-01 ~]# which passwd<br>/usr/bin/passwd<br>[root@aminglinux-01 ~]# ls -l /usr/bin/passwd<br>-rwsr-xr-x. 1 root root 27832 6月  10 2014 /usr/bin/passwd</p>
+<p>可以看到这个文件是红色的，并且在所有者的第三位权限是个s</p>
+<ul>
+<li>这个权限是rws，这个s的权限就是：set_uid<br>我们平时普通用户也是可以用passwd来更改密码的。那首先看看密码文件的权限是怎么样的<br>[root@aminglinux-01 ~]# ls -l /etc/shadow<br>———-. 1 root root 662 8月   9 21:38 /etc/shadow</li>
+</ul>
+<p>所有人都没有任何权限，（ 当然root是有至高无上的权利的）</p>
+<ul>
+<li>可以看到这个保存密码的文件是非常严谨的，但是普通用户依然有修改密码的权限。所谓的set_uid就是在执行命令时临时赋予root权限给没权限的用户。</li>
+<li>给一个文件设置set_uid前提是这个文件是一个可执行的2进制文件。<br>file 加命令的绝对路径，可以查看文件类型，比如是可读的test文件还是不可读的二进制文,如下显示的就是二进制文件。<br>[root@aming1 ~]# file /usr/bin/passwd</li>
+</ul>
+<p>/usr/bin/passwd: setuid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=1e5735bf7b317e60bcb907f1989951f6abd50e8d, stripped<br>[root@aming1 ~]#<br>怎样添加set_uid的权限：chmod u+s 可执行加二进制文件</p>
+<ul>
+<li>比如给ls添加set_uid权限<br>[root@aminglinux-01 ~]# which lsalias ls=’ls –color=auto’<pre><code>/usr/bin/ls
+</code></pre>[root@aminglinux-01 ~]# chmod u+s /usr/bin/ls<br>[root@aminglinux-01 ~]# ls -l /usr/bin/ls<br>-rwsr-xr-x. 1 root root 117656 11月  6 2016 /usr/bin/ls</li>
+<li><p>创建一个普通用户，用普通用户运行ls命令查看root目录是没有权限的<br>[root@aming1 ~]# useradd aming<br>[root@aming1 ~]# su - aming<br>[aming@aming1 ~]$ ls /root/<br>ls: 无法打开目录/root/: 权限不够</p>
+</li>
+<li><p>返回root用户给ls添加上set_uid之后在试试,就可以用ls命令了，就是临时用了一下root权限。。<br>[aming@aming1 ~]$ su - root<br>密码：<br>上一次登录：二 5月 15 20:44:43 CST 2018从 192.168.159.1pts/0 上<br>[root@aming1 ~]# chmod u+s /usr/bin/ls<br>[root@aming1 ~]# ls -l /usr/bin/ls<br>-rwsr-xr-x. 1 root root 117656 11月  6 2016 /usr/bin/ls<br>[root@aming1 ~]# su - aming<br>上一次登录：二 5月 15 22:35:46 CST 2018pts/0 上<br>[aming@aming1 ~]$ ls /root/<br>111  1.txt  anaconda-ks.cfg<br>[aming@aming1 ~]$</p>
+</li>
+<li><p>当权限是大写的S时候，说明文件之前没有x权限。比如下面<br>[root@aming1 ~]# chmod u=rws /usr/bin/ls<br>[root@aming1 ~]# ls -l /usr/bin/ls<br>-rwSr-xr-x. 1 root root 117656 11月  6 2016 /usr/bin/ls<br>[root@aming1 ~]# chmod u+x /usr/bin/ls<br>[root@aming1 ~]# ls -l /usr/bin/ls<br>-rwsr-xr-x. 1 root root 117656 11月  6 2016 /usr/bin/ls</p>
+</li>
+<li><p>目录也是可以加set_uid权限的，不过没有什么意义，目录有不能执行。</p>
+<h2 id="特殊权限-set-gid"><a href="#特殊权限-set-gid" class="headerlink" title="特殊权限 set_gid"></a>特殊权限 set_gid</h2></li>
+</ul>
+<p>功能：这个特殊权限与set_uid类似，只不过作用在用户组的权限上。普通用户临时拥有root组的权限。</p>
+<p>用法：chmod g+s 可执行加二进制文件</p>
+<p>可以再用ls命令设置看一下，s权限作用在了用户组的位置上，文件显示为黄色。</p>
+<ul>
+<li>目录也是可以加上set_gid 权限的。并且在加上权限后，更改目录的所属组时候，在此目录新建的子文件或者子目录，所属组都是跟父目录保持一致的。取消set_gid后，在创建就不会跟父目录保持一致。<br>[root@aminglinux-01 ~]# chown linyu  aaa/<br>[root@aminglinux-01 ~]# chmod g+s aaa/<br>[root@aminglinux-01 ~]# ls -ld aaa/<br>drwxr-sr-x. 2 linyu root 6 8月   9 22:08 aaa/<br>[root@aminglinux-01 ~]# mkdir aaa/aming11.txt<br>[root@aminglinux-01 ~]# mkdir aaa/aming12/<br>[root@aminglinux-01 ~]# ls -l aaa/<br>总用量 0<br>drwxr-sr-x. 2 root linyu 6 8月  10 19:47 aming11.txt<br>drwxr-sr-x. 2 root linyu 6 8月  10 19:47 aming12<br>特殊权限 stick_bit</li>
+</ul>
+<p>功能：特殊权限是“t”,这个t就是防删除位。防止某个用户创建的文件被其他用户删除。root用户除外。</p>
+<p>用法：chmod o+t 目录</p>
+<ul>
+<li>这个用到的相对比较多，/tmp/目录就是有stick_bit权限的。<br>[root@aminglinux-01 ~]# ls -ld /tmp/<br>drwxrwxrwt. 13 root root 4096 8月  10 19:37 /tmp/</li>
+<li>/tmp/最后一位权限是“t”,这个t就是防删除位。</li>
+<li>/tmp/默认是777权限，这样每一个用户都可以更改删除文件，这样如果一个用户把另一个用户的文件删除了，这样就乱套了。所以有了stick_bit权限，其他用户看是可以得，更改，删，是不可以的。<br>首先用aming用户在tmp下创建<br>[root@aming1 ~]# su - aming<br>上一次登录：二 5月 15 22:38:42 CST 2018pts/0 上<br>[aming@aming1 ~]$ cd /tmp/<br>[aming@aming1 tmp]$ ls<br>systemd-private-f5ee0732c20c480e948ac5116d7bc899-vmtoolsd.service-ZjwF4b<br>[aming@aming1 tmp]$ touch /tmp/1.txt</li>
+</ul>
+<p>然后切换为aming2用户对tmp下1.txt进行删除，追加，更改，都是不可以的。<br>[root@aming1 ~]# su - aming2—<br>title: 9月6日 1.6-1.8 配置ip</p>
+<h2 id="tags-工作日志"><a href="#tags-工作日志" class="headerlink" title="tags: 工作日志"></a>tags: 工作日志</h2><p>最后一次失败的登录：二 5月 15 23:10:37 CST 2018pts/0 上<br>最有一次成功登录后有 1 次失败的登录尝试。<br>[aming2@aming1 ~]$ vi /tmp/1.txt                        ———————————————-此处vi编辑会提示该文件为只读。<br>[aming2@aming1 ~]$ head -n2 /etc/passwd &gt;&gt; /tmp/1.txt<br>-bash: /tmp/1.txt: 权限不够<br>[aming2@aming1 ~]$ rm /tmp/1.txt<br>rm：是否删除有写保护的普通空文件 “/tmp/1.txt”？y<br>rm: 无法删除”/tmp/1.txt”: 不允许的操作</p>
+<ul>
+<li>父目录的权限决定子目录/文件是否能被改动。果文件或目录设置了stick_bit权限，在文件或目录权限777的情况下。其他用户也只能修改，不能删除。<br>更改特殊权限的另一种方式：用权限代表的数字权限更改</li>
+</ul>
+<p>set_uid set_gid stick_bit 用数字权限表示分别就是 4 2 1</p>
+<p>假如之前的权限是755 ，chmod u+s 用数字表示就是 chmod 4755 ,特殊权限的数字直接加到普通权限的前面 。</p>
+<p>chmod g+s 用数字表示就是2755<br>chmod o+t 用数字表示就是1755</p>
+<h2 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h2><p>软连接就像windows里的快捷方式。<br>用法：ln -s 文件 软连接文件</p>
+<ul>
+<li>比如：给yum.log 做一个软链接<br>[root@aminglinux-01 ~]# ln -s /tmp/yum.log  /root/aaa/yum.log<br>[root@aminglinux-01 ~]# ls -l /root/aaa/<br>总用量 0<br>-rw-r–r–. 1 root root   0 8月  10 19:44 aming1.txt<br>lrwxrwxrwx. 1 root root  12 8月  10 23:04 yum.log -&gt; /tmp/yum.log<br>[root@aminglinux-01 ~]#<br>注意事项： 删除软连接的时候，如果软连接是个目录，删除时敲软连接名字时候 候千万别打最后面的斜杠，否则删除的就是被链接目录的本身。</li>
+</ul>
+<p>软连接如果被删除源文件并不会受到任何影响。但是源文件被删除，或者目录有改动，那么软连接文件会失效。</p>
+<ul>
+<li>/bin就是usr/bin的软链接。<br>[root@aminglinux-01 ~]# ls -l /bin<br>lrwxrwxrwx. 1 root root 7 7月  31 22:54 /bin -&gt; usr/bin</li>
+<li>软链接的优点：可以非常的节省空间。而且快捷方便。可以把另一块大空间的磁盘分区软链接到当前正在使用快不够用的文件夹中，实现快捷添加磁盘空间。<br>软链接文件也是有大小的，它的大小根据源文件路径的长度来变化，源文件所在目录越长越深，其软连接的大小就会越大，当然在大也就是几B大小。</li>
+<li>软链接不仅可以链接文件，还可以链接目录<br>[root@aminglinux-01 ~]# ln -s /tmp/111   /root/aming<br>[root@aminglinux-01 ~]# ls -l /root/aming<br>lrwxrwxrwx. 1 root root 8 8月  10 23:12 /root/aming -&gt; /tmp/111<br>[root@aminglinux-01 ~]#</li>
+<li>软链接有绝对路径页游相对路径，相对路径仅限于当前目录。相对路径有一些弊端。尽量使用绝对路径。因为软连接文件一旦移动位置就会导致软连接失效。</li>
+<li>软链接的用途例子：如果一个分区空间满了，而服务只读那个分区。这样就可以把当前分区的文件cp到更大的分区里面。然后做一个软链接到当前分区。这样服务依然可以读取到文件。还有效的利用了磁盘空间。<h2 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h2></li>
+</ul>
+<p>什么是硬链接：</p>
+<ul>
+<li>硬链接支持对文件做硬链接。不支持目录。</li>
+<li><p>硬链接的inode号，时间，大小都是一样的。<br>用法： ln 源文件 硬链接</p>
+</li>
+<li><p>创建一个456.txt文件的硬链接,如下：<br>[root@aminglinux-01 ~]# ln 456.txt 456_heard.txt[root@aminglinux-01 ~]# ls -li<br>总用量 8<br>33575032 -rw-rw-r–. 2 root  root     0 8月   9 22:14 456_heard.txt<br>33575032 -rw-rw-r–. 2 root  root     0 8月   9 22:14 456.txt[root@aminglinux-01 ~]#</p>
+</li>
+<li><p>可以看到硬链接的源文件456.txt和硬链接后的文件heard_456.txt,两者inode号，时间，大小都是一样的。</p>
+</li>
+<li>所以硬链接实际上是两个文件是同一个文件。不分源文件和链接文件。两者是互相硬链接。删除其中一个并不影响文件本身。</li>
+<li>一个文件可以创建多个硬链接。</li>
+<li>文件名只是文件本身的一个外皮。真正的文件本身是inode号记住的文件。删除其中一个外皮对文件本身并没有影响。但是外皮需要最后留一个。否则这个文件就真的被删除啦。</li>
+<li>硬链接是不会占用双份空间的，因为使用相同的inode。</li>
+<li>硬链接无法跨分区建立，因为每一个分区都有一套自己的inode，在格式化分区时都是预先设置好的。</li>
+<li>无法手动硬链接目录。系统自带硬链接目录。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/9月14日 2.14 文件和目录权限chmod  更改所有者和所属组chown umask 隐藏权限lsattrchattr/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1561,7 +1753,7 @@ and &apos;journalctl -xn&apos; for details.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
