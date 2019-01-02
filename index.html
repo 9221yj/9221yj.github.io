@@ -294,6 +294,289 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/10月9日 安装软件包的三种方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/02/10月9日 安装软件包的三种方法/" itemprop="url">10月9日 安装软件包的三种方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T13:06:11+08:00">
+                2019-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装软件包的三种方法</p>
+<h2 id="rpm工具"><a href="#rpm工具" class="headerlink" title="rpm工具"></a>rpm工具</h2><ul>
+<li><p>类似windows的exe安装包，安装简单，安装位置等都是设定好的。<br>#3yum工具</p>
+</li>
+<li><p>用python开发的工具，安装的也是rpm包</p>
+</li>
+<li><p>优点是可以自动安装一个包所依赖的一些包。rpm包在安装时候可能会需要依赖另一个包的支持，而安装另一个包，可能还需要另一个的依赖。这时候用yum就可以自动安装上所有的依赖包。方便，简单，快捷。<br>源码包</p>
+</li>
+<li><p>源代码包，需要编译后安装。<br>rpm工具的使用</p>
+</li>
+</ul>
+<p>找到rpm包</p>
+<p>要想使用rpm工具，首先需要有rpm包，下面利用contos7的镜像文件里找一下rpm包。<br>先连接虚拟机里面的光驱，光盘文件选一下contos7的镜像。连接好后开始挂载。<br>挂载到/mnt/下，mount /dev/cdrom /mnt/<br>[root@aminglinux-01 ~]# mount /dev/cdrom /mnt/<br>mount: /dev/sr0 写保护，将以只读方式挂载<br>[root@aminglinux-01 ~]# df -h<br>文件系统        容量  已用  可用 已用% 挂载点<br>/dev/sda3        18G  3.6G   15G   20% /<br>devtmpfs        479M     0  479M    0% /dev<br>tmpfs           489M     0  489M    0% /dev/shm<br>tmpfs           489M  6.7M  482M    2% /run<br>tmpfs           489M     0  489M    0% /sys/fs/cgroup<br>/dev/sda1       197M  109M   88M   56% /boot<br>tmpfs            98M     0   98M    0% /run/user/0<br>/dev/sr0        4.1G  4.1G     0  100% /mnt</p>
+<p>到mnt下看一下里面的内容。也就是光盘里的文件。rpm包是以红色名字显示的。<br>[root@aminglinux-01 ~]# cd /mnt/<br>[root@aminglinux-01 mnt]# ls<br>CentOS_BuildTag  EULA  images    LiveOS    repodata              RPM-GPG-KEY-CentOS-Testing-7<br>EFI              GPL   isolinux  Packages  RPM-GPG-KEY-CentOS-7  TRANS.TBL<br>其中 Packages这个目录下装的就是rpm包文件。</p>
+<p>#3rpm包介绍</p>
+<ul>
+<li>rpm包名组成<br>xz-devel-5.2.2-1.el7.x86_64.rpm</li>
+</ul>
+<p>包名-版本号-发布版本号.64位或32位数系统要求</p>
+<ul>
+<li>以这个rpm包为例子，xz-devel就是包名，5.2.2这个是版本号。1.el7是发布版本号。x86_64，运行平台，区分32位，或者64位。也有不需要区分的，都可以用。</li>
+<li><p>contos7已经开始不区分32或者64位的，都是64位系统。一般64位系统可以安装32位的软件。反过来不可以。<br>rpm包的安装</p>
+</li>
+<li><p>用法：</p>
+</li>
+<li>安装：rpm -ivh rpm包文件</li>
+<li>升级：rpm -Uvh rpm包文件</li>
+<li>卸载 ：rpm -e 包名</li>
+<li>查询安装的包： rpm -qa</li>
+<li>查询指定包是否安装 ： rpm -q</li>
+<li>查询指定包信息 ： rpm -qi</li>
+<li>列出包安装的文件 ： rpm -ql</li>
+<li>查看一个文件是由哪个包安装的 rpm -qf 文件绝对路径</li>
+<li><p>rpm安装rpm -ivh rpm包文件 (这个是在当前有rpm包的目录，也可用绝对路径)<br>[root@aminglinux-01 Packages]# rpm -ivh zsh-5.0.2-25.el7.x86_64.rpm<br>准备中…                          ################################# [100%]<br>正在升级/安装…<br> 1:zsh-5.0.2-25.el7                 ################################# [100%]<br>[root@aminglinux-01 Packages]#</p>
+</li>
+<li><p>卸载 ：rpm -e 包名(什么都不提示是正常的)<br>[root@aminglinux-01 Packages]# rpm -e zsh[root@aminglinux-01 Packages]#</p>
+</li>
+<li><p>查询安装的包： rpm -qa<br>python-perf-3.10.0-514.el7.x86_64perl-XML-Dumper-0.81-17.el7.noarchlogrotate-3.8.6-12.el7.x86_64net-snmp-agent-libs-5.7.2-28.el7.x86_64nss-3.21.0-17.el7.x86_64</p>
+</li>
+</ul>
+<p>—-中间省略，特别多—-dhclient-4.2.5-47.el7.centos.x86_64crontabs-1.11-6.20121102git.el7.noarchlibdrm-2.4.67-3.el7.x86_64</p>
+<ul>
+<li><p>查询指定包是否安装 ： rpm -q (如果安装了，就会有显示，没安装会提示未安装)<br>[root@aminglinux-01 Packages]# rpm -q pppppp-2.4.5-33.el7.x86_64[root@aminglinux-01 Packages]# rpm -q pppp<br>未安装软件包 pppp</p>
+</li>
+<li><p>查询指定包信息 ： rpm -qi (我们查一下vim-enhanced)<br>[root@aminglinux-01 Packages]# rpm -qi vim-enhanced<br>Name        : vim-enhanced<br>Epoch       : 2<br>Version     : 7.4.160<br>Release     : 1.el7_3.1<br>Architecture: x86_64<br>Install Date: 2017年08月23日 星期三 20时09分35秒<br>Group       : Applications/Editors<br>Size        : 2292098<br>License     : Vim<br>Signature   : RSA/SHA256, 2016年12月22日 星期四 01时14分11秒, Key ID 24c6a8a7f4a80eb5<br>Source RPM  : vim-7.4.160-1.el7_3.1.src.rpm<br>Build Date  : 2016年12月22日 星期四 01时00分52秒<br>Build Host  : c1bm.rdu2.centos.org<br>Relocations : (not relocatable)<br>Packager    : CentOS BuildSystem <a href="http://bugs.centos.org" target="_blank" rel="noopener">http://bugs.centos.org</a><br>Vendor      : CentOS<br>URL         : <a href="http://www.vim.org/" target="_blank" rel="noopener">http://www.vim.org/</a><br>Summary     : A version of the VIM editor which includes recent enhancements<br>Description :<br>VIM (VIsual editor iMproved) is an updated and improved version of the<br>vi editor.  Vi was the first real screen-based editor for UNIX, and is<br>still very popular.  VIM improves on vi by adding new features:<br>multiple windows, multi-level undo, block highlighting and more.  The<br>vim-enhanced package contains a version of VIM with extra, recently<br>introduced features like Python and Perl interpreters.</p>
+</li>
+</ul>
+<p>Install the vim-enhanced package if you’d like to use a version of the<br>VIM editor which includes recently added enhancements like<br>interpreters for the Python and Perl scripting languages.  You’ll also<br>need to install the vim-common package.<br>[root@aminglinux-01 Packages]#</p>
+<p>yum工具用法</p>
+<p>yum安装方法 yum install 包名</p>
+<p>如下，上面讲到用rpm安装和卸载会出现依赖问题非常麻烦。如果用yum安装和卸载就会自动安装或卸载所需要的依赖。<br>[root@aminglinux-01 Packages]# rpm -ivh texlive-tools-svn26263.0-38.el7.noarch.rpm<br>错误：依赖检测失败：<br>        texlive-base 被 texlive-tools-2:svn26263.0-38.el7.noarch 需要<br>        texlive-kpathsea-bin 被 texlive-tools-2:svn26263.0-38.el7.noarch 需要<br>        tex-kpathsea 被 texlive-tools-2:svn26263.0-38.el7.noarch 需要<br>        tex(color.sty) 被 texlive-tools-2:svn26263.0-38.el7.noarch 需要</p>
+<ul>
+<li>yum安装一个包只需要直接跟包名字就可以了。<br>yum install 包名 ，在用texlive这个包试一下。<h1 id="事务概要"><a href="#事务概要" class="headerlink" title="事务概要"></a>事务概要</h1>安装  1 软件包 (+223 依赖软件包)</li>
+</ul>
+<p>总下载量：118 M<br>安装大小：226 M<br>Is this ok [y/d/N]:</p>
+<p>可以看到自动检测到需要223个依赖包。按y就会下载安装，按n就是不安装。如果这么多依赖用rpm一个一个安装的话会累死，这也是yum的优点。<br>列出可用rpm包 ：yum list</p>
+<p>yum-plugin-tmprepo.noarch                                                         1.1.31-45.el7                                                  base<br>yum-plugin-tsflags.noarch                                                         1.1.31-45.el7                                                  base<br>yum-plugin-upgrade-helper.noarch                                                  1.1.31-45.el7                                                  base<br>yum-plugin-verify.noarch                                                          1.1.31-45.el7                                                  base<br>yum-plugin-versionlock.noarch                                                     1.1.31-45.el7                                                  base<br>yum-rhn-plugin.noarch                                                             2.0.1-10.el7                                                   base<br>yum-updateonboot.noarch                                                           1.1.31-45.el7                                                  base<br>yum-utils.noarch                                                                  1.1.31-45.el7                                                  base<br>zenity.x86_64                                                                     3.22.0-1.el7                                                   base<br>列出的非常多， 左侧是包名字和运行平台， 中间是版本号，和平台号。 最右侧是仓库名字。@开头的是已经安装过的包。<br>/etc/yum.repos.d/这里面是yum仓库的配置文件。<br>[root@localhost ~]# ls /etc/yum.repos.d/<br>CentOS-Base.repo  CentOS-CR.repo  CentOS-Debuginfo.repo  CentOS-fasttrack.repo  CentOS-Media.repo  CentOS-Sources.repo  CentOS-Vault.repo</p>
+<p>yum模糊搜索包 ：yum search 要搜索的包名字</p>
+<p>用搜索vim举例。 yum search vim<br>[root@localhost ~]# yum search vim<br>已加载插件：fastestmirror<br>Loading mirror speeds from cached hostfile</p>
+<ul>
+<li>base: mirrors.huaweicloud.com</li>
+<li>extras: mirrors.huaweicloud.com</li>
+<li><p>updates: mirrors.zju.edu.cn<br>==================================================================== N/S matched: vim ====================================================================<br>protobuf-vim.x86_64 : Vim syntax highlighting for Google Protocol Buffers descriptions<br>vim-X11.x86_64 : The VIM version of the vi editor for the X Window System<br>vim-common.x86_64 : The common files needed by any version of the VIM editor<br>vim-enhanced.x86_64 : A version of the VIM editor which includes recent enhancements<br>vim-filesystem.x86_64 : VIM filesystem layout<br>vim-minimal.x86_64 : A minimal version of the VIM editor</p>
+<p>名称和简介匹配 only，使用“search all”试试。<br>[root@localhost ~]#</p>
+</li>
+</ul>
+<p>yum 精确过滤出想要的包名：yum list |grep ‘包名’</p>
+<p>用vim搜索举例 。 yum list |grep ‘vim’ 。不光能精确过滤，还有颜色显示。</p>
+<p>yum grouplist 列出安装包组</p>
+<p>[root@localhost ~]# yum grouplist<br>已加载插件：fastestmirror<br>没有安装组信息文件<br>Maybe run: yum groups mark convert (see man yum)<br>Loading mirror speeds from cached hostfile</p>
+<ul>
+<li>base: mirrors.huaweicloud.com</li>
+<li>extras: mirrors.huaweicloud.com</li>
+<li>updates: mirrors.zju.edu.cn<br>可用的环境分组：<br> 最小安装<br> 基础设施服务器<br> 计算节点<br> 文件及打印服务器<br> 基本网页服务器<br> 虚拟化主机<br> 带 GUI 的服务器<br> GNOME 桌面<br> KDE Plasma Workspaces<br> 开发及生成工作站<br>可用组：<br> 传统 UNIX 兼容性<br> 兼容性程序库<br> 图形管理工具<br> 安全性工具<br> 开发工具<br> 控制台互联网工具<br> 智能卡支持<br> 科学记数法支持<br> 系统管理<br> 系统管理工具<br>完成</li>
+</ul>
+<p>中文显示可能无法使用。需要用 LANG=en 转换英文看一下<br>[root@localhost ~]# LANG=en<br>[root@localhost ~]# yum grouplist<br>Failed to set locale, defaulting to C<br>Loaded plugins: fastestmirror<br>There is no installed groups file.<br>Maybe run: yum groups mark convert (see man yum)<br>Loading mirror speeds from cached hostfile</p>
+<ul>
+<li>base: mirrors.huaweicloud.com</li>
+<li>extras: mirrors.huaweicloud.com</li>
+<li>updates: mirrors.zju.edu.cn<br>Available Environment Groups:<br> Minimal Install<br> Compute Node<br> Infrastructure Server<br> File and Print Server<br> Basic Web Server<br> Virtualization Host<br> Server with GUI<br> GNOME Desktop<br> KDE Plasma Workspaces<br> Development and Creative Workstation<br>Available Groups:<br> Compatibility Libraries<br> Console Internet Tools<br> Development Tools<br> Graphical Administration Tools<br> Legacy UNIX Compatibility<br> Scientific Support<br> Security Tools<br> Smart Card Support<br> System Administration Tools<br> System Management<br>Done</li>
+</ul>
+<p>yum groupinstall 安装组包</p>
+<ul>
+<li>用法 ：yum groupinstall 包名 。 如果包名字有空格，用单引号引起来。如：yum groupinstall ‘Development and Creative Workstation’<br>yum 卸载软件包 ：yum remove 包名</li>
+</ul>
+<p>卸载软件包也是会把所有的依赖卸载。所以卸载时候尽量不要加-y, 以免出现意外。<br>yum 升级软件包 ：yum update 包名</p>
+<p>如果yum update 不加包名会自动升级系统中能升级的所有包。包括系统本身。<br>yum provides “/*/vim” 根据命令搜索包名字</p>
+<p>[root@localhost ~]# yum provides “/*/vim”<br>Failed to set locale, defaulting to C<br>Loaded plugins: fastestmirror<br>Loading mirror speeds from cached hostfile</p>
+<ul>
+<li>base: mirrors.huaweicloud.com</li>
+<li>extras: mirrors.huaweicloud.com</li>
+<li>updates: mirrors.zju.edu.cn<br>base/7/x86_64/filelists_db                                                                                                         | 6.9 MB  00:00:06<br>extras/7/x86_64/filelists_db                                                                                                       | 519 kB  00:00:00<br>updates/7/x86_64/filelists_db                                                                                                      | 1.3 MB  00:00:00<br>cmake-2.8.12.2-2.el7.x86_64 : Cross-platform make system<br>Repo        : base<br>Matched from:<br>Filename    : /usr/share/cmake/editors/vim</li>
+</ul>
+<p>2:docker-unit-test-1.13.1-53.git774336d.el7.centos.x86_64 : Automates deployment of containerized applications - for running unit tests<br>Repo        : extras<br>Matched from:<br>Filename    : /var/lib/docker-unit-test/v1.10-migrator-c417a6a022c5023c111662e8280f885f6ac259be/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/runc-e9c345b3f906d5dc5e8100b05ce37073a811c74a/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/docker-novolume-plugin-385ec70baac3ef356f868f391c8d7818140fbd44/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/containerd-296f1f80d6c6a83cc625163f863e53d3287328ee/vendor/src/github.com/docker/docker/contrib/syntax/vim</p>
+<p>2:docker-unit-test-1.13.1-58.git87f2fab.el7.centos.x86_64 : Automates deployment of containerized applications - for running unit tests<br>Repo        : extras<br>Matched from:<br>Filename    : /var/lib/docker-unit-test/v1.10-migrator-c417a6a022c5023c111662e8280f885f6ac259be/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/runc-e9c345b3f906d5dc5e8100b05ce37073a811c74a/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/docker-novolume-plugin-385ec70baac3ef356f868f391c8d7818140fbd44/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/containerd-296f1f80d6c6a83cc625163f863e53d3287328ee/vendor/src/github.com/docker/docker/contrib/syntax/vim</p>
+<p>2:docker-unit-test-1.13.1-63.git94f4240.el7.centos.x86_64 : Automates deployment of containerized applications - for running unit tests<br>Repo        : extras<br>Matched from:<br>Filename    : /var/lib/docker-unit-test/v1.10-migrator-c417a6a022c5023c111662e8280f885f6ac259be/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/runc-e9c345b3f906d5dc5e8100b05ce37073a811c74a/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/docker-novolume-plugin-385ec70baac3ef356f868f391c8d7818140fbd44/Godeps/_workspace/src/github.com/docker/docker/contrib/syntax/vim<br>Filename    : /var/lib/docker-unit-test/containerd-296f1f80d6c6a83cc625163f863e53d3287328ee/vendor/src/github.com/docker/docker/contrib/syntax/vim</p>
+<p>git-1.8.3.1-13.el7.x86_64 : Fast Version Control System<br>Repo        : base<br>Matched from:<br>Filename    : /usr/share/doc/git-1.8.3.1/contrib/vim</p>
+<p>2:vim-common-7.4.160-4.el7.x86_64 : The common files needed by any version of the VIM editor<br>Repo        : base<br>Matched from:<br>Filename    : /usr/share/vim</p>
+<p>2:vim-enhanced-7.4.160-4.el7.x86_64 : A version of the VIM editor which includes recent enhancements<br>Repo        : base<br>Matched from:<br>Filename    : /usr/bin/vim</p>
+<p>2:vim-enhanced-7.4.160-2.el7.x86_64 : A version of the VIM editor which includes recent enhancements<br>Repo        : @base<br>Matched from:<br>Filename    : /usr/bin/vim</p>
+<p>可以根据命令路径来判断包名字。比如在/bin下或者/sbin下。<br>yum 搭建本地仓库</p>
+<p>有些特殊情况下，服务器没有联网，但是想要yum安装一些软件。这时候就需要搭建一个本地的yum仓库来使用。<br>思路是先准备一个有yum包的储存盘，比如光盘。然后把之前的yum仓库文件备份下删除，然后添加新的仓库配置文件。</p>
+<ul>
+<li>先备份，然后删除<br>[root@localhost ~]# cp -r /etc/yum.repos.d  /etc/yum.repos.d.bak[root@localhost ~]# rm -f /etc/yum.repos.d/*</li>
+<li><p>在/etc/yum.repos.d/下创建dvd.repo ,内容如下：<br>[dvd]name=install dvd<br>baseurl=file:///mnt                                        定义rpm包放在那里<br>enable=1                                                     是否可用，1就是可用<br>gpcheck=0                                                  是否检测，0不检测。</p>
+</li>
+<li><p>之后要清缓存。yum clean all<br>[root@localhost ~]# yum clean all<br>Failed to set locale, defaulting to C<br>Loaded plugins: fastestmirror<br>Cleaning repos: dvd<br>Cleaning up everything<br>Cleaning up list of fastest mirrors</p>
+</li>
+<li><p>然后yum list 查看下(可以看到仓库都变成了dvd)<br>xsettings-kde.x86_64                                                           0.12.3-7.el7                                                      dvd<br>xsom.noarch                                                                    0-10.20110809svn.el7                                              dvd<br>xterm.x86_64                                                                   295-3.el7                                                         dvd<br>xulrunner.x86_64                                                               31.6.0-2.el7.centos                                               dvd<br>xvattr.x86_64                                                                  1.3-27.el7                                                        dvd<br>xz-devel.x86_64                                                                5.2.2-1.el7                                                       dvd<br>yajl.x86_64                                                                    2.0.4-4.el7                                                       dvd<br>yelp.x86_64                                                                    1:3.14.2-1.el7                                                    dvd<br>yelp-libs.x86_64                                                               1:3.14.2-1.el7                                                    dvd<br>yelp-xsl.noarch                                                                3.14.0-1.el7                                                      dvd<br>yum 更换国内源</p>
+</li>
+</ul>
+<p>contos7默认yum源指向的是国外的网站，有的时候yum装程序特别的慢。这时候就需要把yum源改成国内的，下载速度就会提升。</p>
+<ul>
+<li>首先删除rm -f CentOS-Base.repo 这个源</li>
+<li><p>下载163源 CentOS7-Base-163.repo<br>wget<a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo" target="_blank" rel="noopener">http://mirrors.163.com/.help/CentOS7-Base-163.repo</a><br>或者<br>curl -O <a href="http://mirrors.163.com/.help/CentOS7-Base-163.repo" target="_blank" rel="noopener">http://mirrors.163.com/.help/CentOS7-Base-163.repo</a></p>
+</li>
+<li><p>yum clean all 清缓存</p>
+</li>
+<li>yum list 测试或者安装个wge试一下，就是可以用了。<br>安装扩展源</li>
+</ul>
+<p>光安装一个163源不够用，很多rpm都没有。所以安装一个扩展源。</p>
+<ul>
+<li>yum install -y epel-release 安装<br>安装好后会在 /etc/yum.repos.d下新生成一个epel.repo<br>epel.repo</li>
+<li>yum list<br>zvbi.x86_64                                                                0.2.35-1.el7                                                          epel<br>zvbi-devel.x86_64                                                          0.2.35-1.el7                                                          epel<br>zvbi-fonts.noarch                                                          0.2.35-1.el7                                                          epel<br>zziplib.i686                                                               0.13.62-5.el7                                                         base<br>zziplib.x86_64                                                             0.13.62-5.el7                                                         base<br>zziplib-devel.i686                                                         0.13.62-5.el7                                                         base<br>yum下载rpm包</li>
+</ul>
+<p>之前说过搭建本地yum仓库但是是用光驱里面的rpm包做的实验，而不是真正所需要的本地仓库。下面说一下如何用yum下载所需要的rpm包。<br>用法： yum install 包名 –downloadonly</p>
+<p>这种用法限于该包还没有安装。已经安装过的会提醒。<br>下载到/var/cache/yum/x86_64/7/仓库名/packages下面。<br>用这个命令可以在已经安装该包的情况下下载rpm包：yum reinstall 包名 –downloadonly</p>
+<p>指定下载路径 yum install 包名 –downloadonly –downloaddir=路径</p>
+<ul>
+<li>比如用zsh这个包做实验<br>[root@localhost ~]# yum install zsh –downloadonly –downloaddir=/tmp/<br>Failed to set locale, defaulting to C<br>Loaded plugins: fastestmirror<br>Loading mirror speeds from cached hostfile</li>
+<li>epel: mirrors.tongji.edu.cn<br>Resolving Dependencies<br>–&gt; Running transaction check<br>—&gt; Package zsh.x86_64 0:5.0.2-28.el7 will be installed<br>–&gt; Finished Dependency Resolution</li>
+</ul>
+<p>Dependencies Resolved</p>
+<p>==========================================================================================================================================================</p>
+<h1 id="Package-Arch-Version-Repository-Size"><a href="#Package-Arch-Version-Repository-Size" class="headerlink" title="Package                          Arch                                Version                                     Repository                         Size"></a>Package                          Arch                                Version                                     Repository                         Size</h1><p>Installing:<br>zsh                              x86_64                              5.0.2-28.el7                                base                              2.4 M</p>
+<h1 id="Transaction-Summary"><a href="#Transaction-Summary" class="headerlink" title="Transaction Summary"></a>Transaction Summary</h1><p>Install  1 Package</p>
+<p>Total download size: 2.4 M<br>Installed size: 5.6 M<br>Background downloading packages, then exiting:<br>zsh-5.0.2-28.el7.x86_64.rpm                                                                                                        | 2.4 MB  00:00:02<br>exiting because “Download Only” specified<br>[root@localhost ~]# ls /tmp/1.txt      systemd-private-a44b0f41787b47de9f672a72cec9768d-vmtoolsd.service-FOn2fg  yum_save_tx.2018-05-30.11-10.T6z0Ih.yumtx<br>passwd.sh  yum_save_tx.2018-05-30.09-10.cW8ODj.yumtx                                 zsh-5.0.2-28.el7.x86_64.rpm<br>[root@localhost ~]#</p>
+<p>源码包安装</p>
+<p>约定：以后下载的安装包都放在 /usr/local/src/下</p>
+<ul>
+<li>先下载一个httpd的源码包，下载好后是一个压缩包，需要解压。<br>[root@localhost src]# wget <a href="http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.33.tar.gz" target="_blank" rel="noopener">http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.33.tar.gz</a><br>–2018-05-30 11:20:40–  <a href="http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.33.tar.gz" target="_blank" rel="noopener">http://mirrors.cnnic.cn/apache/httpd/httpd-2.4.33.tar.gz</a><br>Resolving mirrors.cnnic.cn (mirrors.cnnic.cn)… 101.6.8.193, 2402:f000:1:408:8100::1<br>Connecting to mirrors.cnnic.cn (mirrors.cnnic.cn)|101.6.8.193|:80… connected.<br>HTTP request sent, awaiting response… 200 OK<br>Length: 9076901 (8.7M) [application/octet-stream]<br>Saving to: ‘httpd-2.4.33.tar.gz’</li>
+</ul>
+<p>100%[================================================================================================================&gt;] 9,076,901   1.59MB/s   in 5.9s   </p>
+<p>2018-05-30 11:20:46 (1.46 MB/s) - ‘httpd-2.4.33.tar.gz’ saved [9076901/9076901]</p>
+<p>[root@localhost src]# ls<br>httpd-2.4.33.tar.gz</p>
+<ul>
+<li>解压好后，进入目录，找到配置文件README 。这里面是一些软件的说明介绍。</li>
+<li><p>还有一个文件是INSTALL 里面是安装文档。教程。开头介绍了安装步骤。<br>[root@localhost httpd-2.4.33]# cat INSTALL</p>
+<p>APACHE INSTALLATION OVERVIEW</p>
+<h2 id="Quick-Start-Unix"><a href="#Quick-Start-Unix" class="headerlink" title="Quick Start - Unix"></a>Quick Start - Unix</h2><p>For complete installation documentation, see [ht]docs/manual/install.html or<br><a href="http://httpd.apache.org/docs/2.4/install.html" target="_blank" rel="noopener">http://httpd.apache.org/docs/2.4/install.html</a></p>
+<p>   $ ./configure –prefix=PREFIX<br>   $ make<br>   $ make install<br>   $ PREFIX/bin/apachectl start</p>
+</li>
+<li><p>./configure –help是可以查看安装都有哪些功能可选安装的。</p>
+</li>
+<li>./configure –prefix=/usr/local/apache2 指定安装目录<br>[root@localhost httpd-2.4.33]#  ./configure –prefix=/usr/local/apache2<br>checking for chosen layout… Apache<br>checking for working mkdir -p… yes<br>checking for grep that handles long lines and -e… /usr/bin/grep<br>checking for egrep… /usr/bin/grep -E<br>checking build system type… x86_64-pc-linux-gnu<br>checking host system type… x86_64-pc-linux-gnu<br>checking target system type… x86_64-pc-linux-gnu<br>configure:<br>configure: Configuring Apache Portable Runtime library…<br>configure:<br>checking for APR… no<br>configure: error: APR not found.  Please read the documentation.</li>
+</ul>
+<p>直接报错了。 输入 echo $?查看如果是0就是上面命令执行没有问题，如果是1或则别的数说明上面命令报错了。</p>
+<ul>
+<li>根据报错安装yum install apr apr-util apr-devel</li>
+<li>然后安装yum install gcc</li>
+<li>然后 make</li>
+<li>然后 make install</li>
+<li>卸载源码包的安装就是删除安装文件。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/31/9月30日  压缩打包介绍  gzip压缩工具/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1814,205 +2097,6 @@ mount -t cifs -o username=xxx,password=xxx //IP/sharename /mnt/dirname
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哈哈哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MyBlog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/" itemprop="url">9月19日  linux 互传文件 用户管理及配置密码文件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T16:20:43+08:00">
-                2018-12-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="linux和windows互传文件"><a href="#linux和windows互传文件" class="headerlink" title="linux和windows互传文件"></a>linux和windows互传文件</h2><pre><code>* 首先需要安装一个包
-</code></pre><p>yum install -y lrzsz</p>
-<pre><code>* 
-</code></pre><p>安装完成之后输入</p>
-<p>sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。</p>
-<h2 id="用户配置文件和密码文件"><a href="#用户配置文件和密码文件" class="headerlink" title="用户配置文件和密码文件"></a>用户配置文件和密码文件</h2><pre><code>* cat /etc/passwd 用户核心的配置文件
-</code></pre><p>如果密码文件如果删除了，所有用户就登不上去了。</p>
-<p>[root@aming1 ~]# cat /etc/passwdroot:x:0:0:root:/root:/bin/bashbin:x:1:1:bin:/bin:/sbin/nologindaemon:x:2:2:daemon:/sbin:/sbin/nologinadm:x:3:4:adm:/var/adm:/sbin/nologinlp:x:4:7:lp:/var/spool/lpd:/sbin/nologinsync:x:5:0:sync:/sbin:/bin/syncshutdown:x:6:0:shutdown:/sbin:/sbin/shutdownhalt:x:7:0:halt:/sbin:/sbin/haltmail:x:8:12:mail:/var/spool/mail:/sbin/nologinoperator:x:11:0:operator:/root:/sbin/nologingames:x:12:100:games:/usr/games:/sbin/nologinftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>nobody:x:99:99:Nobody:/:/sbin/nologin<br>systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin<br>systemd-network:x:192:192:systemd Network Management:/:/sbin/nologindbus:x:81:81:System message bus:/:/sbin/nologinpolkitd:x:998:996:User for polkitd:/:/sbin/nologintss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>postfix:x:89:89::/var/spool/postfix:/sbin/nologinsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>chrony:x:997:995::/var/lib/chrony:/sbin/nologinaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bash</p>
-<pre><code>* 
-</code></pre><p>/etc/passwd 用“ : ”分为7段，每个字段都有具体的含义</p>
-<p>·第一个字段为用户名<br>·第二字段之前是存放的是该账号的密码.早期的Unix系统口令确实存放在这里，因为安全因素，后来就存放到了/etc/shadow中了，所·以用“x”来代替<br>·第三个字段为一个数字，表示用户的“uid”。<br>·第四个字段也是数字，表示为组标识号，称为“gid”<br>·第五个字段为注释说明，没有实际意义。<br>·第七段是用户的shell。如果是/sbin/nologin。则不允许登陆。</p>
-<pre><code>* 
-</code></pre><p>etc/shadow 密码配置文件</p>
-<p>[root@aming1 ~]# cat /etc/shadowroot:$6$TPvL1jnqi26yNubi$CnNodDe5nuT4WHIybkUvhS0.lSBNJUvYTov8VtEztJ0LKjo9cvAE2yFSzhzqom6bttBzgdC/9s7l8LDPmGjSD1::0:99999:7:::bin:<em>:17110:0:99999:7:::daemon:</em>:17110:0:99999:7:::adm:<em>:17110:0:99999:7:::lp:</em>:17110:0:99999:7:::sync:<em>:17110:0:99999:7:::shutdown:</em>:17110:0:99999:7:::halt:<em>:17110:0:99999:7:::mail:</em>:17110:0:99999:7:::operator:<em>:17110:0:99999:7:::games:</em>:17110:0:99999:7:::ftp:<em>:17110:0:99999:7:::nobody:</em>:17110:0:99999:7:::systemd-bus-proxy:!!:17607::::::systemd-network:!!:17607::::::dbus:!!:17607::::::polkitd:!!:17607::::::tss:!!:17607::::::postfix:!!:17607::::::sshd:!!:17607::::::chrony:!!:17607::::::aming:!!:17666:0:99999:7:::aming2:!!:17666:0:99999:7:::</p>
-<pre><code>* 
-</code></pre><p>/etc/shadow 分为9个字段。</p>
-<p>·第一段为用户名，与/etc/passwd 对应<br>·第二个字段为用户密码。是加密的。使用SHA-512加密方式加密的密码。无法反编译，即使相同的密码加密字符也会不同。如果!!代表密码为空是不能登陆的，如果是*则代表该用户是锁定的。<br>·第三个字段是上次更改密码的日期。这个数字以1970年1月1日和上次更改密码的日期计算而来。单位是“天”。<br>·第四段是要过多少天才可以更改密码。默认是0，就不受限制。<br>·第五段为密码多少天后到期。<br>·第六段为密码到期前多少天来进行提醒。<br>·第七段为账号失效期限，比如设置为3，如果密码到期，再过3天，这个账号会被锁定而失效。<br>·第8段为生命周期，也是从1970年1月1日开始算的，如果过期账号则作废。<br>·第九段是保留段，没有实际意义。<br>在这里第二段的加密字符即使密码相同加密字符也是不一样的，采用的是SHA-512加密方式。</p>
-<p>aming:$6$MesREyTp$J/IgN6.oT7uBJ292J.LLGC1dMQkN7ckgq0Olz/zDchzs6rQdWSee2o0fiJt8wPIHCNX4bNTOrsQsqsCTqhSPm.:17670:0:99999:7:::<br>aming2:$6$l.NeS.LF$EQGwaMvyhvJnAz0eoAbUDXsTwEwbHvAOlqjFHCTWOUykSf0mzC6j0HwEFzUpvcSOZM6R2.jvN8qTsupdC2ho4.:17670:0:99999:7:::</p>
-<h2 id="用户管理用法如下useradd-增加用户"><a href="#用户管理用法如下useradd-增加用户" class="headerlink" title="用户管理用法如下useradd 增加用户"></a>用户管理用法如下useradd 增加用户</h2><pre><code>* 
-</code></pre><p>-u：自定义UID</p>
-<pre><code>* 
-</code></pre><p>-g：自定义用户组</p>
-<pre><code>* 
-</code></pre><p>-d: 自定义用户家目录</p>
-<pre><code>* 
-</code></pre><p>-M：表示不建立家目录</p>
-<pre><code>* 
-</code></pre><p>-s ：表示自定义shell</p>
-<p>添加用户，默认uid是从1000开始的。</p>
-<p>[root@aming1 ~]# useradd aming3<br>[root@aming1 ~]# tail -n3 /etc/passwdaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bashaming3:x:1002:1002::/home/aming3:/bin/bash<br>[root@aming1 ~]#</p>
-<p>-u 与 -g 自定义UID与用户组</p>
-<p>[root@aming1 ~]# tail -3 /etc/groupaming:x:1000:<br>aming2:x:1001:<br>aming3:x:1002:<br>[root@aming1 ~]# useradd -u 1111 -g aming linyu1<br>[root@aming1 ~]# tail -n2 /etc/passwdaming3:x:1002:1002::/home/aming3:/bin/bashlinyu1:x:1111:1000::/home/linyu1:/bin/bash</p>
-<p>用 -d -s 自定义家目录与shell</p>
-<p>[root@aming1 ~]# useradd -u 1113 -g aming -d /home/linyu111 -s /sbin/nologin linyu3<br>[root@aming1 ~]# tail -n2 /etc/passwdlinyu2:x:1112:1000::/home/aming:/sbin/nologinlinyu3:x:1113:1000::/home/linyu111:/sbin/nologin</p>
-<p>-M：表示不建立家目录(并不是该用户没有家目录，只是没有创建)</p>
-<p>[root@aming1 ~]# useradd -M user1<br>[root@aming1 ~]# tail -n1 /etc/passwduser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
-<p>用户的家目录是可以更改的。可vi编辑etc/passwd 直接更改，<br>家目录是可以手动创建的。但是新建用户的家目录光有空文件夹不行，里面还要有bash ，不然会显示不正常。,在ls -la /etc/skel/ 有用户配置文件的模板，这里有模板，cp到新建的家目录里就可以了。然后赋予该目录有该用户与组的权限！</p>
-<p>[root@aming1 ~]# ls -la /etc/skel/<br>总用量 24<br>drwxr-xr-x. 2 root root 62 3月 17 18:59 .<br>drwxr-xr-x. 77 root root 8192 5月 19 15:02 ..<br>-rw-r–r–. 1 root root 18 8月 3 2016 .bash_logout-rw-r–r–. 1 root root 193 8月 3 2016 .bash_profile-rw-r–r–. 1 root root 231 8月 3 2016 .bashrc</p>
-<p>cp /etc/skel/.bash* /home/user<br>userdel 删除用户的命令。</p>
-<p>[root@aming1 ~]# userdel linyu3<br>[root@aming1 ~]# tail -n3 /etc/passwdlinyu1:x:1111:1000::/home/linyu1:/bin/bashlinyu2:x:1112:1000::/home/aming:/sbin/nologinuser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
-<p>可以看到删除用户后，用户的家目录并没有被删除。（留给管理员，确定这个家目录没有用了之后在手动删掉。）</p>
-<pre><code>* 
-</code></pre><p>userdel -r 选项可以连同用户家目录同时删除。</p>
-<p>用户组管理</p>
-<pre><code>* 
-</code></pre><p>groupadd 增加组命令</p>
-<p>[root@aming1 ~]# groupadd grp1<br>[root@aming1 ~]# tail -n1 /etc/group<br>grp1:x:1002:</p>
-<pre><code>* 
-</code></pre><p>用-g自定义新建用户组的gid 。groupadd -g 1006 group4</p>
-<p>[root@localhost ~]# groupadd -g 1006 group4<br>[root@localhost ~]# tail -n5 /etc/groupchrony:x:995:grp1:x:1000:grp2:x:1001:grp3:x:1002:group4:x:1006:<br>一般新建的组或者用户都是从1000 gid/uid开始的。1000以前都是为系统来保留的。</p>
-<pre><code>* 
-</code></pre><p>用户组管理文件 （还有用户组的密码文件在etc/gshadow）</p>
-<p>[root@aming1 ~]# cat /etc/grouproot:x:0:bin:x:1:daemon:x:2:sys:x:3:adm:x:4:games:x:20:tape:x:30:video:x:39:ftp:x:50:lock:x:54:audio:x:63:</p>
-<p>utempter:x:35:ssh_keys:x:999:input:x:998:systemd-journal:x:190:systemd-bus-proxy:x:997:systemd-network:x:192:dbus:x:81:polkitd:x:996:tss:x:59:dip:x:40:postdrop:x:90:postfix:x:89:sshd:x:74:chrony:x:995:aming:x:1000:aming2:x:1001:<br>[root@aming1 ~]#</p>
-<pre><code>* 
-</code></pre><p>groupdel 删除组命令</p>
-<p>[root@aming1 ~]# groupdel grp1<br>[root@aming1 ~]# tail -n2 /etc/gro<br>groff/ group group-<br>[root@aming1 ~]# tail -n2 /etc/group<br>aming:x:1000:<br>aming2:x:1001:</p>
-<p>不能直接删除有用户的组。需要先删除用户，在删除用户组。</p>
-<pre><code>* 
-</code></pre><p>系统自动备份用户，用户组管理及密码文件</p>
-<p>[root@localhost ~]# ls /etc/passwd<br>/etc/passwd<br>[root@localhost ~]# ls /etc/passwd<br>passwd passwd-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/gs<br>gshadow gshadow- gss/<br>后面带“-”号的文件就是系统自动备份的文件。<br>如果误删了配置文件可以copy一份带“-”号的进行恢复。<br>不过备份文件可能稍有误差，比如刚刚建立的用户还没有备份。恢复的时候就没有哪些没来得及备份的用户。usermod 更改用户属性的命令<br>以下是用法：</p>
-<pre><code>* 
-</code></pre><p>usermod – u 111 username 更改uid</p>
-<pre><code>* 
-</code></pre><p>usermod -g 1010 username 更改 gid</p>
-<pre><code>* 
-</code></pre><p>usermod –d /home/safasfa username 更改家目录</p>
-<pre><code>* 
-</code></pre><p>usermod -s /sbin/nologin username 更改shell</p>
-<pre><code>* 
-</code></pre><p>usermod –G 添加扩展组</p>
-<pre><code>* 
-</code></pre><p>每个用户可以通过 id username命令来查看一个用户的uid，gid,组，扩展组的。</p>
-<p>[root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2)</p>
-<pre><code>* 
-</code></pre><p>usermod –G 添加扩展组</p>
-<p>[root@aming1 ~]# usermod -G aming aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming)</p>
-<p>增加多个扩展组，</p>
-<p>[root@aming1 ~]# usermod -G aming,grp1 aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming),1115(grp1)</p>
-<p>如果不像上面那样添加，直接-G添加就会把之前的扩展组替换掉。用 -g 则不会。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2063,7 +2147,7 @@ mount -t cifs -o username=xxx,password=xxx //IP/sharename /mnt/dirname
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2113,7 +2197,7 @@ mount -t cifs -o username=xxx,password=xxx //IP/sharename /mnt/dirname
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

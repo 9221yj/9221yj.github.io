@@ -294,6 +294,205 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哈哈哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MyBlog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/23/9月19日linux 互传文件 及用户管理 配置文件/" itemprop="url">9月19日  linux 互传文件 用户管理及配置密码文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T16:20:43+08:00">
+                2018-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="linux和windows互传文件"><a href="#linux和windows互传文件" class="headerlink" title="linux和windows互传文件"></a>linux和windows互传文件</h2><pre><code>* 首先需要安装一个包
+</code></pre><p>yum install -y lrzsz</p>
+<pre><code>* 
+</code></pre><p>安装完成之后输入</p>
+<p>sz 111.txt 就会弹出一个框，选择把文件放到windows的哪一个文件夹下。</p>
+<h2 id="用户配置文件和密码文件"><a href="#用户配置文件和密码文件" class="headerlink" title="用户配置文件和密码文件"></a>用户配置文件和密码文件</h2><pre><code>* cat /etc/passwd 用户核心的配置文件
+</code></pre><p>如果密码文件如果删除了，所有用户就登不上去了。</p>
+<p>[root@aming1 ~]# cat /etc/passwdroot:x:0:0:root:/root:/bin/bashbin:x:1:1:bin:/bin:/sbin/nologindaemon:x:2:2:daemon:/sbin:/sbin/nologinadm:x:3:4:adm:/var/adm:/sbin/nologinlp:x:4:7:lp:/var/spool/lpd:/sbin/nologinsync:x:5:0:sync:/sbin:/bin/syncshutdown:x:6:0:shutdown:/sbin:/sbin/shutdownhalt:x:7:0:halt:/sbin:/sbin/haltmail:x:8:12:mail:/var/spool/mail:/sbin/nologinoperator:x:11:0:operator:/root:/sbin/nologingames:x:12:100:games:/usr/games:/sbin/nologinftp:x:14:50:FTP User:/var/ftp:/sbin/nologin<br>nobody:x:99:99:Nobody:/:/sbin/nologin<br>systemd-bus-proxy:x:999:997:systemd Bus Proxy:/:/sbin/nologin<br>systemd-network:x:192:192:systemd Network Management:/:/sbin/nologindbus:x:81:81:System message bus:/:/sbin/nologinpolkitd:x:998:996:User for polkitd:/:/sbin/nologintss:x:59:59:Account used by the trousers package to sandbox the tcsd daemon:/dev/null:/sbin/nologin<br>postfix:x:89:89::/var/spool/postfix:/sbin/nologinsshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin<br>chrony:x:997:995::/var/lib/chrony:/sbin/nologinaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bash</p>
+<pre><code>* 
+</code></pre><p>/etc/passwd 用“ : ”分为7段，每个字段都有具体的含义</p>
+<p>·第一个字段为用户名<br>·第二字段之前是存放的是该账号的密码.早期的Unix系统口令确实存放在这里，因为安全因素，后来就存放到了/etc/shadow中了，所·以用“x”来代替<br>·第三个字段为一个数字，表示用户的“uid”。<br>·第四个字段也是数字，表示为组标识号，称为“gid”<br>·第五个字段为注释说明，没有实际意义。<br>·第七段是用户的shell。如果是/sbin/nologin。则不允许登陆。</p>
+<pre><code>* 
+</code></pre><p>etc/shadow 密码配置文件</p>
+<p>[root@aming1 ~]# cat /etc/shadowroot:$6$TPvL1jnqi26yNubi$CnNodDe5nuT4WHIybkUvhS0.lSBNJUvYTov8VtEztJ0LKjo9cvAE2yFSzhzqom6bttBzgdC/9s7l8LDPmGjSD1::0:99999:7:::bin:<em>:17110:0:99999:7:::daemon:</em>:17110:0:99999:7:::adm:<em>:17110:0:99999:7:::lp:</em>:17110:0:99999:7:::sync:<em>:17110:0:99999:7:::shutdown:</em>:17110:0:99999:7:::halt:<em>:17110:0:99999:7:::mail:</em>:17110:0:99999:7:::operator:<em>:17110:0:99999:7:::games:</em>:17110:0:99999:7:::ftp:<em>:17110:0:99999:7:::nobody:</em>:17110:0:99999:7:::systemd-bus-proxy:!!:17607::::::systemd-network:!!:17607::::::dbus:!!:17607::::::polkitd:!!:17607::::::tss:!!:17607::::::postfix:!!:17607::::::sshd:!!:17607::::::chrony:!!:17607::::::aming:!!:17666:0:99999:7:::aming2:!!:17666:0:99999:7:::</p>
+<pre><code>* 
+</code></pre><p>/etc/shadow 分为9个字段。</p>
+<p>·第一段为用户名，与/etc/passwd 对应<br>·第二个字段为用户密码。是加密的。使用SHA-512加密方式加密的密码。无法反编译，即使相同的密码加密字符也会不同。如果!!代表密码为空是不能登陆的，如果是*则代表该用户是锁定的。<br>·第三个字段是上次更改密码的日期。这个数字以1970年1月1日和上次更改密码的日期计算而来。单位是“天”。<br>·第四段是要过多少天才可以更改密码。默认是0，就不受限制。<br>·第五段为密码多少天后到期。<br>·第六段为密码到期前多少天来进行提醒。<br>·第七段为账号失效期限，比如设置为3，如果密码到期，再过3天，这个账号会被锁定而失效。<br>·第8段为生命周期，也是从1970年1月1日开始算的，如果过期账号则作废。<br>·第九段是保留段，没有实际意义。<br>在这里第二段的加密字符即使密码相同加密字符也是不一样的，采用的是SHA-512加密方式。</p>
+<p>aming:$6$MesREyTp$J/IgN6.oT7uBJ292J.LLGC1dMQkN7ckgq0Olz/zDchzs6rQdWSee2o0fiJt8wPIHCNX4bNTOrsQsqsCTqhSPm.:17670:0:99999:7:::<br>aming2:$6$l.NeS.LF$EQGwaMvyhvJnAz0eoAbUDXsTwEwbHvAOlqjFHCTWOUykSf0mzC6j0HwEFzUpvcSOZM6R2.jvN8qTsupdC2ho4.:17670:0:99999:7:::</p>
+<h2 id="用户管理用法如下useradd-增加用户"><a href="#用户管理用法如下useradd-增加用户" class="headerlink" title="用户管理用法如下useradd 增加用户"></a>用户管理用法如下useradd 增加用户</h2><pre><code>* 
+</code></pre><p>-u：自定义UID</p>
+<pre><code>* 
+</code></pre><p>-g：自定义用户组</p>
+<pre><code>* 
+</code></pre><p>-d: 自定义用户家目录</p>
+<pre><code>* 
+</code></pre><p>-M：表示不建立家目录</p>
+<pre><code>* 
+</code></pre><p>-s ：表示自定义shell</p>
+<p>添加用户，默认uid是从1000开始的。</p>
+<p>[root@aming1 ~]# useradd aming3<br>[root@aming1 ~]# tail -n3 /etc/passwdaming:x:1000:1000::/home/aming:/bin/bashaming2:x:1001:1001::/home/aming2:/bin/bashaming3:x:1002:1002::/home/aming3:/bin/bash<br>[root@aming1 ~]#</p>
+<p>-u 与 -g 自定义UID与用户组</p>
+<p>[root@aming1 ~]# tail -3 /etc/groupaming:x:1000:<br>aming2:x:1001:<br>aming3:x:1002:<br>[root@aming1 ~]# useradd -u 1111 -g aming linyu1<br>[root@aming1 ~]# tail -n2 /etc/passwdaming3:x:1002:1002::/home/aming3:/bin/bashlinyu1:x:1111:1000::/home/linyu1:/bin/bash</p>
+<p>用 -d -s 自定义家目录与shell</p>
+<p>[root@aming1 ~]# useradd -u 1113 -g aming -d /home/linyu111 -s /sbin/nologin linyu3<br>[root@aming1 ~]# tail -n2 /etc/passwdlinyu2:x:1112:1000::/home/aming:/sbin/nologinlinyu3:x:1113:1000::/home/linyu111:/sbin/nologin</p>
+<p>-M：表示不建立家目录(并不是该用户没有家目录，只是没有创建)</p>
+<p>[root@aming1 ~]# useradd -M user1<br>[root@aming1 ~]# tail -n1 /etc/passwduser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
+<p>用户的家目录是可以更改的。可vi编辑etc/passwd 直接更改，<br>家目录是可以手动创建的。但是新建用户的家目录光有空文件夹不行，里面还要有bash ，不然会显示不正常。,在ls -la /etc/skel/ 有用户配置文件的模板，这里有模板，cp到新建的家目录里就可以了。然后赋予该目录有该用户与组的权限！</p>
+<p>[root@aming1 ~]# ls -la /etc/skel/<br>总用量 24<br>drwxr-xr-x. 2 root root 62 3月 17 18:59 .<br>drwxr-xr-x. 77 root root 8192 5月 19 15:02 ..<br>-rw-r–r–. 1 root root 18 8月 3 2016 .bash_logout-rw-r–r–. 1 root root 193 8月 3 2016 .bash_profile-rw-r–r–. 1 root root 231 8月 3 2016 .bashrc</p>
+<p>cp /etc/skel/.bash* /home/user<br>userdel 删除用户的命令。</p>
+<p>[root@aming1 ~]# userdel linyu3<br>[root@aming1 ~]# tail -n3 /etc/passwdlinyu1:x:1111:1000::/home/linyu1:/bin/bashlinyu2:x:1112:1000::/home/aming:/sbin/nologinuser1:x:1114:1114::/home/user1:/bin/bash<br>[root@aming1 ~]# ls /home/<br>aming aming2 aming3 linyu1 linyu111</p>
+<p>可以看到删除用户后，用户的家目录并没有被删除。（留给管理员，确定这个家目录没有用了之后在手动删掉。）</p>
+<pre><code>* 
+</code></pre><p>userdel -r 选项可以连同用户家目录同时删除。</p>
+<p>用户组管理</p>
+<pre><code>* 
+</code></pre><p>groupadd 增加组命令</p>
+<p>[root@aming1 ~]# groupadd grp1<br>[root@aming1 ~]# tail -n1 /etc/group<br>grp1:x:1002:</p>
+<pre><code>* 
+</code></pre><p>用-g自定义新建用户组的gid 。groupadd -g 1006 group4</p>
+<p>[root@localhost ~]# groupadd -g 1006 group4<br>[root@localhost ~]# tail -n5 /etc/groupchrony:x:995:grp1:x:1000:grp2:x:1001:grp3:x:1002:group4:x:1006:<br>一般新建的组或者用户都是从1000 gid/uid开始的。1000以前都是为系统来保留的。</p>
+<pre><code>* 
+</code></pre><p>用户组管理文件 （还有用户组的密码文件在etc/gshadow）</p>
+<p>[root@aming1 ~]# cat /etc/grouproot:x:0:bin:x:1:daemon:x:2:sys:x:3:adm:x:4:games:x:20:tape:x:30:video:x:39:ftp:x:50:lock:x:54:audio:x:63:</p>
+<p>utempter:x:35:ssh_keys:x:999:input:x:998:systemd-journal:x:190:systemd-bus-proxy:x:997:systemd-network:x:192:dbus:x:81:polkitd:x:996:tss:x:59:dip:x:40:postdrop:x:90:postfix:x:89:sshd:x:74:chrony:x:995:aming:x:1000:aming2:x:1001:<br>[root@aming1 ~]#</p>
+<pre><code>* 
+</code></pre><p>groupdel 删除组命令</p>
+<p>[root@aming1 ~]# groupdel grp1<br>[root@aming1 ~]# tail -n2 /etc/gro<br>groff/ group group-<br>[root@aming1 ~]# tail -n2 /etc/group<br>aming:x:1000:<br>aming2:x:1001:</p>
+<p>不能直接删除有用户的组。需要先删除用户，在删除用户组。</p>
+<pre><code>* 
+</code></pre><p>系统自动备份用户，用户组管理及密码文件</p>
+<p>[root@localhost ~]# ls /etc/passwd<br>/etc/passwd<br>[root@localhost ~]# ls /etc/passwd<br>passwd passwd-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/shadow<br>shadow shadow-<br>[root@localhost ~]# ls /etc/gs<br>gshadow gshadow- gss/<br>后面带“-”号的文件就是系统自动备份的文件。<br>如果误删了配置文件可以copy一份带“-”号的进行恢复。<br>不过备份文件可能稍有误差，比如刚刚建立的用户还没有备份。恢复的时候就没有哪些没来得及备份的用户。usermod 更改用户属性的命令<br>以下是用法：</p>
+<pre><code>* 
+</code></pre><p>usermod – u 111 username 更改uid</p>
+<pre><code>* 
+</code></pre><p>usermod -g 1010 username 更改 gid</p>
+<pre><code>* 
+</code></pre><p>usermod –d /home/safasfa username 更改家目录</p>
+<pre><code>* 
+</code></pre><p>usermod -s /sbin/nologin username 更改shell</p>
+<pre><code>* 
+</code></pre><p>usermod –G 添加扩展组</p>
+<pre><code>* 
+</code></pre><p>每个用户可以通过 id username命令来查看一个用户的uid，gid,组，扩展组的。</p>
+<p>[root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2)</p>
+<pre><code>* 
+</code></pre><p>usermod –G 添加扩展组</p>
+<p>[root@aming1 ~]# usermod -G aming aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming)</p>
+<p>增加多个扩展组，</p>
+<p>[root@aming1 ~]# usermod -G aming,grp1 aming2 [root@aming1 ~]# id aming2uid=1001(aming2) gid=1001(aming2) 组=1001(aming2),1000(aming),1115(grp1)</p>
+<p>如果不像上面那样添加，直接-G添加就会把之前的扩展组替换掉。用 -g 则不会。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/9月18日 find 命令 文件名后缀/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1918,7 +2117,7 @@ and &apos;journalctl -xn&apos; for details.
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1968,7 +2167,7 @@ and &apos;journalctl -xn&apos; for details.
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
